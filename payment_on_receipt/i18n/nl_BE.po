@@ -1,0 +1,41 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* payment_on_receipt
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-04-17 11:14+0000\n"
+"PO-Revision-Date: 2016-04-17 11:14+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: payment_on_receipt
+#: model:payment.acquirer,pre_msg:payment_on_receipt.payment_acquirer_on_receipt
+msgid "<p>Pay on receipt.</p>\n"
+"            "
+msgstr "<p>Pay on receipt.</p>\n"
+"            "
+
+#. module: payment_on_receipt
+#: code:addons/payment_on_receipt/models/payment_acquired.py:22
+#: model:payment.acquirer,name:payment_on_receipt.payment_acquirer_on_receipt
+#, python-format
+msgid "On Receipt"
+msgstr "On Receipt"
+
+#. module: payment_on_receipt
+#: model:ir.model,name:payment_on_receipt.model_payment_acquirer
+msgid "Payment Acquirer"
+msgstr "Betaling verwerver"
+
+#. module: payment_on_receipt
+#: model:ir.model,name:payment_on_receipt.model_payment_transaction
+msgid "Payment Transaction"
+msgstr "Betalingstransactie"
+
