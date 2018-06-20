@@ -16,7 +16,7 @@ class PaymentOnReceiptController(http.Controller):
 
     @http.route([
         '/payment/transfer/feedback',
-    ], type='http', auth='none')
+    ], type='http', auth='none', csrf=False)
     def transfer_form_feedback(self, **post):
         _logger.info('Beginning form_feedback with post data %s',
                      pprint.pformat(post))  # debug
