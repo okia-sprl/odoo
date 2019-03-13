@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="sale_category_limitation_view_form" model="ir.ui.view">
+        <field name="name">sale.category.limitation.view.form</field>
+        <field name="model">sale.category.limitation</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="company_id"/>
+                    </group>
+                    <label for="product_category_ids"/>
+                    <field name="product_category_ids"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sale_category_limitation_view_tree" model="ir.ui.view">
+        <field name="name">sale.category.limitation.view.tree</field>
+        <field name="model">sale.category.limitation</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="company_id"/>
+                <field name="product_category_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_sale_category_limitation" model="ir.actions.act_window">
+        <field name="name">Sale limitation by product categories</field>
+        <field name="res_model">sale.category.limitation</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_sale_category_limitation" action="action_sale_category_limitation" parent="sale_exception.menu_sale_exception_parent" sequence="100" />
+</odoo>
