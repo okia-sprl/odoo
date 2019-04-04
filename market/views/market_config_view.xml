@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="market_config_settings_view_form" model="ir.ui.view">
+            <field name="name">market.config.settings.view.form</field>
+            <field name="model">market.config.settings</field>
+            <field name="arch" type="xml">
+                <form string="Configure Market" class="oe_form_configuration">
+                    <header>
+                        <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                        <button string="Cancel" type="object" name="cancel" class="oe_link"/>
+                    </header>
+                    <h3>The company <field name="company_id" readonly="1" class="oe_inline"/> will buy goods from the company <field name="seller_company_id" class="oe_inline"/></h3>
+                </form>
+            </field>
+        </record>
+
+        <record id="market_config_settings_action" model="ir.actions.act_window">
+            <field name="name">Configure Market</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">market.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+        <menuitem id="main_menu_market_configuration" name="Configuration" parent="market_menu_root" sequence="20" groups="market_order_group_manager"/>
+        <menuitem id="sub_menu_market_configuration" name="Configuration" parent="main_menu_market_configuration" sequence="1"/>
+        <menuitem id="menu_market_config_settings" name="Settings" parent="sub_menu_market_configuration"
+            sequence="0" action="market_config_settings_action" />
+    </data>
+</odoo>

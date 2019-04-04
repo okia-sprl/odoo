@@ -1,0 +1,637 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* market
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-07-13 15:25+0000\n"
+"PO-Revision-Date: 2018-07-13 15:25+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_invoice_count
+msgid "# of Bills"
+msgstr "Nb. factures"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_message_needaction
+msgid "Action Needed"
+msgstr "Nécessite une action"
+
+#. module: market
+#: model:ir.ui.view,arch_db:market.market_config_settings_view_form
+msgid "Apply"
+msgstr "Appliquer"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_date_approve
+msgid "Approval Date"
+msgstr "Date d'approbation"
+
+#. module: market
+#: model:ir.ui.view,arch_db:market.market_order_view_form
+msgid "Approve Order"
+msgstr "Approuver la commande"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_invoice_status
+msgid "Billing Status"
+msgstr "État de facturation"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_invoice_ids
+msgid "Bills"
+msgstr "Factures"
+
+#. module: market
+#: model:ir.ui.view,arch_db:market.market_config_settings_view_form
+#: model:ir.ui.view,arch_db:market.market_order_view_form
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_company_id
+msgid "Company"
+msgstr "Société"
+
+#. module: market
+#: model:ir.ui.menu,name:market.main_menu_market_configuration
+#: model:ir.ui.menu,name:market.sub_menu_market_configuration
+msgid "Configuration"
+msgstr "Configuration"
+
+#. module: market
+#: model:ir.actions.act_window,name:market.market_config_settings_action
+#: model:ir.ui.view,arch_db:market.market_config_settings_view_form
+msgid "Configure Market"
+msgstr "Configuré les marchés"
+
+#. module: market
+#: model:ir.ui.view,arch_db:market.market_order_view_form
+msgid "Confirm Order"
+msgstr "Confirmer la commande"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_config_settings_create_uid
+#: model:ir.model.fields,field_description:market.field_market_order_create_uid
+#: model:ir.model.fields,field_description:market.field_market_product_list_create_uid
+msgid "Created by"
+msgstr "Créer par"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_config_settings_create_date
+#: model:ir.model.fields,field_description:market.field_market_order_create_date
+#: model:ir.model.fields,field_description:market.field_market_product_list_create_date
+msgid "Created on"
+msgstr "Créer le"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_currency_id
+msgid "Currency"
+msgstr "Devise"
+
+#. module: market
+#: model:ir.model.fields,help:market.field_purchase_order_line_qty_available
+msgid "Current quantity of products.\n"
+"In a context with a single Stock Location, this includes goods stored at this Location, or any of its children.\n"
+"In a context with a single Warehouse, this includes goods stored in the Stock Location of this Warehouse, or any of its children.\n"
+"stored in the Stock Location of the Warehouse of this Shop, or any of its children.\n"
+"Otherwise, this includes goods stored in any Stock Location with 'internal' type."
+msgstr "Quantité actuelle d'articles en stock.\n"
+"Dans le contexte d'un seul emplacement de stock, ceci inclue les marchandises stockées dans cet emplacement et ses enfants.\n"
+"Dans le contexte d'un seul entrepôt, ceci inclue les marchandises stockées dans l'emplacement de l'entrepôt et ses enfants.\n"
+"Dans le contexte d'un magasin, ceci inclue les marchandises stockées dans l'entrepôt de ce magasin et ses enfants.\n"
+"Dans les autres contextes, ceci inclue les marchandises stockées dans n'importe quel emplacement de type 'interne'."
+
+#. module: market
+#: model:ir.model.fields,help:market.field_market_order_message_last_post
+msgid "Date of the last message posted on the record."
+msgstr "Date du dernier message publié sur cet enregistrement"
+
+#. module: market
+#: model:ir.model.fields,help:market.field_market_config_settings_market_buyer_id
+msgid "Define the buyer for your markets."
+msgstr "Définissez l'acheteur pour vos marchés."
+
+#. module: market
+#: model:ir.model.fields,help:market.field_market_config_settings_market_supplier_id
+msgid "Define the supplier for your markets."
+msgstr "Définissez le fournisseur pour vos marchés."
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_picking_type_id
+msgid "Deliver To"
+msgstr "Livrer à"
+
+#. module: market
+#: model:ir.ui.view,arch_db:market.market_order_view_form
+msgid "Deliveries & Invoices"
+msgstr "Livraisons & Factures"
+
+#. module: market
+#: model:ir.model.fields,help:market.field_market_order_date_order
+msgid "Depicts the date where the Quotation should be validated and converted into a purchase order."
+msgstr "Représente la date où le devis devrait être validé et le converti en bon d'achat."
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_default_location_dest_id_usage
+msgid "Destination Location Type"
+msgstr "Type d'emplacement de destination"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_config_settings_display_name
+#: model:ir.model.fields,field_description:market.field_market_order_display_name
+#: model:ir.model.fields,field_description:market.field_market_product_list_display_name
+msgid "Display Name"
+msgstr "Nom à afficher"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_dest_address_id
+msgid "Drop Ship Address"
+msgstr "Adresse de livraison directe"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_fiscal_position_id
+msgid "Fiscal Position"
+msgstr "Position fiscale"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_message_follower_ids
+msgid "Followers"
+msgstr "Abonnés"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_message_channel_ids
+msgid "Followers (Channels)"
+msgstr "Abonnés (Canaux)"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Abonnés (Partenaires)"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_purchase_order_line_virtual_available
+msgid "Forecast Quantity"
+msgstr "Quantité prévue"
+
+#. module: market
+#: model:ir.model.fields,help:market.field_purchase_order_line_virtual_available
+msgid "Forecast quantity (computed as Quantity On Hand - Outgoing + Incoming)\n"
+"In a context with a single Stock Location, this includes goods stored in this location, or any of its children.\n"
+"In a context with a single Warehouse, this includes goods stored in the Stock Location of this Warehouse, or any of its children.\n"
+"Otherwise, this includes goods stored in any Stock Location with 'internal' type."
+msgstr "Quantité prévue (calculée comme quantité en stock - sortante + entrante)\n"
+"Dans le contexte d'un emplacement de stock seul, cela comprend les marchandises stockées dans cet emplacement et ses enfants.\n"
+"Dans le contexte d'un entrepôt seul, cela comprend les marchandises stockées dans l'emplacement de stock de cet entrepôt et ses enfants.\n"
+"Dans les autres cas, cela comprend les marchandises stockées dans tous les emplacements de type \"interne\""
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_config_settings_id
+#: model:ir.model.fields,field_description:market.field_market_order_id
+#: model:ir.model.fields,field_description:market.field_market_product_list_id
+msgid "ID"
+msgstr "ID"
+
+#. module: market
+#: model:ir.model.fields,help:market.field_market_order_message_unread
+msgid "If checked new messages require your attention."
+msgstr "Si coché, de nouveaux messages demandent votre attention."
+
+#. module: market
+#: model:ir.model.fields,help:market.field_market_order_message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si coché, de nouveaux messages demandent votre attention."
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_incoterm_id
+msgid "Incoterm"
+msgstr "Incoterm"
+
+#. module: market
+#: model:ir.model.fields,help:market.field_market_order_incoterm_id
+msgid "International Commercial Terms are a series of predefined commercial terms used in international transactions."
+msgstr "Les Incoterms sont une série de termes commerciaux prédéfinie utilisés dans les transactions internationales."
+
+#. module: market
+#: model:ir.ui.view,arch_db:market.market_order_view_form
+msgid "Invoices and Incoming Shipments"
+msgstr "Factures et réceptions"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_message_is_follower
+msgid "Is Follower"
+msgstr "Est un abonné"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_product_list_is_active
+msgid "Is active"
+msgstr "Est active"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_is_shipped
+msgid "Is shipped"
+msgstr "est expédié"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_message_last_post
+msgid "Last Message Date"
+msgstr "Date du dernier message"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_config_settings___last_update
+#: model:ir.model.fields,field_description:market.field_market_order___last_update
+#: model:ir.model.fields,field_description:market.field_market_product_list___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_config_settings_write_uid
+#: model:ir.model.fields,field_description:market.field_market_order_write_uid
+#: model:ir.model.fields,field_description:market.field_market_product_list_write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_config_settings_write_date
+#: model:ir.model.fields,field_description:market.field_market_order_write_date
+#: model:ir.model.fields,field_description:market.field_market_product_list_write_date
+msgid "Last Updated on"
+msgstr "Mis à jour le"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_sale_order_id
+msgid "Linked Sale Order"
+msgstr "Bon d'achat lié"
+
+#. module: market
+#: model:ir.ui.view,arch_db:market.market_order_view_form
+msgid "Lock"
+msgstr "Bloquer"
+
+#. module: market
+#: model:res.groups,name:market.market_order_group_manager
+msgid "Manager"
+msgstr "Gestionnaire"
+
+#. module: market
+#: model:ir.actions.act_window,name:market.market_order_action
+#: model:ir.module.category,name:market.category_market
+#: model:ir.ui.menu,name:market.main_market_menu
+#: model:ir.ui.menu,name:market.market_menu
+#: model:utm.source,name:market.utm_source_market
+msgid "Market"
+msgstr "Marché"
+
+#. module: market
+#: model:ir.ui.view,arch_db:market.market_order_view_tree
+msgid "Market Order"
+msgstr "Bon de marché"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_config_settings_market_buyer_id
+#: model:ir.model.fields,field_description:market.field_res_partner_is_market_buyer
+#: model:ir.model.fields,field_description:market.field_res_users_is_market_buyer
+msgid "Market buyer"
+msgstr "Acheteur pour les marchés"
+
+#. module: market
+#: model:ir.ui.view,arch_db:market.market_order_view_form
+msgid "Market order"
+msgstr "Bon de marché"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_config_settings_market_supplier_id
+#: model:ir.model.fields,field_description:market.field_res_partner_is_market_supplier
+#: model:ir.model.fields,field_description:market.field_res_users_is_market_supplier
+msgid "Market supplier"
+msgstr "Fournisseur pour les marchés"
+
+#. module: market
+#: model:ir.ui.menu,name:market.market_menu_root
+msgid "Markets"
+msgstr "Marchés"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_message_ids
+msgid "Messages"
+msgstr "Messages"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_product_list_name
+msgid "Name"
+msgstr "Nom"
+
+#. module: market
+#: code:addons/market/models/market_order.py:138
+#, python-format
+msgid "No user found with the company %s"
+msgstr "Aucun utilisateur trouvé avec la compagnie %s"
+
+#. module: market
+#: model:ir.ui.view,arch_db:market.market_order_view_form
+msgid "Notes"
+msgstr "Notes"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_message_needaction_counter
+msgid "Number of Actions"
+msgstr "Nombre d'actions"
+
+#. module: market
+#: model:ir.model.fields,help:market.field_market_order_message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Nombre de messages exigeant une action"
+
+#. module: market
+#: model:ir.model.fields,help:market.field_market_order_message_unread_counter
+msgid "Number of unread messages"
+msgstr "Nombre de messages non lus"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_date_order
+msgid "Order Date"
+msgstr "Date de la commande"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_order_line
+msgid "Order Lines"
+msgstr "Lignes de la commande"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_name
+msgid "Order Reference"
+msgstr "Référence commande"
+
+#. module: market
+#: model:ir.model,name:market.model_res_partner
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_payment_term_id
+msgid "Payment Terms"
+msgstr "Conditions de règlement"
+
+#. module: market
+#: code:addons/market/models/market_order.py:123
+#, python-format
+msgid "Please define the vendor for sale order in the configuration"
+msgstr "Veuillez définir le vendeur pour les ventes dans la configuration"
+
+#. module: market
+#: code:addons/market/models/market_order.py:67
+#, python-format
+msgid "Please select a product list"
+msgstr "Veuillez sélectionner une liste de produits"
+
+#. module: market
+#: code:addons/market/models/market_order.py:101
+#, python-format
+msgid "Please set a quantity for at least one product"
+msgstr "Veuillez définir une quantité sur au moins un produit"
+
+#. module: market
+#: code:addons/market/models/market_order.py:32
+#, python-format
+msgid "Please set the market supplier in the configure before continue."
+msgstr "Veuillez définir le fournisseur des marchés dans la configuration avant de continuer."
+
+#. module: market
+#: model:ir.ui.view,arch_db:market.market_order_view_form
+msgid "Print"
+msgstr "Imprimer"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_group_id
+msgid "Procurement Group"
+msgstr "Groupe d'approvisionnement"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_product_id
+msgid "Product"
+msgstr "Article"
+
+#. module: market
+#: model:ir.actions.act_window,name:market.market_product_list_action
+#: model:ir.model.fields,field_description:market.field_market_order_market_product_list_id
+#: model:ir.ui.menu,name:market.menu_market_product_list
+#: model:ir.ui.view,arch_db:market.market_product_list_view_form
+msgid "Product list"
+msgstr "Liste des produits"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_product_list_product_ids
+#: model:ir.ui.view,arch_db:market.market_order_view_form
+#: model:ir.ui.view,arch_db:market.market_product_list_view_form
+msgid "Products"
+msgstr "Articles"
+
+#. module: market
+#: model:ir.ui.view,arch_db:market.market_order_view_form
+msgid "Purchase Order"
+msgstr "Commande fournisseur"
+
+#. module: market
+#: model:ir.model,name:market.model_purchase_order_line
+#: model:ir.ui.view,arch_db:market.market_order_view_form
+msgid "Purchase Order Line"
+msgstr "Ligne de commande d'achat"
+
+#. module: market
+#: model:ir.ui.view,arch_db:market.market_order_view_form
+msgid "Purchase Order Lines"
+msgstr "Lignes d'ordre d'achat"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_purchase_order_id
+msgid "Purchase order"
+msgstr "Bon d'achat"
+
+#. module: market
+#: model:ir.model.fields,help:market.field_market_order_dest_address_id
+msgid "Put an address if you want to deliver directly from the vendor to the customer. Otherwise, keep empty to deliver to your own company."
+msgstr "Ajoutez une adresse si vous voulez livrer directement du fournisseur au client. Sinon, laissez vide pour vous faire livrer à votre société."
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_purchase_order_line_qty_available
+msgid "Quantity On Hand"
+msgstr "Quantité en stock"
+
+#. module: market
+#: model:ir.ui.view,arch_db:market.market_order_view_form
+msgid "Receive Products"
+msgstr "Réception par article"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_picking_count
+#: model:ir.model.fields,field_description:market.field_market_order_picking_ids
+msgid "Receptions"
+msgstr "Réceptions"
+
+#. module: market
+#: model:ir.ui.view,arch_db:market.market_order_view_tree
+msgid "Reference"
+msgstr "Référence"
+
+#. module: market
+#: model:ir.model.fields,help:market.field_market_order_origin
+msgid "Reference of the document that generated this purchase order request (e.g. a sale order or an internal procurement request)"
+msgstr "Référence du document qui a généré cette demande du bon de commande (ex: ordre de vente d'une demande d'approvisionnement interne)"
+
+#. module: market
+#: model:ir.model.fields,help:market.field_market_order_partner_ref
+msgid "Reference of the sales order or bid sent by the vendor. It's used to do the matching when you receive the products as this reference is usually written on the delivery order sent by your vendor."
+msgstr "Référence du bon de commande ou offre envoyée par le fournisseur. Utilisé principalement pour faire la correspondance lors de la réception des articles, puisque cette référence est généralement écrite sur le bon de livraison envoyé par votre fournisseur."
+
+#. module: market
+#: model:ir.ui.view,arch_db:market.market_order_view_form
+msgid "Request for Quotation"
+msgstr "Demande de prix"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_date_planned
+#: model:ir.model.fields,field_description:market.field_market_order_stored_date_planned
+msgid "Scheduled Date"
+msgstr "Date prévue"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_product_list_sequence
+msgid "Sequence"
+msgstr "Séquence"
+
+#. module: market
+#: model:ir.ui.view,arch_db:market.market_order_view_form
+msgid "Set to Draft"
+msgstr "Marquer comme brouillon"
+
+#. module: market
+#: model:ir.ui.menu,name:market.menu_market_config_settings
+msgid "Settings"
+msgstr "Paramètres"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_origin
+msgid "Source Document"
+msgstr "Document d'origine"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_state
+msgid "Status"
+msgstr "État"
+
+#. module: market
+#: model:ir.ui.view,arch_db:market.market_order_view_form
+msgid "Supplier"
+msgstr "Fournisseur"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_amount_tax
+msgid "Taxes"
+msgstr "Taxes"
+
+#. module: market
+#: model:ir.model.fields,help:market.field_market_order_default_location_dest_id_usage
+msgid "Technical field used to display the Drop Ship Address"
+msgstr "Champ technique utilisé pour afficher l'adresse de livraison directe."
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_notes
+msgid "Terms and Conditions"
+msgstr "Conditions générales"
+
+#. module: market
+#: code:addons/market/models/market_order.py:129
+#, python-format
+msgid "The company of the buyer must the same than the company of the vendor"
+msgstr "La compagnie de l'acheteur doit être la même que la compagnie du vendor défini pour les ventes"
+
+#. module: market
+#: model:ir.model.fields,help:market.field_market_order_picking_type_id
+msgid "This will determine picking type of incoming shipment"
+msgstr "Ceci déterminera le type de prélèvement de la réception"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_amount_total
+msgid "Total"
+msgstr "Total"
+
+#. module: market
+#: model:ir.ui.view,arch_db:market.market_order_view_form
+msgid "Unlock"
+msgstr "Déverrouiller"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_message_unread
+msgid "Unread Messages"
+msgstr "Messages non lus"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Compteur de messages non lus"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_amount_untaxed
+msgid "Untaxed Amount"
+msgstr "Montant HT"
+
+#. module: market
+#: model:res.groups,name:market.market_order_group_user
+msgid "User"
+msgstr "Utilisateur"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_partner_id
+msgid "Vendor"
+msgstr "Fournisseur"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_order_partner_ref
+msgid "Vendor Reference"
+msgstr "Référence fournisseur"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_config_settings_default_vendor_id
+msgid "Vendor for sale order"
+msgstr "Vendeur pour les ventes"
+
+#. module: market
+#: model:ir.ui.view,arch_db:market.market_order_view_form
+msgid "You can add here some information about the market"
+msgstr "Vous pouvez ajouter ici quelques informations à propos de votre bon de marché"
+
+#. module: market
+#: code:addons/market/models/market_order.py:115
+#, python-format
+msgid "You need to configure the market buyer in the configuration"
+msgstr "Vous devez définir l'achteur pour les marchés dans la configuration"
+
+#. module: market
+#: code:addons/market/models/market_order.py:41
+#, python-format
+msgid "You need to create at least one product list."
+msgstr "Vous devez créer au moins une liste de produits."
+
+#. module: market
+#: model:ir.model,name:market.model_market_config_settings
+msgid "market.config.settings"
+msgstr "market.config.settings"
+
+#. module: market
+#: model:ir.model,name:market.model_market_order
+msgid "market.order"
+msgstr "market.order"
+
+#. module: market
+#: model:ir.model,name:market.model_market_product_list
+msgid "market.product.list"
+msgstr "market.product.list"
+

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="category_market" model="ir.module.category">
+        <field name="name">Market</field>
+        <field name="sequence">50</field>
+    </record>
+
+    <record id="market_order_group_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="category_market"/>
+        <field name="implied_ids" eval="[(4, ref('purchase.group_purchase_user')), (4, ref('stock.group_stock_user'))]"/>
+    </record>
+
+    <record id="market_order_group_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="implied_ids" eval="[(4, ref('market_order_group_user'))]"/>
+        <field name="category_id" ref="category_market"/>
+    </record>
+</odoo>

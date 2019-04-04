@@ -1,0 +1,21 @@
+id,name
+work_history.travail_sol,Travail du sol
+work_history.fumage,Fumage
+work_history.epandage,Épandage
+work_history.pulverisation,Pulvérisation
+work_history.semis,Semis
+work_history.plantation,Plantation
+work_history.binage,Binage
+work_history.rebuttage,Rebuttage
+work_history.desherbage,Désherbage
+work_history.arrosage,Arrosage
+work_history.fertigation,Fertigation
+work_history.amenagement,Aménagement
+work_history.taille,Taille
+work_history.tuteurage,Tuteurage
+work_history.paillage,Paillage
+work_history.pose_couverture,Pose de couverture
+work_history.recolte,Récolte
+broyage,Broyage
+work_history.evacuation_debris_culture,Évacuation débris de culture
+work_history.semis_angrais_vert,Semis engrais vert

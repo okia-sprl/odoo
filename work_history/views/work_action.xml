@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="work_action_view_tree" model="ir.ui.view">
+        <field name="name">work.action.view.tree</field>
+        <field name="model">work.action</field>
+        <field name="arch" type="xml">
+            <tree string="Work History" editable="bottom">
+                <field name="sequence" widget="handle" />
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="work_action_action" model="ir.actions.act_window">
+        <field name="name">Work Action</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">work.action</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="work_action_menu" name="Configuration" sequence="100" action="work_action_action" parent="work_history_main_menu"/>
+</odoo>

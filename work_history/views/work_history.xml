@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="work_history_view_form" model="ir.ui.view">
+        <field name="name">work.history.view.form</field>
+        <field name="model">work.history</field>
+        <field name="arch" type="xml">
+            <form string="Work History">
+                <sheet>
+                    <group>
+                        <group>
+
+                            <field name="location_id"/>
+                            <field name="action_id"/>
+                            <field name="storable_product_id"/>
+                            <field name="product_id"/>
+                            <field name="quantity"/>
+                            <field name="quantity_uom_id" class="oe_inline" nolabel="1"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="duration"/>
+                        </group>
+                        <group>
+                            <field name="gwen_nbr"/>
+                            <field name="manager_nbr"/>
+                            <field name="employee_nbr"/>
+                            <field name="seasonal_nbr"/>
+                            <field name="freelancer_nbr"/>
+                            <field name="trainee_nbr"/>
+                        </group>
+                    </group>
+                    <label for="description"/>
+                    <field name="description"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="work_history_view_tree" model="ir.ui.view">
+        <field name="name">work.history.view.tree</field>
+        <field name="model">work.history</field>
+        <field name="arch" type="xml">
+            <tree string="Work History" editable="bottom">
+                <field name="location_id"/>
+                <field name="action_id"/>
+                <field name="date"/>
+                <field name="duration"/>
+                <field name="gwen_nbr"/>
+                <field name="manager_nbr"/>
+                <field name="employee_nbr"/>
+                <field name="seasonal_nbr"/>
+                <field name="freelancer_nbr"/>
+                <field name="trainee_nbr"/>
+                <field name="storable_product_id"/>
+                <field name="quantity"/>
+                <field name="quantity_uom_id"/>
+                <field name="product_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="work_history_view_search" model="ir.ui.view">
+        <field name="name">work.history.view.search</field>
+        <field name="model">work.history</field>
+        <field name="arch" type="xml">
+            <search string="Search Sales Order">
+                <field name="action_id" string="Sales Order"/>
+                <field name="location_id" string="Location"/>
+                <field name="product_id" string="Product"/>
+                <field name="storable_product_id" string="Storable product"/>
+                <field name="date" string="Date"/>
+                <filter string="With Gwen" domain="[('gwen_nbr','>', 0)]" name="show_with_gwen"/>
+                <filter string="With manager" domain="[('manager_nbr','>', 0)]" name="show_with_manager"/>
+                <filter string="With employees" domain="[('employee_nbr','>', 0)]" name="show_with_employees"/>
+                <filter string="With seasonal" domain="[('seasonal_nbr','>', 0)]" name="show_with_seasonal"/>
+                <filter string="With freelancer" domain="[('freelancer_nbr','>', 0)]" name="show_with_freelancer"/>
+                <filter string="With trainee" domain="[('trainee_nbr','>', 0)]" name="show_with_trainee"/>
+                <group expand="1" string="Group By">
+                    <filter string="Action" domain="[]" context="{'group_by':'action_id'}"/>
+                    <filter string="Location" domain="[]" context="{'group_by':'location_id'}"/>
+                    <filter string="Product" domain="[]" context="{'group_by':'product_id'}"/>
+                    <filter string="Storable product" domain="[]" context="{'group_by':'storable_product_id'}"/>
+                </group>
+           </search>
+        </field>
+    </record>
+
+    <record id="work_history_action" model="ir.actions.act_window">
+        <field name="name">Work History</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">work.history</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="work_history_main_menu" name="Work History" sequence="10" parent="stock.menu_stock_warehouse_mgmt"/>
+    <menuitem id="work_history_menu" name="Works" sequence="10" action="work_history_action" parent="work_history_main_menu"/>
+</odoo>
