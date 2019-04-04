@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # Okia SPRL <sylvain@okia.be>
 {
-    'name' : 'Stock Picking Report',
-    'version' : '0.1',
+    'name': 'Stock Picking Report',
+    'version': '0.1',
     'summary': 'Display a report with deliveries to do',
     'sequence': 30,
     'description': """
@@ -10,7 +10,7 @@
     """,
     'category': 'Stock',
     'website': 'https://okia.be',
-    'depends' : [
+    'depends': [
         'stock',
         'sale_uom',
     ],

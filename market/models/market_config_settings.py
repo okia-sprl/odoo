@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Okia SPRL <sylvain@okia.be>
-from odoo import fields, models, api
+from odoo import fields, models
 
 
 class MarketConfigSettings(models.TransientModel):

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # Okia SPRL <sylvain@okia.be>
 {
-    'name' : 'Sale Unit of Measure',
-    'version' : '0.1',
+    'name': 'Sale Unit of Measure',
+    'version': '0.1',
     'summary': 'Add a Unit of Measure for sale',
     'sequence': 30,
     'description': """
@@ -10,7 +10,7 @@
     """,
     'category': 'Sale',
     'website': 'https://okia.be',
-    'depends' : [
+    'depends': [
         'product',
         'sale',
     ],

@@ -11,8 +11,8 @@ class ProductTemplate(models.Model):
     uom_so_id = fields.Many2one(
         'product.uom',
         string='Sale Unit of Measure',
-        default=lambda self: self.env["product.uom"]
-            .search([], limit=1, order='id').id,
+        default=lambda self: self.env["product.uom"].search(
+            [], limit=1, order='id').id,
         required=True
     )
 

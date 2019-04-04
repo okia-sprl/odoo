@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # Okia SPRL <sylvain@okia.be>
 {
-    'name' : 'Print Barcode',
-    'version' : '0.1',
+    'name': 'Print Barcode',
+    'version': '0.1',
     'summary': 'Allows to manage print barcode configuration',
     'sequence': 30,
     'description': """
@@ -10,7 +10,7 @@
     """,
     'category': 'Stock',
     'website': 'https://okia.be',
-    'depends' : [
+    'depends': [
         'stock',
     ],
     'data': [
