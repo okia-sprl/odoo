@@ -1,0 +1,14 @@
+.stock_picking_report table, .stock_picking_report th, .stock_picking_report td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.stock_picking_report th, .stock_picking_report td {
+    padding: 5px;
+    text-align: left;
+    min-width: 3cm;
+}
+
+.stock_picking_report_comment {
+    width: 8cm;
+}

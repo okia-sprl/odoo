@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="assets_common" name="assets_common" inherit_id="report.assets_common">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/stock_picking_report/static/src/css/picking_report.css"/>
+            </xpath>
+        </template>
+
+        <template id="stock_picking_report_body">
+            <t t-set="days" t-value="docs.get_days()"/>
+            <t t-set="lines" t-value="docs.get_lines()"/>
+
+            <table class="stock_picking_report">
+                <tr>
+                    <th/>
+                    <th t-foreach="days" t-as="day">
+                        <span t-esc="day"/>
+                    </th>
+                    <th>Comment</th>
+                </tr>
+
+                <tr t-foreach="lines" t-as="product">
+                    <td><span t-esc="product"/></td>
+                    <td t-foreach="days" t-as="day">
+                        <t t-if="day in lines[product]">
+                            <span t-esc="lines[product][day][0]"/> <strong>x</strong>
+                            <span t-esc="lines[product][day][1]"/>
+                            (<span t-esc="lines[product][day][2]"/>)
+                        </t>
+                    </td>
+                    <td class="stock_picking_report_comment"/>
+                </tr>
+            </table>
+        </template>
+
+        <template id="stock_picking_report">
+            <t t-call="report.html_container">
+                <t t-call="report.external_layout">
+                    <div class="page">
+                        <t t-call="stock_picking_report.stock_picking_report_body"/>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <report
+                string="Picking Report"
+                id="action_stock_picking_report"
+                model="stock.picking.report.wizard"
+                report_type="qweb-pdf"
+                name="stock_picking_report.stock_picking_report"
+                file="stock_picking_report"
+        />
+
+    </data>
+</odoo>
