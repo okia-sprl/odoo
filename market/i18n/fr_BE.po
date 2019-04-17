@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-13 15:25+0000\n"
-"PO-Revision-Date: 2018-07-13 15:25+0000\n"
+"POT-Creation-Date: 2019-04-17 15:06+0000\n"
+"PO-Revision-Date: 2019-04-17 15:06+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -57,6 +57,12 @@ msgid "Cancel"
 msgstr "Annuler"
 
 #. module: market
+#: model:ir.model,name:market.model_res_company
+msgid "Companies"
+msgstr "Sociétés"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_config_settings_company_id
 #: model:ir.model.fields,field_description:market.field_market_order_company_id
 msgid "Company"
 msgstr "Société"
@@ -114,16 +120,6 @@ msgstr "Quantité actuelle d'articles en stock.\n"
 #: model:ir.model.fields,help:market.field_market_order_message_last_post
 msgid "Date of the last message posted on the record."
 msgstr "Date du dernier message publié sur cet enregistrement"
-
-#. module: market
-#: model:ir.model.fields,help:market.field_market_config_settings_market_buyer_id
-msgid "Define the buyer for your markets."
-msgstr "Définissez l'acheteur pour vos marchés."
-
-#. module: market
-#: model:ir.model.fields,help:market.field_market_config_settings_market_supplier_id
-msgid "Define the supplier for your markets."
-msgstr "Définissez le fournisseur pour vos marchés."
 
 #. module: market
 #: model:ir.model.fields,field_description:market.field_market_order_picking_type_id
@@ -296,23 +292,14 @@ msgid "Market Order"
 msgstr "Bon de marché"
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_config_settings_market_buyer_id
-#: model:ir.model.fields,field_description:market.field_res_partner_is_market_buyer
-#: model:ir.model.fields,field_description:market.field_res_users_is_market_buyer
-msgid "Market buyer"
-msgstr "Acheteur pour les marchés"
+#: model:ir.model.fields,field_description:market.field_market_order_market_name
+msgid "Market name"
+msgstr "Market name"
 
 #. module: market
 #: model:ir.ui.view,arch_db:market.market_order_view_form
 msgid "Market order"
 msgstr "Bon de marché"
-
-#. module: market
-#: model:ir.model.fields,field_description:market.field_market_config_settings_market_supplier_id
-#: model:ir.model.fields,field_description:market.field_res_partner_is_market_supplier
-#: model:ir.model.fields,field_description:market.field_res_users_is_market_supplier
-msgid "Market supplier"
-msgstr "Fournisseur pour les marchés"
 
 #. module: market
 #: model:ir.ui.menu,name:market.market_menu_root
@@ -328,12 +315,6 @@ msgstr "Messages"
 #: model:ir.model.fields,field_description:market.field_market_product_list_name
 msgid "Name"
 msgstr "Nom"
-
-#. module: market
-#: code:addons/market/models/market_order.py:138
-#, python-format
-msgid "No user found with the company %s"
-msgstr "Aucun utilisateur trouvé avec la compagnie %s"
 
 #. module: market
 #: model:ir.ui.view,arch_db:market.market_order_view_form
@@ -381,28 +362,23 @@ msgid "Payment Terms"
 msgstr "Conditions de règlement"
 
 #. module: market
-#: code:addons/market/models/market_order.py:123
+#: code:addons/market/models/market_order.py:96
 #, python-format
-msgid "Please define the vendor for sale order in the configuration"
-msgstr "Veuillez définir le vendeur pour les ventes dans la configuration"
+msgid "Please define the company for this market"
+msgstr "Please define the company for this market"
 
 #. module: market
-#: code:addons/market/models/market_order.py:67
-#, python-format
-msgid "Please select a product list"
-msgstr "Veuillez sélectionner une liste de produits"
-
-#. module: market
-#: code:addons/market/models/market_order.py:101
+#: code:addons/market/models/market_order.py:109
 #, python-format
 msgid "Please set a quantity for at least one product"
 msgstr "Veuillez définir une quantité sur au moins un produit"
 
 #. module: market
-#: code:addons/market/models/market_order.py:32
+#: code:addons/market/models/market_order.py:41
+#: code:addons/market/models/market_order.py:101
 #, python-format
-msgid "Please set the market supplier in the configure before continue."
-msgstr "Veuillez définir le fournisseur des marchés dans la configuration avant de continuer."
+msgid "Please set the seller company in the configuration"
+msgstr "Please set the seller company in the configuration"
 
 #. module: market
 #: model:ir.ui.view,arch_db:market.market_order_view_form
@@ -433,11 +409,6 @@ msgstr "Liste des produits"
 #: model:ir.ui.view,arch_db:market.market_product_list_view_form
 msgid "Products"
 msgstr "Articles"
-
-#. module: market
-#: model:ir.ui.view,arch_db:market.market_order_view_form
-msgid "Purchase Order"
-msgstr "Commande fournisseur"
 
 #. module: market
 #: model:ir.model,name:market.model_purchase_order_line
@@ -492,15 +463,16 @@ msgid "Reference of the sales order or bid sent by the vendor. It's used to do t
 msgstr "Référence du bon de commande ou offre envoyée par le fournisseur. Utilisé principalement pour faire la correspondance lors de la réception des articles, puisque cette référence est généralement écrite sur le bon de livraison envoyé par votre fournisseur."
 
 #. module: market
-#: model:ir.ui.view,arch_db:market.market_order_view_form
-msgid "Request for Quotation"
-msgstr "Demande de prix"
-
-#. module: market
 #: model:ir.model.fields,field_description:market.field_market_order_date_planned
 #: model:ir.model.fields,field_description:market.field_market_order_stored_date_planned
 msgid "Scheduled Date"
 msgstr "Date prévue"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_config_settings_seller_company_id
+#: model:ir.model.fields,field_description:market.field_res_company_seller_company_id
+msgid "Seller company id"
+msgstr "Seller company id"
 
 #. module: market
 #: model:ir.model.fields,field_description:market.field_market_product_list_sequence
@@ -548,10 +520,9 @@ msgid "Terms and Conditions"
 msgstr "Conditions générales"
 
 #. module: market
-#: code:addons/market/models/market_order.py:129
-#, python-format
-msgid "The company of the buyer must the same than the company of the vendor"
-msgstr "La compagnie de l'acheteur doit être la même que la compagnie du vendor défini pour les ventes"
+#: model:ir.ui.view,arch_db:market.market_config_settings_view_form
+msgid "The company"
+msgstr "The company"
 
 #. module: market
 #: model:ir.model.fields,help:market.field_market_order_picking_type_id
@@ -599,26 +570,15 @@ msgid "Vendor Reference"
 msgstr "Référence fournisseur"
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_config_settings_default_vendor_id
-msgid "Vendor for sale order"
-msgstr "Vendeur pour les ventes"
-
-#. module: market
 #: model:ir.ui.view,arch_db:market.market_order_view_form
 msgid "You can add here some information about the market"
 msgstr "Vous pouvez ajouter ici quelques informations à propos de votre bon de marché"
 
 #. module: market
-#: code:addons/market/models/market_order.py:115
-#, python-format
-msgid "You need to configure the market buyer in the configuration"
-msgstr "Vous devez définir l'achteur pour les marchés dans la configuration"
-
-#. module: market
-#: code:addons/market/models/market_order.py:41
-#, python-format
-msgid "You need to create at least one product list."
-msgstr "Vous devez créer au moins une liste de produits."
+#: model:ir.model.fields,help:market.field_market_config_settings_seller_company_id
+#: model:ir.model.fields,help:market.field_res_company_seller_company_id
+msgid "Your company will buy good to the following company"
+msgstr "Your company will buy good to the following company"
 
 #. module: market
 #: model:ir.model,name:market.model_market_config_settings
@@ -634,4 +594,9 @@ msgstr "market.order"
 #: model:ir.model,name:market.model_market_product_list
 msgid "market.product.list"
 msgstr "market.product.list"
+
+#. module: market
+#: model:ir.ui.view,arch_db:market.market_config_settings_view_form
+msgid "will buy goods from the company"
+msgstr "will buy goods from the company"
 
