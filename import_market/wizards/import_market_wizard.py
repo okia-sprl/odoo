@@ -76,6 +76,9 @@ class ImportMarketWizard(models.TransientModel):
         index = 1
         csv_iterator = csv.reader(StringIO(content))
         for row in csv_iterator:
+            if not row:
+                continue
+
             if len(row) != LINE_SIZE:
                 raise UserError(_('Line %s invalid: %s') % (index, row))
 
@@ -147,6 +150,7 @@ class ImportMarketWizard(models.TransientModel):
         self.ensure_one()
 
         self.create_purchase_order()
+        self.move_quants()
 
     def create_purchase_order(self):
         self.ensure_one()
@@ -190,6 +194,96 @@ class ImportMarketWizard(models.TransientModel):
             PurchaseOrderLine.create(po_line._convert_to_write(po_line._cache))
 
         market_order.purchase_order_id.button_confirm()
+
+        for picking in market_order.purchase_order_id.picking_ids:
+            if picking.state != 'assigned':
+                raise UserError(
+                    _('Cannot validate the purchase order. '
+                      'There is no picking linked to the purchase order.'))
+
+            for pack in picking.pack_operation_ids:
+                if pack.product_qty > 0:
+                    pack.write({'qty_done': pack.product_qty})
+                else:
+                    pack.unlink()
+
+            picking.do_transfer()
+
+        sale_order = self.env['sale.order'].sudo().search(
+            [('auto_purchase_order_id', '=', po_id)], limit=1, order='id DESC')
+        if not sale_order:
+            raise UserError(_('Error during the validation of the market.'
+                              ' Cannot retrieve the sale order.'))
+
+        for picking in sale_order.picking_ids:
+            if picking.state == 'confirmed':
+                picking.force_assign()
+
+            if picking.state != 'assigned':
+                raise UserError(
+                    _('Cannot validate the picking. Please manualy '
+                      'validate the picking %s') % picking.name)
+
+            if picking.state != 'assigned':
+                raise UserError(_('Cannot validate the purchase order'))
+
+            for pack in picking.pack_operation_ids:
+                if pack.product_qty > 0:
+                    pack.write({'qty_done': pack.product_qty})
+                else:
+                    pack.unlink()
+
+            picking.do_transfer()
+
+    def _prepare_stock_picking_data(self):
+        self.ensure_one()
+
+        return {
+            'location_id': self.env.ref('stock.stock_location_stock').id,
+            'location_dest_id':
+                self.env.ref('stock.stock_location_customers').id,
+            'min_date': self.date,
+            'origin': self.name,
+            'move_type': 'one',
+            'picking_type_id': self.env.ref('stock.picking_type_out').id,
+        }
+
+    def move_quants(self):
+        self.ensure_one()
+
+        StockMove = self.env['stock.move']
+
+        vals = self._prepare_stock_picking_data()
+        picking = self.env['stock.picking'].create(vals)
+
+        for line in self.line_ids:
+            move = StockMove.new({
+                'picking_id': picking.id,
+                'product_id': line.product_id.id,
+                'location_id': vals['location_id'],
+                'location_dest_id': vals['location_dest_id'],
+            })
+            move.onchange_product_id()
+            move.product_uom_qty = line.qty
+
+            StockMove.create(move._convert_to_write(move._cache))
+
+        picking.action_assign()
+        if picking.state == 'confirmed':
+            picking.force_assign()
+
+        if picking.state != 'assigned':
+            raise UserError(
+                _('Cannot validate the picking. Please manualy '
+                  'validate the picking %s') % picking.name)
+
+        for pack in picking.pack_operation_ids:
+            if pack.product_qty > 0:
+                pack.write({'qty_done': pack.product_qty})
+            else:
+                pack.unlink()
+
+        picking.do_transfer()
 
 
 class ImportMarketWizardLine(models.TransientModel):
