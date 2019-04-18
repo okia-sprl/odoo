@@ -12,16 +12,20 @@
                     <th t-foreach="partners" t-as="partner">
                         <span t-esc="partner"/>
                     </th>
+                    <th>Barcode</th>
                 </tr>
 
                 <tr t-foreach="lines" t-as="product">
-                    <td><span t-esc="product"/></td>
+                    <td><span t-esc="product.name"/></td>
                     <td t-foreach="partners" t-as="partner">
                         <t t-if="partner in lines[product]">
                             <span t-esc="lines[product][partner][0]"/> <strong>x</strong>
                             <span t-esc="lines[product][partner][1]"/>
                             (<span t-esc="lines[product][partner][2]"/>)
                         </t>
+                    </td>
+                    <td>
+                        <img class="barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=1' % ('Code128', product.barcode, 200, 50)"/>
                     </td>
                 </tr>
             </table>

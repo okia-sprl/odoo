@@ -96,7 +96,7 @@ class StockPickingReportWizard(models.TransientModel):
 
             product_uom = product.uom_so_id or product.uom_id
 
-            result_by_product = result.get(product.name, {})
+            result_by_product = result.get(product, {})
             qty, uom, qty_available = \
                 result_by_product.get(scheduled_date_str, [0, None, None])
 
@@ -114,7 +114,7 @@ class StockPickingReportWizard(models.TransientModel):
 
             result_by_product[scheduled_date_str] = \
                 [qty, uom, qty_available]
-            result[product.name] = result_by_product
+            result[product] = result_by_product
 
         return result
 
@@ -139,7 +139,7 @@ class StockPickingReportWizard(models.TransientModel):
 
             product_uom = product.uom_so_id or product.uom_id
 
-            result_by_product = result.get(product.name, {})
+            result_by_product = result.get(product, {})
             qty, uom, qty_available = \
                 result_by_product.get(partner_name, [0, None, None])
 
@@ -156,6 +156,6 @@ class StockPickingReportWizard(models.TransientModel):
                 qty_available = product.qty_available
 
             result_by_product[partner_name] = [qty, uom, qty_available]
-            result[product.name] = result_by_product
+            result[product] = result_by_product
 
         return result

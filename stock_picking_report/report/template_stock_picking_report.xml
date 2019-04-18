@@ -17,17 +17,21 @@
                     <th t-foreach="days" t-as="day">
                         <span t-esc="day"/>
                     </th>
+                    <th>Barcode</th>
                     <th>Comment</th>
                 </tr>
 
                 <tr t-foreach="lines" t-as="product">
-                    <td><span t-esc="product"/></td>
+                    <td><span t-esc="product.name"/></td>
                     <td t-foreach="days" t-as="day">
                         <t t-if="day in lines[product]">
                             <span t-esc="lines[product][day][0]"/> <strong>x</strong>
                             <span t-esc="lines[product][day][1]"/>
                             (<span t-esc="lines[product][day][2]"/>)
                         </t>
+                    </td>
+                    <td>
+                        <img class="barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=1' % ('Code128', product.barcode, 200, 50)"/>
                     </td>
                     <td class="stock_picking_report_comment"/>
                 </tr>

@@ -24,7 +24,7 @@ class StockPickingReport(models.Model):
               picking.partner_id AS partner_id,
               product.id AS product_id,
               picking.id AS picking_id,
-              s_move.product_qty AS qty_to_do,
+              s_move.product_uom_qty AS qty_to_do,
               s_move.product_uom AS product_uom_id
             FROM stock_move AS s_move
               LEFT JOIN stock_picking AS picking
