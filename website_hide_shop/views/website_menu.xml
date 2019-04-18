@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="menu_tree" model="ir.ui.view">
+        <field name="name">website.menu.tree.inherit</field>
+        <field name="model">website.menu</field>
+        <field name="inherit_id" ref="website.menu_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="is_only_for_user"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

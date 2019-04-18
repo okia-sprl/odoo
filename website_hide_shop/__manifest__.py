@@ -16,6 +16,7 @@
     'data': [
         # Views
         "views/website_templates.xml",
+        "views/website_menu.xml",
     ],
     'installable': True,
     'application': True,
