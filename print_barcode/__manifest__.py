@@ -14,6 +14,7 @@
         'stock',
     ],
     'data': [
+        "wizards/print_barcode.xml",
         "views/report_location_barcode.xml",
     ],
     'installable': True,
