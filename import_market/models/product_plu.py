@@ -30,7 +30,11 @@ class ProductPLULine(models.Model):
         required=True,
         ondelete='cascade'
     )
-    product_id = fields.Many2one('product.product', string='Product')
+    product_id = fields.Many2one(
+        'product.product',
+        string='Product',
+        domain=['|', ('active', '=', False), ('active', '=', True)]
+    )
     is_to_invoice = fields.Boolean(
         'To invoice',
         help='Product marked as "To invoice" will generate '
