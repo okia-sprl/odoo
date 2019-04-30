@@ -23,7 +23,7 @@
             <field name="target">inline</field>
         </record>
 
-        <menuitem id="main_menu_market_configuration" name="Configuration" parent="market_menu_root" sequence="20" groups="market_order_group_manager"/>
+        <menuitem id="main_menu_market_configuration" name="Configuration" parent="market_menu_root" sequence="20" groups="market_group_manager"/>
         <menuitem id="sub_menu_market_configuration" name="Configuration" parent="main_menu_market_configuration" sequence="1"/>
         <menuitem id="menu_market_config_settings" name="Settings" parent="sub_menu_market_configuration"
             sequence="0" action="market_config_settings_action" />

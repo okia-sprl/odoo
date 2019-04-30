@@ -1,0 +1,338 @@
+# -*- coding: utf-8 -*-
+# Okia SPRL <sylvain@okia.be>
+from datetime import datetime, timedelta
+
+from odoo import fields, models, api, _
+from odoo.exceptions import UserError
+import odoo.addons.decimal_precision as dp
+
+
+class MarketLocation(models.Model):
+    _name = 'market.location'
+
+    name = fields.Char('Name', required=True)
+    address = fields.Char('Address')
+    notes = fields.Text('Notes')
+
+
+class Market(models.Model):
+    _name = 'market.market'
+
+    @api.depends('market_line_ids.product_qty',
+                 'market_line_ids.product_id',
+                 'market_line_ids.price_unit')
+    def _amount_all(self):
+        for market in self:
+            lines_to_invoice = market.market_line_ids.filtered(
+                lambda line: line.is_to_invoice)
+            sum_to_invoice = sum(lines_to_invoice.mapped('amount_untaxed'))
+
+            market_amount_untaxed = \
+                sum(market.market_line_ids.mapped('market_amount_untaxed'))
+            market_amount_taxed = \
+                sum(market.market_line_ids.mapped('market_amount_taxed'))
+
+            market.update({
+                'amount_taxed': sum_to_invoice,
+                'market_amount_untaxed': market_amount_untaxed,
+                'market_amount_taxed': market_amount_taxed,
+            })
+
+    name = fields.Char(
+        'Market name',
+        required=True,
+        states={'new': [('readonly', False)]}
+    )
+    company_id = fields.Many2one(
+        'res.company',
+        string='Company',
+        required=True,
+        index=True,
+        default=lambda self: self.env.user.company_id.id
+    )
+    state = fields.Selection(
+        [('draft', 'Draft'),
+         ('confirm', 'Confirmed'),
+         ('cancel', 'Cancelled')],
+        string='State',
+        required=True,
+        default='draft'
+    )
+    market_location_id = fields.Many2one('market.location', string='Location')
+    purchase_order_id = fields.Many2one(
+        'purchase.order',
+        string='Purchase order',
+        readonly=True
+    )
+    sale_order_id = fields.Many2one(
+        'sale.order',
+        string='Sale Order',
+        readonly=True
+    )
+    market_date = fields.Datetime('Market date')
+    market_line_ids = fields.One2many(
+        'market.line', 'market_id', string='Lines')
+    notes = fields.Text('Notes')
+    currency_id = fields.Many2one(
+        'res.currency',
+        string='Currency',
+        required=True,
+        readonly=True,
+        default=lambda self: self.env.user.company_id.currency_id.id
+    )
+    amount_taxed = fields.Monetary(
+        string='Untaxed Amount',
+        store = True,
+        readonly = True,
+       compute = '_amount_all',
+    )
+    market_amount_untaxed = fields.Monetary(
+        string='Market Untaxed Amount',
+        store=True,
+        readonly=True,
+        compute='_amount_all',
+    )
+    market_amount_taxed = fields.Monetary(
+        string='Market Taxed Amount',
+        store=True,
+        readonly=True,
+        compute='_amount_all'
+    )
+
+    def action_confirm(self):
+        self.ensure_one()
+
+        if self.state != 'draft':
+            raise UserError(_('You can only confirm a draft market'))
+
+        self.create_purchase_order()
+        self.move_quants()
+        self.state = 'confirm'
+
+    def action_cancel(self):
+        self.ensure_one()
+
+        if self.state != 'draft':
+            raise UserError(_('You can only cancel a draft market'))
+
+        self.state = 'cancel'
+
+    def create_purchase_order(self):
+        self.ensure_one()
+
+        lines_to_invoice = \
+            self.market_line_ids.filtered(lambda line: line.is_to_invoice)
+
+        if not lines_to_invoice:
+            return
+
+        company_seller = self.company_id.seller_company_id
+        if not company_seller:
+            raise UserError(
+                _('Please define the company seller in the configuration'))
+
+        PurchaseOrder = self.env['purchase.order']
+        PurchaseOrderLine = self.env['purchase.order.line']
+
+        vals = PurchaseOrder.default_get([])
+
+        vals.update({
+            'partner_id': company_seller.partner_id.id,
+        })
+
+        purchase_order = PurchaseOrder.create(vals)
+
+        for line in lines_to_invoice:
+            line_vals = {
+                'order_id': purchase_order.id,
+                'sequence': line.plu_id.code,
+                'product_qty': line.product_qty,
+                'product_id': line.product_id.id,
+            }
+            po_line = PurchaseOrderLine.new(line_vals)
+            po_line.onchange_product_id()
+
+            po_line.name = line.plu_id.display_name
+            po_line.price_unit = line.price_unit
+            po_line.product_qty = line.product_qty
+            po_line.product_uom = line.product_uom_id.id
+
+            po_line._onchange_quantity()
+            po_line.date_planned = self.market_date
+
+            PurchaseOrderLine.create(po_line._convert_to_write(po_line._cache))
+
+        purchase_order.button_confirm()
+
+        self.purchase_order_id = purchase_order.id
+
+        for picking in purchase_order.picking_ids:
+            if picking.state != 'assigned':
+                raise UserError(
+                    _('Cannot validate the purchase order. '
+                      'There is no picking linked to the purchase order.'))
+
+            for pack in picking.pack_operation_ids:
+                if pack.product_qty > 0:
+                    pack.write({'qty_done': pack.product_qty})
+                else:
+                    pack.unlink()
+
+            picking.do_transfer()
+
+        sale_order = self.env['sale.order'].sudo().search(
+            [('auto_purchase_order_id', '=', purchase_order.id)],
+            limit=1, order='id DESC')
+        if not sale_order:
+            raise UserError(_('Error during the validation of the market.'
+                              ' Cannot retrieve the sale order.'))
+
+        for picking in sale_order.picking_ids:
+            if picking.state == 'confirmed':
+                picking.force_assign()
+
+            if picking.state != 'assigned':
+                raise UserError(
+                    _('Cannot validate the picking. Please manualy '
+                      'validate the picking %s') % picking.name)
+
+            if picking.state != 'assigned':
+                raise UserError(_('Cannot validate the purchase order'))
+
+            for pack in picking.pack_operation_ids:
+                if pack.product_qty > 0:
+                    pack.write({'qty_done': pack.product_qty})
+                else:
+                    pack.unlink()
+
+            picking.do_transfer()
+
+        self.sale_order_id = sale_order.id
+
+    def _prepare_stock_picking_data(self):
+        self.ensure_one()
+
+        return {
+            'location_id': self.env.ref('stock.stock_location_stock').id,
+            'location_dest_id':
+                self.env.ref('stock.stock_location_customers').id,
+            'min_date': self.market_date,
+            'origin': self.name,
+            'move_type': 'one',
+            'picking_type_id': self.env.ref('stock.picking_type_out').id,
+        }
+
+    def move_quants(self):
+        self.ensure_one()
+
+        StockMove = self.env['stock.move']
+
+        vals = self._prepare_stock_picking_data()
+        picking = self.env['stock.picking'].create(vals)
+
+        for line in self.market_line_ids:
+            move = StockMove.new({
+                'picking_id': picking.id,
+                'product_id': line.product_id.id,
+                'location_id': vals['location_id'],
+                'location_dest_id': vals['location_dest_id'],
+            })
+            move.onchange_product_id()
+            move.product_uom_qty = line.product_qty
+
+            StockMove.create(move._convert_to_write(move._cache))
+
+        picking.action_assign()
+        if picking.state == 'confirmed':
+            picking.force_assign()
+
+        if picking.state != 'assigned':
+            raise UserError(
+                _('Cannot validate the picking. Please manualy '
+                  'validate the picking %s') % picking.name)
+
+        for pack in picking.pack_operation_ids:
+            if pack.product_qty > 0:
+                pack.write({'qty_done': pack.product_qty})
+            else:
+                pack.unlink()
+
+        picking.do_transfer()
+
+
+class MarketLine(models.Model):
+    _name = 'market.line'
+
+    @api.depends('market_amount_taxed', 'market_amount_untaxed', 'product_qty')
+    def _compute_unit_price(self):
+        for line in self:
+            if not line.product_qty:
+                continue
+            qty = line.product_qty
+
+            line.update({
+                'amount_untaxed': line.price_unit * qty,
+                'market_unit_price_taxed': line.market_amount_taxed / qty,
+                'market_unit_price_untaxed': line.market_amount_untaxed / qty,
+            })
+
+    market_id = fields.Many2one(
+        'market.market', string='Market', required=True, ondelete='cascade')
+    product_id = fields.Many2one(
+        'product.product', string='Product', required=True)
+    product_uom_id = fields.Many2one(
+        'product.uom', string='UoM', required=True)
+    product_qty = fields.Float(
+        'Product Qty', required=True)
+    qty_available = fields.Float(
+        related='product_id.qty_available', readonly=True)
+    virtual_available = fields.Float(
+        related='product_id.virtual_available', readonly=True)
+    is_to_invoice = fields.Boolean('To invoice')
+    plu_id = fields.Many2one('product.plu', string='PLU', readonly=True)
+
+    price_unit = fields.Monetary(
+        'Unit price',
+        required=True,
+        digits=dp.get_precision('Product Price')
+    )
+    amount_untaxed = fields.Monetary(
+        'Amount untaxed',
+        store=True,
+        readonly=True,
+        compute='_compute_unit_price'
+    )
+
+    market_amount_untaxed = fields.Monetary(
+        'Market Amount Untaxed',
+        readonly=True
+    )
+    market_amount_taxed = fields.Monetary(
+        'Market Amount Taxed',
+        readonly=True
+    )
+    market_unit_price_untaxed = fields.Monetary(
+        'Market Unit price untaxed',
+        compute='_compute_unit_price',
+        store=True,
+        readonly=True
+    )
+    market_unit_price_taxed = fields.Monetary(
+        'Market Unit price taxed',
+        compute='_compute_unit_price',
+        store=True,
+        readonly=True
+    )
+    currency_id = fields.Many2one(
+        related='market_id.currency_id',
+        store=True,
+        string='Currency',
+        readonly=True
+    )
+    company_id = fields.Many2one(
+        'res.company',
+        related='market_id.company_id',
+        string='Company',
+        store=True,
+        readonly=True
+    )

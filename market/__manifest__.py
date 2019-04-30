@@ -7,7 +7,6 @@
     'sequence': 30,
     'description': """
     Market
-    ======
 
     This module will create a link between to companies.
 
@@ -22,7 +21,7 @@
         # Views
         "views/market.xml",
         "views/market_config_view.xml",
-        "views/market_product_list.xml",
+        "views/market_location.xml",
 
         # Data
         "data/utm_source.xml",

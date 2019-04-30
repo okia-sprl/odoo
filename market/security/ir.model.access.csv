@@ -1,5 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_market_order,access_market_order,model_market_order,market.market_order_group_user,1,1,1,0
-access_market_order_manager,access_market_order_manager,model_market_order,market.market_order_group_manager,1,1,1,1
-access_market_product_list,access_market_product_list,model_market_product_list,market.market_order_group_user,1,0,0,0
-access_market_product_list_manager,access_market_product_list_manager,model_market_product_list,market.market_order_group_manager,1,1,1,1
+access_market_market,access_market_market,model_market_market,market.market_group_user,1,1,1,0
+access_market_market_manager,access_market_market_manager,model_market_market,market.market_group_manager,1,1,1,1
+access_market_line,access_market_line,model_market_line,market.market_group_user,1,0,0,0
+access_market_line_manager,access_market_line_manager,model_market_line,market.market_group_manager,1,1,1,1
+access_market_location,access_market_location,model_market_location,market.market_group_user,1,0,0,0
+access_market_location_manager,access_market_location_manager,model_market_location,market.market_group_manager,1,1,1,1
