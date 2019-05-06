@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # Okia SPRL <sylvain@okia.be>
-from datetime import datetime, timedelta
 
 from odoo import fields, models, api, _
 from odoo.exceptions import UserError
@@ -39,9 +38,18 @@ class Market(models.Model):
             })
 
     name = fields.Char(
-        'Market name',
+        'Market ref',
         required=True,
-        states={'new': [('readonly', False)]}
+        index=True,
+        copy=False,
+        default='New',
+        readonly=True
+    )
+    description = fields.Char(
+        'Description',
+        required=True,
+        readonly=True,
+        states={'draft': [('readonly', False)]}
     )
     company_id = fields.Many2one(
         'res.company',
@@ -56,9 +64,16 @@ class Market(models.Model):
          ('cancel', 'Cancelled')],
         string='State',
         required=True,
-        default='draft'
+        default='draft',
+        readonly=True,
+        states={'draft': [('readonly', False)]}
     )
-    market_location_id = fields.Many2one('market.location', string='Location')
+    market_location_id = fields.Many2one(
+        'market.location',
+        string='Location',
+        readonly=True,
+        states={'draft': [('readonly', False)]}
+    )
     purchase_order_id = fields.Many2one(
         'purchase.order',
         string='Purchase order',
@@ -69,10 +84,18 @@ class Market(models.Model):
         string='Sale Order',
         readonly=True
     )
-    market_date = fields.Datetime('Market date')
+    market_date = fields.Datetime(
+        'Market date',
+        readonly=True,
+        states={'draft': [('readonly', False)]}
+    )
     market_line_ids = fields.One2many(
         'market.line', 'market_id', string='Lines')
-    notes = fields.Text('Notes')
+    notes = fields.Text(
+        'Notes',
+        readonly=True,
+        states={'draft': [('readonly', False)]}
+    )
     currency_id = fields.Many2one(
         'res.currency',
         string='Currency',
@@ -82,9 +105,9 @@ class Market(models.Model):
     )
     amount_taxed = fields.Monetary(
         string='Untaxed Amount',
-        store = True,
-        readonly = True,
-       compute = '_amount_all',
+        store=True,
+        readonly=True,
+        compute='_amount_all',
     )
     market_amount_untaxed = fields.Monetary(
         string='Market Untaxed Amount',
@@ -98,6 +121,13 @@ class Market(models.Model):
         readonly=True,
         compute='_amount_all'
     )
+
+    @api.model
+    def create(self, vals):
+        if vals.get('name', 'New') == 'New':
+            vals['name'] = self.env['ir.sequence'].next_by_code(
+                'market.market') or '/'
+        return super(Market, self).create(vals)
 
     def action_confirm(self):
         self.ensure_one()
@@ -140,7 +170,11 @@ class Market(models.Model):
             'partner_id': company_seller.partner_id.id,
         })
 
-        purchase_order = PurchaseOrder.create(vals)
+        po_temp = PurchaseOrder.new(vals)
+        po_temp.onchange_partner_id()
+
+        purchase_order = PurchaseOrder.create(
+            po_temp._convert_to_write(po_temp._cache))
 
         for line in lines_to_invoice:
             line_vals = {

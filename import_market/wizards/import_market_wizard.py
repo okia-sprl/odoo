@@ -169,7 +169,7 @@ class ImportMarketWizard(models.TransientModel):
         self.ensure_one()
 
         market = self.env['market.market'].create({
-            'name': self.name,
+            'description': self.name,
             'market_date': self.date,
             'notes': self.description,
             'market_location_id': self.market_location_id.id

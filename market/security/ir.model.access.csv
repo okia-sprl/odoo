@@ -5,3 +5,7 @@ access_market_line,access_market_line,model_market_line,market.market_group_user
 access_market_line_manager,access_market_line_manager,model_market_line,market.market_group_manager,1,1,1,1
 access_market_location,access_market_location,model_market_location,market.market_group_user,1,0,0,0
 access_market_location_manager,access_market_location_manager,model_market_location,market.market_group_manager,1,1,1,1
+access_product_plu,access_product_plu,model_product_plu,base.group_user,1,0,0,0
+access_product_plu_sale_manager,access_product_plu_sale_manager,model_product_plu,market.market_group_manager,1,1,1,1
+access_product_plu_line,access_product_plu_line,model_product_plu_line,base.group_user,1,0,0,0
+access_product_plu_line_sale_manager,access_product_plu_line_sale_manager,model_product_plu_line,market.market_group_manager,1,1,1,1

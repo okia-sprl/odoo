@@ -22,9 +22,11 @@
         "views/market.xml",
         "views/market_config_view.xml",
         "views/market_location.xml",
+        "views/product_plu.xml",
 
         # Data
         "data/utm_source.xml",
+        "data/ir_sequence.xml",
     ],
     'installable': True,
     'application': True,

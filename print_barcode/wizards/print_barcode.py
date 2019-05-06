@@ -7,7 +7,8 @@ class PrintBarcode(models.TransientModel):
 
     is_group_by_category = fields.Boolean('Group by category', default=True)
     nbr_columns = fields.Integer('Nbr of columns', default=3, required=True)
-    barcode_height = fields.Integer('Barcode height', default=50, required=True)
+    barcode_height = fields.Integer(
+        'Barcode height', default=50, required=True)
     barcode_width = fields.Integer('Barcode width', default=300, required=True)
     order_by = fields.Selection(
         [('name', 'Name'),
