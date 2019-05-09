@@ -19,12 +19,14 @@
                     <field name="line_ids" states="review">
                         <tree editable="bottom" create="0" decoration-danger="not product_id">
                             <field name="plu_id"/>
-                            <field name="product_id" required="1" domain="[('id', 'in', allowed_product_ids and allowed_product_ids[0][2] or [])]" options="{'no_create': True}"/>
+                            <field name="product_id" domain="[('id', 'in', allowed_product_ids and allowed_product_ids[0][2] or [])]" options="{'no_create': True}"/>
                             <field name="qty" required="1"/>
+                            <field name="qty_available"/>
                             <field name="unit_price"/>
                             <field name="amount_untaxed" sum="Total Untaxed amount"/>
                             <field name="is_to_invoice"/>
                             <field name="allowed_product_ids" invisible="1"/>
+                            <button name="split_line" type="object" icon="fa-files-o"/>
                         </tree>
                     </field>
                     <footer>

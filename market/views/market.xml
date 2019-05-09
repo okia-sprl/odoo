@@ -51,7 +51,6 @@
                             <field name="market_unit_price_taxed"/>
                             <field name="market_amount_taxed"/>
                             <field name="qty_available"/>
-                            <field name="virtual_available"/>
                         </tree>
                     </field>
                     <label for="notes"/>

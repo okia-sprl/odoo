@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-17 15:06+0000\n"
-"PO-Revision-Date: 2019-04-17 15:06+0000\n"
+"POT-Creation-Date: 2019-05-09 12:50+0000\n"
+"PO-Revision-Date: 2019-05-09 12:50+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,9 +16,19 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: import_market
+#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_line_market_amount_taxed
+msgid "Amount taxed on the market"
+msgstr "Montant TVAC sur marché"
+
+#. module: import_market
 #: model:ir.model.fields,field_description:import_market.field_import_market_wizard_line_amount_untaxed
 msgid "Amount untaxed"
 msgstr "Montant non taxé"
+
+#. module: import_market
+#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_line_market_amount_untaxed
+msgid "Amount untaxed on the market"
+msgstr "Montant HTVA sur marché"
 
 #. module: import_market
 #: model:ir.model.fields,field_description:import_market.field_import_market_wizard_data_file
@@ -29,25 +39,6 @@ msgstr "Fichier CSV"
 #: model:ir.ui.view,arch_db:import_market.import_market_wizard_view_form
 msgid "Cancel"
 msgstr "Annuler"
-
-#. module: import_market
-#: code:addons/import_market/wizards/import_market_wizard.py:224
-#: code:addons/import_market/wizards/import_market_wizard.py:277
-#, python-format
-msgid "Cannot validate the picking. Please manualy validate the picking %s"
-msgstr "Impossible de valider ce picking. Veuillez valider manuellement le picking %s"
-
-#. module: import_market
-#: code:addons/import_market/wizards/import_market_wizard.py:228
-#, python-format
-msgid "Cannot validate the purchase order"
-msgstr "Impossible de valider le bon d'achat"
-
-#. module: import_market
-#: code:addons/import_market/wizards/import_market_wizard.py:201
-#, python-format
-msgid "Cannot validate the purchase order. There is no picking linked to the purchase order."
-msgstr "Impossible de valider le bon d'achat. Il n'y a pas de picking lié au bon d'achat"
 
 #. module: import_market
 #: model:ir.ui.view,arch_db:import_market.import_market_wizard_view_form
@@ -70,7 +61,7 @@ msgstr "Société"
 #: model:ir.model.fields,field_description:import_market.field_product_plu_create_uid
 #: model:ir.model.fields,field_description:import_market.field_product_plu_line_create_uid
 msgid "Created by"
-msgstr "Créer par"
+msgstr "Créé par"
 
 #. module: import_market
 #: model:ir.model.fields,field_description:import_market.field_import_market_wizard_create_date
@@ -78,7 +69,7 @@ msgstr "Créer par"
 #: model:ir.model.fields,field_description:import_market.field_product_plu_create_date
 #: model:ir.model.fields,field_description:import_market.field_product_plu_line_create_date
 msgid "Created on"
-msgstr "Créer le"
+msgstr "Créé le"
 
 #. module: import_market
 #: model:ir.model.fields,field_description:import_market.field_import_market_wizard_line_company_currency_id
@@ -86,9 +77,22 @@ msgid "Currency"
 msgstr "Devise"
 
 #. module: import_market
+#: model:ir.model.fields,help:import_market.field_import_market_wizard_line_qty_available
+msgid "Current quantity of products.\n"
+"In a context with a single Stock Location, this includes goods stored at this Location, or any of its children.\n"
+"In a context with a single Warehouse, this includes goods stored in the Stock Location of this Warehouse, or any of its children.\n"
+"stored in the Stock Location of the Warehouse of this Shop, or any of its children.\n"
+"Otherwise, this includes goods stored in any Stock Location with 'internal' type."
+msgstr "Quantité actuelle d'articles en stock.\n"
+"Dans le contexte d'un seul emplacement de stock, ceci inclue les marchandises stockées dans cet emplacement et ses enfants.\n"
+"Dans le contexte d'un seul entrepôt, ceci inclue les marchandises stockées dans l'emplacement de l'entrepôt et ses enfants.\n"
+"Dans le contexte d'un magasin, ceci inclue les marchandises stockées dans l'entrepôt de ce magasin et ses enfants.\n"
+"Dans les autres contextes, ceci inclue les marchandises stockées dans n'importe quel emplacement de type 'interne'."
+
+#. module: import_market
 #: model:ir.model.fields,field_description:import_market.field_import_market_wizard_date
 msgid "Date"
-msgstr "Date "
+msgstr "Date"
 
 #. module: import_market
 #: model:ir.model.fields,field_description:import_market.field_import_market_wizard_description
@@ -101,16 +105,10 @@ msgstr "Description"
 #: model:ir.model.fields,field_description:import_market.field_product_plu_display_name
 #: model:ir.model.fields,field_description:import_market.field_product_plu_line_display_name
 msgid "Display Name"
-msgstr "Nom à afficher"
+msgstr "Nom affiché"
 
 #. module: import_market
-#: code:addons/import_market/wizards/import_market_wizard.py:215
-#, python-format
-msgid "Error during the validation of the market. Cannot retrieve the sale order."
-msgstr "Erreur durant la validation du marché. Impossible de récupérer la bon de vente"
-
-#. module: import_market
-#: code:addons/import_market/wizards/import_market_wizard.py:71
+#: code:addons/import_market/wizards/import_market_wizard.py:72
 #, python-format
 msgid "File not imported due to format mismatch or a malformed file.\n"
 "\n"
@@ -141,19 +139,36 @@ msgid "Import Market"
 msgstr "Importer un marché"
 
 #. module: import_market
-#: code:addons/import_market/wizards/import_market_wizard.py:94
+#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_line_initial_qty
+msgid "Initial Qty"
+msgstr "Qté initiale"
+
+#. module: import_market
+#: code:addons/import_market/wizards/import_market_wizard.py:95
 #, python-format
 msgid "Invalid PLU %s (should be a number) with line %s"
 msgstr "PLU non valide %s (devrait être un numéro) dans la ligne %s"
 
 #. module: import_market
-#: code:addons/import_market/wizards/import_market_wizard.py:107
+#: code:addons/import_market/wizards/import_market_wizard.py:108
 #, python-format
 msgid "Invalid Qty with line %s"
 msgstr "Qantité non valide dans la ligne %s"
 
 #. module: import_market
-#: code:addons/import_market/wizards/import_market_wizard.py:114
+#: code:addons/import_market/wizards/import_market_wizard.py:131
+#, python-format
+msgid "Invalid Taxed amount with line %s"
+msgstr "Montant taxé invalide à la ligne %s"
+
+#. module: import_market
+#: code:addons/import_market/wizards/import_market_wizard.py:123
+#, python-format
+msgid "Invalid Untaxed amount with line %s"
+msgstr "Montant non taxé invalide à la ligne %s"
+
+#. module: import_market
+#: code:addons/import_market/wizards/import_market_wizard.py:115
 #, python-format
 msgid "Invalid Weight with line %s"
 msgstr "Poids non valide dans la ligne %s"
@@ -172,7 +187,7 @@ msgstr "Dernière modification le"
 #: model:ir.model.fields,field_description:import_market.field_product_plu_line_write_uid
 #: model:ir.model.fields,field_description:import_market.field_product_plu_write_uid
 msgid "Last Updated by"
-msgstr "Dernière mise à jour par"
+msgstr "Derniere fois mis à jour par"
 
 #. module: import_market
 #: model:ir.model.fields,field_description:import_market.field_import_market_wizard_line_write_date
@@ -180,10 +195,10 @@ msgstr "Dernière mise à jour par"
 #: model:ir.model.fields,field_description:import_market.field_product_plu_line_write_date
 #: model:ir.model.fields,field_description:import_market.field_product_plu_write_date
 msgid "Last Updated on"
-msgstr "Mis à jour le"
+msgstr "Dernière mis à jour le"
 
 #. module: import_market
-#: code:addons/import_market/wizards/import_market_wizard.py:83
+#: code:addons/import_market/wizards/import_market_wizard.py:84
 #, python-format
 msgid "Line %s invalid: %s"
 msgstr "Line %s non valide: %s"
@@ -193,6 +208,11 @@ msgstr "Line %s non valide: %s"
 #: model:ir.model.fields,field_description:import_market.field_product_plu_line_ids
 msgid "Lines"
 msgstr "Lignes"
+
+#. module: import_market
+#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_market_location_id
+msgid "Location"
+msgstr "Emplacement"
 
 #. module: import_market
 #: model:ir.model.fields,field_description:import_market.field_import_market_wizard_name
@@ -212,27 +232,27 @@ msgid "PLU"
 msgstr "PLU"
 
 #. module: import_market
-#: code:addons/import_market/wizards/import_market_wizard.py:100
+#: code:addons/import_market/wizards/import_market_wizard.py:101
 #, python-format
 msgid "PLU %s not found"
 msgstr "PLU %s non trouvé"
 
 #. module: import_market
-#: code:addons/import_market/wizards/import_market_wizard.py:134
+#: code:addons/import_market/wizards/import_market_wizard.py:156
 #, python-format
 msgid "PLU not found: %s"
 msgstr "PLU non trouvé: %s"
 
 #. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_product_plu_line_product_id
-msgid "Product"
-msgstr "Article"
+#: code:addons/import_market/wizards/import_market_wizard.py:177
+#, python-format
+msgid "Please select a product for each lines or delete this line if needed."
+msgstr "Veillez sélectionner un produit pour toutes les lignes ou supprimer la ligne si nécessaire."
 
 #. module: import_market
-#: model:ir.actions.act_window,name:import_market.action_product_plu
-#: model:ir.ui.menu,name:import_market.product_plu_menu
-msgid "Product PLU"
-msgstr "PLU Produit"
+#: model:ir.model.fields,field_description:import_market.field_product_plu_line_product_id
+msgid "Product"
+msgstr "Produit"
 
 #. module: import_market
 #: model:ir.model.fields,help:import_market.field_product_plu_line_is_to_invoice
@@ -255,11 +275,22 @@ msgid "Qty"
 msgstr "Qté"
 
 #. module: import_market
-#: code:addons/import_market/wizards/import_market_wizard.py:143
+#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_line_qty_available
+msgid "Quantity On Hand"
+msgstr "Quantité en stock"
+
+#. module: import_market
+#: code:addons/import_market/wizards/import_market_wizard.py:165
+#: code:addons/import_market/wizards/import_market_wizard.py:328
 #: selection:import.market.wizard,state:0
 #, python-format
 msgid "Review"
 msgstr "Revue"
+
+#. module: import_market
+#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_line_sequence
+msgid "Sequence"
+msgstr "Séquence"
 
 #. module: import_market
 #: model:ir.model.fields,field_description:import_market.field_import_market_wizard_state
@@ -267,14 +298,7 @@ msgid "State"
 msgstr "État"
 
 #. module: import_market
-#: code:addons/import_market/models/product_plu.py:13
-#: sql_constraint:product.plu:0
-#, python-format
-msgid "The PLU code must be unique"
-msgstr "Le code du PLU doit être unique"
-
-#. module: import_market
-#: code:addons/import_market/wizards/import_market_wizard.py:87
+#: code:addons/import_market/wizards/import_market_wizard.py:88
 #, python-format
 msgid "The column with the PLU is malformed"
 msgstr "La colonne avec le PLU est malformée"
@@ -312,13 +336,13 @@ msgstr "Assistant"
 
 #. module: import_market
 #: model:ir.ui.view,arch_db:import_market.import_market_wizard_view_form
-msgid "_Import"
-msgstr "_Importer"
+msgid "_Create"
+msgstr "_Créer"
 
 #. module: import_market
 #: model:ir.ui.view,arch_db:import_market.import_market_wizard_view_form
-msgid "_Validate"
-msgstr "_Valider"
+msgid "_Import"
+msgstr "_Importer"
 
 #. module: import_market
 #: model:ir.model,name:import_market.model_import_market_wizard

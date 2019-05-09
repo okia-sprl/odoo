@@ -347,8 +347,6 @@ class MarketLine(models.Model):
         'Product Qty', required=True)
     qty_available = fields.Float(
         related='product_id.qty_available', readonly=True)
-    virtual_available = fields.Float(
-        related='product_id.virtual_available', readonly=True)
     is_to_invoice = fields.Boolean('To invoice')
     plu_id = fields.Many2one('product.plu', string='PLU', readonly=True)
 

@@ -132,8 +132,10 @@ class ImportMarketWizard(models.TransientModel):
 
             vals = {
                 'wizard_id': self.id,
+                'sequence': index,
                 'plu_id': plu.id,
                 'qty': weight or qty,
+                'initial_qty': weight or qty,
                 'market_amount_untaxed': amount_untaxed,
                 'market_amount_taxed': amount_taxed,
             }
@@ -169,6 +171,12 @@ class ImportMarketWizard(models.TransientModel):
     def create_market(self):
         self.ensure_one()
 
+        lines_without_product = \
+            self.line_ids.filtered(lambda line: not line.product_id)
+        if lines_without_product:
+            raise UserError(_('Please select a product for each '
+                              'lines or delete this line if needed.'))
+
         market = self.env['market.market'].create({
             'description': self.name,
             'market_date': self.date,
@@ -178,6 +186,9 @@ class ImportMarketWizard(models.TransientModel):
 
         MarketLine = self.env['market.line']
         for line in self.line_ids:
+            if not line.qty:
+                continue
+
             MarketLine.create({
                 'market_id': market.id,
                 'product_id': line.product_id.id,
@@ -203,9 +214,15 @@ class ImportMarketWizard(models.TransientModel):
 
 class ImportMarketWizardLine(models.TransientModel):
     _name = 'import.market.wizard.line'
+    _order = 'wizard_id, sequence'
 
     wizard_id = fields.Many2one(
         'import.market.wizard', required=True, string='Wizard')
+    sequence = fields.Integer(
+        'Sequence',
+        default=999,
+        required=True
+    )
     plu_id = fields.Many2one(
         'product.plu',
         string='PLU',
@@ -223,6 +240,9 @@ class ImportMarketWizardLine(models.TransientModel):
         'product.product',
         string='Product selected',
     )
+    qty_available = fields.Float(
+        related='product_id.qty_available', readonly=True)
+    initial_qty = fields.Float('Initial Qty')
     qty = fields.Float('Qty')
     is_to_invoice = fields.Boolean('To invoice')
 
@@ -269,3 +289,44 @@ class ImportMarketWizardLine(models.TransientModel):
         self.ensure_one()
 
         self.unit_price = self.product_id.list_price
+
+    def split_line(self):
+        self.ensure_one()
+
+        sequence = self.sequence
+
+        other_lines = self.search(
+            [('wizard_id', '=', self.wizard_id.id),
+             ('sequence', '>', sequence)]
+        )
+        for other_line in other_lines:
+            other_line.sequence += 1
+
+        initial_qty = self.initial_qty
+        same_lines = self.search([
+            ('wizard_id', '=', self.wizard_id.id),
+            ('plu_id', '=', self.plu_id.id)
+        ])
+        current_qty = sum(same_lines.mapped('qty'))
+
+        if current_qty >= initial_qty:
+            new_qty = 0
+        else:
+            new_qty = initial_qty - current_qty
+
+        self.copy({
+            'sequence': sequence + 1,
+            'qty': new_qty,
+            'product_id': None,
+            'is_to_invoice': False
+        })
+
+        action = \
+            self.env.ref('import_market.action_import_market_wizard').read()[0]
+
+        action.update({
+            'name': _('Review'),
+            'res_id': self.wizard_id.id,
+        })
+
+        return action
