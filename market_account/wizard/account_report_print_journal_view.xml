@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="account_report_print_journal_view" model="ir.ui.view">
+        <field name="name">Sale/Purchase Journal (inherit)</field>
+        <field name="model">account.print.journal</field>
+        <field name="inherit_id" ref="account.account_report_print_journal_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='journal_ids']" position="before">
+                <group>
+                    <field name="is_only_market"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

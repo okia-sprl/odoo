@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Okia SPRL <sylvain@okia.be>
 {
-    'name': 'Import Market',
+    'name': 'Market - Import',
     'version': '0.1',
     'summary': 'Import markets from yours balances',
     'sequence': 30,
