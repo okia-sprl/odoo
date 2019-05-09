@@ -29,8 +29,8 @@
                     <group>
                         <group>
                             <field name="name"/>
-                            <field name="description"/>
-                            <field name="market_date"/>
+                            <field name="description" required="True"/>
+                            <field name="market_date" required="True"/>
                             <field name="market_location_id"/>
                         </group>
                         <group>

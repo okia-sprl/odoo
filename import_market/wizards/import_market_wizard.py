@@ -138,11 +138,12 @@ class ImportMarketWizard(models.TransientModel):
                 'market_amount_taxed': amount_taxed,
             }
 
-            if len(plu.line_ids) == 1:
+            line = plu.line_ids.filtered(lambda line: line.product_id.active)
+            if len(line) == 1:
                 vals.update({
-                    'product_id': plu.line_ids.product_id.id,
-                    'is_to_invoice': plu.line_ids.is_to_invoice,
-                    'unit_price': plu.line_ids.product_id.list_price,
+                    'product_id': line.product_id.id,
+                    'is_to_invoice': line.is_to_invoice,
+                    'unit_price': line.product_id.list_price,
                 })
 
             self.line_ids.create(vals)

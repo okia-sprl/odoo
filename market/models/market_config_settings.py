@@ -18,5 +18,4 @@ class MarketConfigSettings(models.TransientModel):
         domain="[('id', '!=', company_id)]",
         related='company_id.seller_company_id',
         help='Your company will buy good to the following company',
-        required=True,
     )

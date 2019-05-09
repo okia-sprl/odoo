@@ -47,9 +47,9 @@ class Market(models.Model):
     )
     description = fields.Char(
         'Description',
-        required=True,
         readonly=True,
-        states={'draft': [('readonly', False)]}
+        states={'draft': [('readonly', False)]},
+        copy=False
     )
     company_id = fields.Many2one(
         'res.company',
@@ -77,20 +77,29 @@ class Market(models.Model):
     purchase_order_id = fields.Many2one(
         'purchase.order',
         string='Purchase order',
-        readonly=True
+        readonly=True,
+        copy=False
     )
     sale_order_id = fields.Many2one(
         'sale.order',
         string='Sale Order',
-        readonly=True
+        readonly=True,
+        copy=False
     )
     market_date = fields.Datetime(
         'Market date',
         readonly=True,
-        states={'draft': [('readonly', False)]}
+        states={'draft': [('readonly', False)]},
+        copy=False
     )
     market_line_ids = fields.One2many(
-        'market.line', 'market_id', string='Lines')
+        'market.line',
+        'market_id',
+        string='Lines',
+        readonly=True,
+        states={'draft': [('readonly', False)]},
+        copy=True
+    )
     notes = fields.Text(
         'Notes',
         readonly=True,
@@ -164,17 +173,8 @@ class Market(models.Model):
         PurchaseOrder = self.env['purchase.order']
         PurchaseOrderLine = self.env['purchase.order.line']
 
-        vals = PurchaseOrder.default_get([])
-
-        vals.update({
-            'partner_id': company_seller.partner_id.id,
-        })
-
-        po_temp = PurchaseOrder.new(vals)
-        po_temp.onchange_partner_id()
-
-        purchase_order = PurchaseOrder.create(
-            po_temp._convert_to_write(po_temp._cache))
+        vals = self._prepare_purchase_order_data(company_seller)
+        purchase_order = PurchaseOrder.create(vals)
 
         for line in lines_to_invoice:
             line_vals = {
@@ -191,7 +191,6 @@ class Market(models.Model):
             po_line.product_qty = line.product_qty
             po_line.product_uom = line.product_uom_id.id
 
-            po_line._onchange_quantity()
             po_line.date_planned = self.market_date
 
             PurchaseOrderLine.create(po_line._convert_to_write(po_line._cache))
@@ -242,6 +241,34 @@ class Market(models.Model):
             picking.do_transfer()
 
         self.sale_order_id = sale_order.id
+
+    def _prepare_purchase_order_data(self, company_seller):
+        PurchaseOrder = self.env['purchase.order']
+        vals = PurchaseOrder.default_get([])
+
+        company_seller = self.company_id.seller_company_id
+        if not company_seller:
+            raise UserError(
+                _('Please define the company seller in the configuration'))
+
+        partner = self.env['res.partner'].search([
+            ('represent_company_id', '=', company_seller.id)
+        ], limit=1)
+        if not partner:
+            raise UserError(
+                _('There is no representative for the company %s '
+                  'in the company %s') % (
+                    company_seller.display_name,
+                    self.company_id.display_name))
+
+        vals.update({
+            'partner_id': partner.id,
+        })
+
+        po_temp = PurchaseOrder.new(vals)
+        po_temp.onchange_partner_id()
+
+        return po_temp._convert_to_write(po_temp._cache)
 
     def _prepare_stock_picking_data(self):
         self.ensure_one()

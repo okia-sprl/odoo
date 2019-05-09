@@ -23,6 +23,7 @@
         "views/market_config_view.xml",
         "views/market_location.xml",
         "views/product_plu.xml",
+        "views/res_partner.xml",
 
         # Data
         "data/utm_source.xml",
