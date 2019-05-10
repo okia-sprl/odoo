@@ -159,7 +159,7 @@ class ImportMarketWizard(models.TransientModel):
         self.state = 'review'
 
         action = \
-            self.env.ref('import_market.action_import_market_wizard').read()[0]
+            self.env.ref('market_import.action_import_market_wizard').read()[0]
 
         action.update({
             'name': _('Review'),
@@ -322,7 +322,7 @@ class ImportMarketWizardLine(models.TransientModel):
         })
 
         action = \
-            self.env.ref('import_market.action_import_market_wizard').read()[0]
+            self.env.ref('market_import.action_import_market_wizard').read()[0]
 
         action.update({
             'name': _('Review'),
