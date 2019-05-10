@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* import_market
+#	* market_import
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0+e\n"
+"Project-Id-Version: Odoo Server 10.0+e-20190318\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-09 12:50+0000\n"
-"PO-Revision-Date: 2019-05-09 12:50+0000\n"
+"POT-Creation-Date: 2019-05-10 06:47+0000\n"
+"PO-Revision-Date: 2019-05-10 06:47+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,69 +15,48 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_line_market_amount_taxed
+#. module: market_import
+#: model:ir.model.fields,field_description:market_import.field_import_market_wizard_line_market_amount_taxed
 msgid "Amount taxed on the market"
 msgstr "Montant TVAC sur marché"
 
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_line_amount_untaxed
+#. module: market_import
+#: model:ir.model.fields,field_description:market_import.field_import_market_wizard_line_amount_untaxed
 msgid "Amount untaxed"
 msgstr "Montant non taxé"
 
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_line_market_amount_untaxed
+#. module: market_import
+#: model:ir.model.fields,field_description:market_import.field_import_market_wizard_line_market_amount_untaxed
 msgid "Amount untaxed on the market"
 msgstr "Montant HTVA sur marché"
 
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_data_file
+#. module: market_import
+#: model:ir.model.fields,field_description:market_import.field_import_market_wizard_data_file
 msgid "CSV File"
 msgstr "Fichier CSV"
 
-#. module: import_market
-#: model:ir.ui.view,arch_db:import_market.import_market_wizard_view_form
+#. module: market_import
+#: model:ir.ui.view,arch_db:market_import.import_market_wizard_view_form
 msgid "Cancel"
 msgstr "Annuler"
 
-#. module: import_market
-#: model:ir.ui.view,arch_db:import_market.import_market_wizard_view_form
+#. module: market_import
+#: model:ir.ui.view,arch_db:market_import.import_market_wizard_view_form
 msgid "Choose a file to import..."
 msgstr "Choisissez un fichier à importer ..."
 
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_product_plu_code
-msgid "Code"
-msgstr "Code"
-
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_company_id
+#. module: market_import
+#: model:ir.model.fields,field_description:market_import.field_import_market_wizard_company_id
 msgid "Company"
 msgstr "Société"
 
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_create_uid
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_line_create_uid
-#: model:ir.model.fields,field_description:import_market.field_product_plu_create_uid
-#: model:ir.model.fields,field_description:import_market.field_product_plu_line_create_uid
-msgid "Created by"
-msgstr "Créé par"
-
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_create_date
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_line_create_date
-#: model:ir.model.fields,field_description:import_market.field_product_plu_create_date
-#: model:ir.model.fields,field_description:import_market.field_product_plu_line_create_date
-msgid "Created on"
-msgstr "Créé le"
-
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_line_company_currency_id
+#. module: market_import
+#: model:ir.model.fields,field_description:market_import.field_import_market_wizard_line_company_currency_id
 msgid "Currency"
 msgstr "Devise"
 
-#. module: import_market
-#: model:ir.model.fields,help:import_market.field_import_market_wizard_line_qty_available
+#. module: market_import
+#: model:ir.model.fields,help:market_import.field_import_market_wizard_line_qty_available
 msgid "Current quantity of products.\n"
 "In a context with a single Stock Location, this includes goods stored at this Location, or any of its children.\n"
 "In a context with a single Warehouse, this includes goods stored in the Stock Location of this Warehouse, or any of its children.\n"
@@ -89,26 +68,24 @@ msgstr "Quantité actuelle d'articles en stock.\n"
 "Dans le contexte d'un magasin, ceci inclue les marchandises stockées dans l'entrepôt de ce magasin et ses enfants.\n"
 "Dans les autres contextes, ceci inclue les marchandises stockées dans n'importe quel emplacement de type 'interne'."
 
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_date
+#. module: market_import
+#: model:ir.model.fields,field_description:market_import.field_import_market_wizard_date
 msgid "Date"
 msgstr "Date"
 
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_description
+#. module: market_import
+#: model:ir.model.fields,field_description:market_import.field_import_market_wizard_description
 msgid "Description"
 msgstr "Description"
 
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_display_name
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_line_display_name
-#: model:ir.model.fields,field_description:import_market.field_product_plu_display_name
-#: model:ir.model.fields,field_description:import_market.field_product_plu_line_display_name
+#. module: market_import
+#: model:ir.model.fields,field_description:market_import.field_import_market_wizard_display_name
+#: model:ir.model.fields,field_description:market_import.field_import_market_wizard_line_display_name
 msgid "Display Name"
 msgstr "Nom affiché"
 
-#. module: import_market
-#: code:addons/import_market/wizards/import_market_wizard.py:72
+#. module: market_import
+#: code:addons/market_import/wizards/import_market_wizard.py:72
 #, python-format
 msgid "File not imported due to format mismatch or a malformed file.\n"
 "\n"
@@ -119,248 +96,198 @@ msgstr "Fichier non importé à cause d'un mauvais format ou d'un fichier mal fo
 "Détails technique:\n"
 "%s"
 
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_filename
+#. module: market_import
+#: model:ir.model.fields,field_description:market_import.field_import_market_wizard_filename
 msgid "Filename"
 msgstr "Nom du fichier"
 
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_id
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_line_id
-#: model:ir.model.fields,field_description:import_market.field_product_plu_id
-#: model:ir.model.fields,field_description:import_market.field_product_plu_line_id
-msgid "ID"
-msgstr "ID"
-
-#. module: import_market
-#: model:ir.actions.act_window,name:import_market.action_import_market_wizard
-#: model:ir.ui.menu,name:import_market.import_market_wizard_menu
+#. module: market_import
+#: model:ir.actions.act_window,name:market_import.action_import_market_wizard
+#: model:ir.ui.menu,name:market_import.import_market_wizard_menu
 msgid "Import Market"
 msgstr "Importer un marché"
 
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_line_initial_qty
+#. module: market_import
+#: model:ir.model.fields,field_description:market_import.field_import_market_wizard_line_initial_qty
 msgid "Initial Qty"
 msgstr "Qté initiale"
 
-#. module: import_market
-#: code:addons/import_market/wizards/import_market_wizard.py:95
+#. module: market_import
+#: code:addons/market_import/wizards/import_market_wizard.py:95
 #, python-format
 msgid "Invalid PLU %s (should be a number) with line %s"
 msgstr "PLU non valide %s (devrait être un numéro) dans la ligne %s"
 
-#. module: import_market
-#: code:addons/import_market/wizards/import_market_wizard.py:108
+#. module: market_import
+#: code:addons/market_import/wizards/import_market_wizard.py:108
 #, python-format
 msgid "Invalid Qty with line %s"
 msgstr "Qantité non valide dans la ligne %s"
 
-#. module: import_market
-#: code:addons/import_market/wizards/import_market_wizard.py:131
+#. module: market_import
+#: code:addons/market_import/wizards/import_market_wizard.py:131
 #, python-format
 msgid "Invalid Taxed amount with line %s"
 msgstr "Montant taxé invalide à la ligne %s"
 
-#. module: import_market
-#: code:addons/import_market/wizards/import_market_wizard.py:123
+#. module: market_import
+#: code:addons/market_import/wizards/import_market_wizard.py:123
 #, python-format
 msgid "Invalid Untaxed amount with line %s"
 msgstr "Montant non taxé invalide à la ligne %s"
 
-#. module: import_market
-#: code:addons/import_market/wizards/import_market_wizard.py:115
+#. module: market_import
+#: code:addons/market_import/wizards/import_market_wizard.py:115
 #, python-format
 msgid "Invalid Weight with line %s"
 msgstr "Poids non valide dans la ligne %s"
 
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard___last_update
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_line___last_update
-#: model:ir.model.fields,field_description:import_market.field_product_plu___last_update
-#: model:ir.model.fields,field_description:import_market.field_product_plu_line___last_update
+#. module: market_import
+#: model:ir.model.fields,field_description:market_import.field_import_market_wizard___last_update
+#: model:ir.model.fields,field_description:market_import.field_import_market_wizard_line___last_update
 msgid "Last Modified on"
 msgstr "Dernière modification le"
 
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_line_write_uid
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_write_uid
-#: model:ir.model.fields,field_description:import_market.field_product_plu_line_write_uid
-#: model:ir.model.fields,field_description:import_market.field_product_plu_write_uid
-msgid "Last Updated by"
-msgstr "Derniere fois mis à jour par"
-
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_line_write_date
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_write_date
-#: model:ir.model.fields,field_description:import_market.field_product_plu_line_write_date
-#: model:ir.model.fields,field_description:import_market.field_product_plu_write_date
-msgid "Last Updated on"
-msgstr "Dernière mis à jour le"
-
-#. module: import_market
-#: code:addons/import_market/wizards/import_market_wizard.py:84
+#. module: market_import
+#: code:addons/market_import/wizards/import_market_wizard.py:84
 #, python-format
 msgid "Line %s invalid: %s"
-msgstr "Line %s non valide: %s"
+msgstr "Line %s invalid: %s"
 
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_line_ids
-#: model:ir.model.fields,field_description:import_market.field_product_plu_line_ids
+#. module: market_import
+#: model:ir.model.fields,field_description:market_import.field_import_market_wizard_line_ids
 msgid "Lines"
 msgstr "Lignes"
 
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_market_location_id
+#. module: market_import
+#: model:ir.model.fields,field_description:market_import.field_import_market_wizard_market_location_id
 msgid "Location"
 msgstr "Emplacement"
 
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_name
-#: model:ir.model.fields,field_description:import_market.field_product_plu_name
+#. module: market_import
+#: model:ir.model.fields,field_description:market_import.field_import_market_wizard_name
 msgid "Name"
 msgstr "Nom"
 
-#. module: import_market
+#. module: market_import
 #: selection:import.market.wizard,state:0
 msgid "New"
 msgstr "Nouveau"
 
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_line_plu_id
-#: model:ir.model.fields,field_description:import_market.field_product_plu_line_plu_id
+#. module: market_import
+#: model:ir.model.fields,field_description:market_import.field_import_market_wizard_line_plu_id
 msgid "PLU"
 msgstr "PLU"
 
-#. module: import_market
-#: code:addons/import_market/wizards/import_market_wizard.py:101
+#. module: market_import
+#: code:addons/market_import/wizards/import_market_wizard.py:101
 #, python-format
 msgid "PLU %s not found"
 msgstr "PLU %s non trouvé"
 
-#. module: import_market
-#: code:addons/import_market/wizards/import_market_wizard.py:156
+#. module: market_import
+#: code:addons/market_import/wizards/import_market_wizard.py:156
 #, python-format
 msgid "PLU not found: %s"
 msgstr "PLU non trouvé: %s"
 
-#. module: import_market
-#: code:addons/import_market/wizards/import_market_wizard.py:177
+#. module: market_import
+#: code:addons/market_import/wizards/import_market_wizard.py:177
 #, python-format
 msgid "Please select a product for each lines or delete this line if needed."
 msgstr "Veillez sélectionner un produit pour toutes les lignes ou supprimer la ligne si nécessaire."
 
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_product_plu_line_product_id
-msgid "Product"
-msgstr "Produit"
-
-#. module: import_market
-#: model:ir.model.fields,help:import_market.field_product_plu_line_is_to_invoice
-msgid "Product marked as \"To invoice\" will generate a sale/purchase order"
-msgstr "Les produits marqués comme \"A factuer\" vont générer un bon d'achat et un bon de vente"
-
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_line_product_id
+#. module: market_import
+#: model:ir.model.fields,field_description:market_import.field_import_market_wizard_line_product_id
 msgid "Product selected"
 msgstr "Produit sélectionné"
 
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_line_allowed_product_ids
+#. module: market_import
+#: model:ir.model.fields,field_description:market_import.field_import_market_wizard_line_allowed_product_ids
 msgid "Products"
 msgstr "Articles"
 
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_line_qty
+#. module: market_import
+#: model:ir.model.fields,field_description:market_import.field_import_market_wizard_line_qty
 msgid "Qty"
 msgstr "Qté"
 
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_line_qty_available
+#. module: market_import
+#: model:ir.model.fields,field_description:market_import.field_import_market_wizard_line_qty_available
 msgid "Quantity On Hand"
 msgstr "Quantité en stock"
 
-#. module: import_market
-#: code:addons/import_market/wizards/import_market_wizard.py:165
-#: code:addons/import_market/wizards/import_market_wizard.py:328
+#. module: market_import
+#: code:addons/market_import/wizards/import_market_wizard.py:165
+#: code:addons/market_import/wizards/import_market_wizard.py:328
 #: selection:import.market.wizard,state:0
 #, python-format
 msgid "Review"
 msgstr "Revue"
 
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_line_sequence
+#. module: market_import
+#: model:ir.model.fields,field_description:market_import.field_import_market_wizard_line_sequence
 msgid "Sequence"
 msgstr "Séquence"
 
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_state
+#. module: market_import
+#: model:ir.model.fields,field_description:market_import.field_import_market_wizard_state
 msgid "State"
 msgstr "État"
 
-#. module: import_market
-#: code:addons/import_market/wizards/import_market_wizard.py:88
+#. module: market_import
+#: code:addons/market_import/wizards/import_market_wizard.py:88
 #, python-format
 msgid "The column with the PLU is malformed"
 msgstr "La colonne avec le PLU est malformée"
 
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_line_is_to_invoice
-#: model:ir.model.fields,field_description:import_market.field_product_plu_line_is_to_invoice
+#. module: market_import
+#: model:ir.model.fields,field_description:market_import.field_import_market_wizard_line_is_to_invoice
 msgid "To invoice"
 msgstr "A facturer"
 
-#. module: import_market
-#: model:ir.ui.view,arch_db:import_market.import_market_wizard_view_form
+#. module: market_import
+#: model:ir.ui.view,arch_db:market_import.import_market_wizard_view_form
 msgid "Total Untaxed amount"
 msgstr "Montant total hors taxe"
 
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_line_unit_price
+#. module: market_import
+#: model:ir.model.fields,field_description:market_import.field_import_market_wizard_line_unit_price
 msgid "Unit Price"
 msgstr "Prix unitaire"
 
-#. module: import_market
-#: model:ir.model.fields,help:import_market.field_import_market_wizard_line_company_currency_id
+#. module: market_import
+#: model:ir.model.fields,help:market_import.field_import_market_wizard_line_company_currency_id
 msgid "Utility field to express amount currency"
 msgstr "Champ utile pour indiquer le montant de la monnaie"
 
-#. module: import_market
+#. module: market_import
 #: selection:import.market.wizard,state:0
 msgid "Validation"
 msgstr "Validation"
 
-#. module: import_market
-#: model:ir.model.fields,field_description:import_market.field_import_market_wizard_line_wizard_id
+#. module: market_import
+#: model:ir.model.fields,field_description:market_import.field_import_market_wizard_line_wizard_id
 msgid "Wizard"
 msgstr "Assistant"
 
-#. module: import_market
-#: model:ir.ui.view,arch_db:import_market.import_market_wizard_view_form
+#. module: market_import
+#: model:ir.ui.view,arch_db:market_import.import_market_wizard_view_form
 msgid "_Create"
 msgstr "_Créer"
 
-#. module: import_market
-#: model:ir.ui.view,arch_db:import_market.import_market_wizard_view_form
+#. module: market_import
+#: model:ir.ui.view,arch_db:market_import.import_market_wizard_view_form
 msgid "_Import"
 msgstr "_Importer"
 
-#. module: import_market
-#: model:ir.model,name:import_market.model_import_market_wizard
+#. module: market_import
+#: model:ir.model,name:market_import.model_import_market_wizard
 msgid "import.market.wizard"
 msgstr "import.market.wizard"
 
-#. module: import_market
-#: model:ir.model,name:import_market.model_import_market_wizard_line
+#. module: market_import
+#: model:ir.model,name:market_import.model_import_market_wizard_line
 msgid "import.market.wizard.line"
 msgstr "import.market.wizard.line"
-
-#. module: import_market
-#: model:ir.model,name:import_market.model_product_plu
-msgid "product.plu"
-msgstr "product.plu"
-
-#. module: import_market
-#: model:ir.model,name:import_market.model_product_plu_line
-msgid "product.plu.line"
-msgstr "product.plu.line"
 
