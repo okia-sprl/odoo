@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="draw_dependency_graph_view_form" model="ir.ui.view">
+        <field name="name">draw.dependency.graph</field>
+        <field name="model">draw.dependency.graph</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="state" invisible="1"/>
+                <group states="new">
+                    <field name="export_type"/>
+                    <field name="module_ids" widget="many2many_tags" attrs="{'invisible': [('export_type', '!=', 'list')], 'required': [('export_type', '=', 'list')]}"/>
+                    <field name="path" attrs="{'invisible': [('export_type', '!=', 'path')], 'required': [('export_type', '=', 'path')]}"/>
+                    <field name="is_max_level"/>
+                    <field name="level" attrs="{'invisible': [('is_max_level', '=', True)]}"/>
+                </group>
+                <group states="get">
+                    <field name="datas" filename="datas_fname"/>
+                    <field name="datas_fname" invisible="1"/>
+                </group>
+                <footer>
+                    <button string="Draw graph" name="draw_graph" type="object" class="oe_highlight" states="new"/>
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_draw_dependency_graph" model="ir.actions.act_window">
+        <field name="name">Draw dependency graph</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">draw.dependency.graph</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_draw_dependency_graph"
+              parent="base.menu_custom"
+              name="Draw dependency graph"
+              action="action_draw_dependency_graph"
+              sequence="300"/>
+</odoo>
