@@ -3,8 +3,9 @@ import pydot
 import random
 import base64
 
+import odoo
 from odoo import api, fields, models, _
-from odoo.exceptions import Warning
+from odoo.exceptions import ValidationError
 
 MAX_MODULES_IN_FNAME = 5
 MAXIMUM_LEVEL = 20
@@ -12,6 +13,11 @@ MAXIMUM_LEVEL = 20
 
 class DrawDependencyGraph(models.TransientModel):
     _name = 'draw.dependency.graph'
+
+    def _get_addons_path(self):
+        return [
+            (addons_path, addons_path) for addons_path in odoo.modules.module.ad_paths
+        ]
 
     state = fields.Selection([('new', 'New'), ('get', 'Get')], required=True, default='new')
     export_type = fields.Selection(
@@ -23,7 +29,7 @@ class DrawDependencyGraph(models.TransientModel):
         string='Export type'
     )
     module_ids = fields.Many2many('ir.module.module', string='Module')
-    path = fields.Char('Path')
+    path = fields.Selection('_get_addons_path', string='Path')
     datas = fields.Binary(string='Result', readonly=True)
     datas_fname = fields.Char(string='Result file name', readonly=True)
     level = fields.Integer('Level', default=3, required=True)
@@ -33,21 +39,21 @@ class DrawDependencyGraph(models.TransientModel):
     def check_export_type(self):
         for wizard in self:
             if wizard.export_type == 'list' and not wizard.module_ids:
-                raise Warning(_('Please define the list of modules'))
+                raise ValidationError(_('Please define the list of modules'))
 
             if wizard.export_type == 'path':
                 if not wizard.path:
-                    raise Warning(_('Please define the path'))
+                    raise ValidationError(_('Please define the path'))
 
                 if not os.path.isdir(wizard.path):
-                    raise Warning(_('The path doesn\'t exist'))
+                    raise ValidationError(_('The path doesn\'t exist'))
 
     def draw_graph(self):
         self.ensure_one()
 
         modules = self.get_modules()
         if not modules:
-            raise Warning(_('No modules to draw'))
+            raise ValidationError(_('No modules to draw'))
 
         nodes = {}
         edges = {}
@@ -101,11 +107,17 @@ class DrawDependencyGraph(models.TransientModel):
     def get_modules(self):
         self.ensure_one()
 
-        if self.module_ids:
+        if self.export_type == 'list':
             return self.module_ids
-
-        directories = os.listdir(self.path)
-        return self.env['ir.module.module'].search([('name', 'in', directories)])
+        
+        if self.export_type == 'path':
+            directories = os.listdir(self.path)
+            return self.env['ir.module.module'].search([('name', 'in', directories)])
+    
+        if self.export_type == 'all':
+            return self.env['ir.module.module'].search([])
+        
+        raise ValidationError(_('Invalid export type'))
 
     def init_graph(self, graph_type='digraph'):
         return pydot.Dot(graph_type=graph_type)
