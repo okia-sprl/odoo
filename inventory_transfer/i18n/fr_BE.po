@@ -1,0 +1,215 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* inventory_transfer
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-02-03 23:28+0000\n"
+"PO-Revision-Date: 2020-02-03 23:28+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: inventory_transfer
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_line_allowed_uom_ids
+msgid "Allowed UoM"
+msgstr "Unités de mesure authorisées"
+
+#. module: inventory_transfer
+#: model:ir.ui.view,arch_db:inventory_transfer.inventory_transfer_view_form
+msgid "Are you sure that you want to validate this transfer ?"
+msgstr "Etes-vous sûr de vouloir valider ce transfert ?"
+
+#. module: inventory_transfer
+#: code:addons/inventory_transfer/models/inventory_transfer.py:194
+#, python-format
+msgid "Cannot validate the picking. Please manualy validate the picking %s"
+msgstr "Impossible de valider le picking %s. Veuillez le valider manuellement"
+
+#. module: inventory_transfer
+#: code:addons/inventory_transfer/models/inventory_transfer.py:198
+#, python-format
+msgid "Cannot validate the purchase order"
+msgstr "Impossible de valider le bon d'achat"
+
+#. module: inventory_transfer
+#: code:addons/inventory_transfer/models/inventory_transfer.py:169
+#, python-format
+msgid "Cannot validate the purchase order. There is no picking linked to the purchase order."
+msgstr "Impossible de valider le bon d'achat. Il n'y a pas pas de picking liée au bon de commande."
+
+#. module: inventory_transfer
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_company_id
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_line_company_id
+msgid "Company"
+msgstr "Société"
+
+#. module: inventory_transfer
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_create_uid
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_line_create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: inventory_transfer
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_create_date
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_line_create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: inventory_transfer
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_dest_company_id
+msgid "Destination Company"
+msgstr "Société de destination"
+
+#. module: inventory_transfer
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_display_name
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_line_display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: inventory_transfer
+#: selection:inventory.transfer,state:0
+msgid "Draft"
+msgstr "Brouillon"
+
+#. module: inventory_transfer
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_id
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_line_id
+msgid "ID"
+msgstr "ID"
+
+#. module: inventory_transfer
+#: model:ir.actions.act_window,name:inventory_transfer.action_inventory_transfer
+#: model:ir.model,name:inventory_transfer.model_inventory_transfer
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_line_transfer_id
+#: model:ir.ui.menu,name:inventory_transfer.main_menu_inventory_transfer
+#: model:ir.ui.menu,name:inventory_transfer.menu_inventory_transfer
+msgid "Inventory Transfer"
+msgstr "Transfert d'inventaire"
+
+#. module: inventory_transfer
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer___last_update
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_line___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: inventory_transfer
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_line_write_uid
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_write_uid
+msgid "Last Updated by"
+msgstr "Mis à jour par"
+
+#. module: inventory_transfer
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_line_write_date
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_write_date
+msgid "Last Updated on"
+msgstr "Mis à jour le"
+
+#. module: inventory_transfer
+#: model:ir.model,name:inventory_transfer.model_inventory_transfer_line
+msgid "Line of Inventory Transfer"
+msgstr "Ligne de transfert d'inventaire"
+
+#. module: inventory_transfer
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_transfer_line_ids
+#: model:ir.ui.view,arch_db:inventory_transfer.inventory_transfer_view_form
+msgid "Lines"
+msgstr "Lignes"
+
+#. module: inventory_transfer
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_location_id
+msgid "Location"
+msgstr "Lieu"
+
+#. module: inventory_transfer
+#: code:addons/inventory_transfer/models/inventory_transfer.py:76
+#, python-format
+msgid "Please insert at least one line"
+msgstr "Veuillez insérer au moins une ligne"
+
+#. module: inventory_transfer
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_line_product_id
+msgid "Product"
+msgstr "Produit"
+
+#. module: inventory_transfer
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_line_production_location_id
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_production_location_id
+msgid "Production Location"
+msgstr "Emplacement de production"
+
+#. module: inventory_transfer
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_purchase_order_ref
+msgid "Purchase Order"
+msgstr "Commande fournisseur"
+
+#. module: inventory_transfer
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_line_product_qty
+msgid "Qty"
+msgstr "Qté"
+
+#. module: inventory_transfer
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_sale_order_id
+msgid "Sale Order"
+msgstr "Bon de commande"
+
+#. module: inventory_transfer
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_state
+msgid "Status"
+msgstr "Statut"
+
+#. module: inventory_transfer
+#: code:addons/inventory_transfer/models/inventory_transfer.py:108
+#, python-format
+msgid "Stock picking type not found"
+msgstr "Type de picking non trouvé"
+
+#. module: inventory_transfer
+#: code:addons/inventory_transfer/models/inventory_transfer.py:186
+#, python-format
+msgid "The Sale Order has not been created. It seems to have a problem with the intercompany flow"
+msgstr "Le bon d'achat n'a pas été créé. Il semble avoir un problème avec le flux intersociétés."
+
+#. module: inventory_transfer
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_transfer_date
+msgid "Transfer date"
+msgstr "Date de transfert"
+
+#. module: inventory_transfer
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_line_product_uom_id
+msgid "UoM"
+msgstr "UoM"
+
+#. module: inventory_transfer
+#: model:ir.ui.view,arch_db:inventory_transfer.inventory_transfer_view_form
+msgid "Validate Transfer"
+msgstr "Valider le transfert"
+
+#. module: inventory_transfer
+#: selection:inventory.transfer,state:0
+msgid "Validated"
+msgstr "Validé"
+
+#. module: inventory_transfer
+#: code:addons/inventory_transfer/models/inventory_transfer.py:73
+#, python-format
+msgid "You cannot execute this transfer with an another company."
+msgstr "Vous ne pouvez pas exécuter ce transfert avec une autre société"
+
+#. module: inventory_transfer
+#: code:addons/inventory_transfer/models/inventory_transfer.py:64
+#, python-format
+msgid "You cannot have two inventory transfer in draft at the same time"
+msgstr "Vous ne pouvez pas avoir deux transferts d'inventaire en brouillon en même temps"
+
+#. module: inventory_transfer
+#: code:addons/inventory_transfer/models/inventory_transfer.py:70
+#, python-format
+msgid "You cannot validate a transfer already validated"
+msgstr "Vous ne pouvez pas valider un transfert d'inventaire déjà validé"
+

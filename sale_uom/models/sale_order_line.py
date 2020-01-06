@@ -11,7 +11,7 @@ class SaleOrderLine(models.Model):
 
         result = super(SaleOrderLine, self).product_id_change()
 
-        if not self.product_id or self._context.get('disable_change_uom_so'):
+        if not self.product_id or not self._context.get('partner_id'):
             return result
 
         if self.product_id.uom_so_id:

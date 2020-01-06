@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-09 12:49+0000\n"
-"PO-Revision-Date: 2019-05-09 12:49+0000\n"
+"POT-Creation-Date: 2020-02-03 22:58+0000\n"
+"PO-Revision-Date: 2020-02-03 22:58+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -42,23 +42,28 @@ msgid "Cancelled"
 msgstr "Annulée"
 
 #. module: market
-#: code:addons/market/models/market.py:229
-#: code:addons/market/models/market.py:312
+#: code:addons/market/models/market.py:224
+#: code:addons/market/models/market.py:295
 #, python-format
 msgid "Cannot validate the picking. Please manualy validate the picking %s"
 msgstr "Impossible de valider ce picking. Veuillez valider manuellement le picking %s"
 
 #. module: market
-#: code:addons/market/models/market.py:233
+#: code:addons/market/models/market.py:228
 #, python-format
 msgid "Cannot validate the purchase order"
 msgstr "Impossible de valider le bon d'achat"
 
 #. module: market
-#: code:addons/market/models/market.py:205
+#: code:addons/market/models/market.py:200
 #, python-format
 msgid "Cannot validate the purchase order. There is no picking linked to the purchase order."
 msgstr "Impossible de valider le bon d'achat. Il n'y a pas de picking liée à ce bon d'achat."
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_product_plu_code
+msgid "Code"
+msgstr "Code"
 
 #. module: market
 #: model:ir.model,name:market.model_res_company
@@ -139,6 +144,8 @@ msgstr "Description"
 #: model:ir.model.fields,field_description:market.field_market_line_display_name
 #: model:ir.model.fields,field_description:market.field_market_location_display_name
 #: model:ir.model.fields,field_description:market.field_market_market_display_name
+#: model:ir.model.fields,field_description:market.field_product_plu_display_name
+#: model:ir.model.fields,field_description:market.field_product_plu_line_display_name
 msgid "Display Name"
 msgstr "Nom affiché"
 
@@ -148,7 +155,7 @@ msgid "Draft"
 msgstr "Draft"
 
 #. module: market
-#: code:addons/market/models/market.py:220
+#: code:addons/market/models/market.py:215
 #, python-format
 msgid "Error during the validation of the market. Cannot retrieve the sale order."
 msgstr "Erreur durant la validation du marché. Impossible de récupérer le bon de vente."
@@ -166,6 +173,8 @@ msgstr "ID"
 #: model:ir.model.fields,field_description:market.field_market_line___last_update
 #: model:ir.model.fields,field_description:market.field_market_location___last_update
 #: model:ir.model.fields,field_description:market.field_market_market___last_update
+#: model:ir.model.fields,field_description:market.field_product_plu___last_update
+#: model:ir.model.fields,field_description:market.field_product_plu_line___last_update
 msgid "Last Modified on"
 msgstr "Dernière modification le"
 
@@ -175,7 +184,7 @@ msgstr "Dernière modification le"
 #: model:ir.model.fields,field_description:market.field_market_location_write_uid
 #: model:ir.model.fields,field_description:market.field_market_market_write_uid
 msgid "Last Updated by"
-msgstr "Derniere fois mis à jour par"
+msgstr "Mis à jour par"
 
 #. module: market
 #: model:ir.model.fields,field_description:market.field_market_config_settings_write_date
@@ -183,10 +192,11 @@ msgstr "Derniere fois mis à jour par"
 #: model:ir.model.fields,field_description:market.field_market_location_write_date
 #: model:ir.model.fields,field_description:market.field_market_market_write_date
 msgid "Last Updated on"
-msgstr "Dernière mis à jour le"
+msgstr "Mis à jour le"
 
 #. module: market
 #: model:ir.model.fields,field_description:market.field_market_market_market_line_ids
+#: model:ir.model.fields,field_description:market.field_product_plu_line_ids
 msgid "Lines"
 msgstr "Lignes"
 
@@ -264,6 +274,7 @@ msgstr "Marchés"
 
 #. module: market
 #: model:ir.model.fields,field_description:market.field_market_location_name
+#: model:ir.model.fields,field_description:market.field_product_plu_name
 msgid "Name"
 msgstr "Nom"
 
@@ -271,10 +282,11 @@ msgstr "Nom"
 #: model:ir.model.fields,field_description:market.field_market_location_notes
 #: model:ir.model.fields,field_description:market.field_market_market_notes
 msgid "Notes"
-msgstr "Notes"
+msgstr "Commentaires"
 
 #. module: market
 #: model:ir.model.fields,field_description:market.field_market_line_plu_id
+#: model:ir.model.fields,field_description:market.field_product_plu_line_plu_id
 msgid "PLU"
 msgstr "PLU"
 
@@ -284,14 +296,14 @@ msgid "Partner"
 msgstr "Partenaire"
 
 #. module: market
-#: code:addons/market/models/market.py:171
-#: code:addons/market/models/market.py:252
+#: code:addons/market/models/market.py:247
 #, python-format
 msgid "Please define the company seller in the configuration"
 msgstr "Veuillez définir la société vendeuse dans la configuration"
 
 #. module: market
 #: model:ir.model.fields,field_description:market.field_market_line_product_id
+#: model:ir.model.fields,field_description:market.field_product_plu_line_product_id
 msgid "Product"
 msgstr "Produit"
 
@@ -305,6 +317,11 @@ msgstr "PLU Produit"
 #: model:ir.model.fields,field_description:market.field_market_line_product_qty
 msgid "Product Qty"
 msgstr "Qté produit"
+
+#. module: market
+#: model:ir.model.fields,help:market.field_product_plu_line_is_to_invoice
+msgid "Product marked as \"To invoice\" will generate a sale/purchase order"
+msgstr "Les produits marqués comme \"A factuer\" vont générer un bon d'achat et un bon de vente"
 
 #. module: market
 #: model:ir.model,name:market.model_purchase_order
@@ -325,12 +342,6 @@ msgstr "Bon d'achat"
 #: model:ir.model.fields,field_description:market.field_market_line_qty_available
 msgid "Quantity On Hand"
 msgstr "Quantité en stock"
-
-#. module: market
-#: model:ir.model.fields,field_description:market.field_res_partner_represent_company_id
-#: model:ir.model.fields,field_description:market.field_res_users_represent_company_id
-msgid "Represent the company"
-msgstr "Représente la société"
 
 #. module: market
 #: model:ir.model.fields,field_description:market.field_market_market_sale_order_id
@@ -366,7 +377,6 @@ msgid "The company"
 msgstr "La société"
 
 #. module: market
-#: code:addons/market/models/market.py:259
 #: code:addons/market/models/purchase_order.py:20
 #, python-format
 msgid "There is no representative for the company %s in the company %s"
@@ -374,6 +384,7 @@ msgstr "Il n'y a pas de représentant de la société %s dans la société %s"
 
 #. module: market
 #: model:ir.model.fields,field_description:market.field_market_line_is_to_invoice
+#: model:ir.model.fields,field_description:market.field_product_plu_line_is_to_invoice
 msgid "To invoice"
 msgstr "A facturer"
 
@@ -408,12 +419,6 @@ msgstr "Vous pouvez seulement annuler un marché dans l'état brouillon"
 #, python-format
 msgid "You can only confirm a draft market"
 msgstr "Vous pouvez seulement confirmer un marché dans l'état brouillon"
-
-#. module: market
-#: code:addons/market/models/res_partner.py:26
-#, python-format
-msgid "You cannot have two representatives for the same company"
-msgstr "Vous ne pouvez pas avoir deux représentants pour la même société"
 
 #. module: market
 #: model:ir.model.fields,help:market.field_market_config_settings_seller_company_id

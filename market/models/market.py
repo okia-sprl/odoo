@@ -165,15 +165,10 @@ class Market(models.Model):
         if not lines_to_invoice:
             return
 
-        company_seller = self.company_id.seller_company_id
-        if not company_seller:
-            raise UserError(
-                _('Please define the company seller in the configuration'))
-
         PurchaseOrder = self.env['purchase.order']
         PurchaseOrderLine = self.env['purchase.order.line']
 
-        vals = self._prepare_purchase_order_data(company_seller)
+        vals = self._prepare_purchase_order_data()
         purchase_order = PurchaseOrder.create(vals)
 
         for line in lines_to_invoice:
@@ -242,7 +237,7 @@ class Market(models.Model):
 
         self.sale_order_id = sale_order.id
 
-    def _prepare_purchase_order_data(self, company_seller):
+    def _prepare_purchase_order_data(self):
         PurchaseOrder = self.env['purchase.order']
         vals = PurchaseOrder.default_get([])
 
@@ -251,19 +246,7 @@ class Market(models.Model):
             raise UserError(
                 _('Please define the company seller in the configuration'))
 
-        partner = self.env['res.partner'].search([
-            ('represent_company_id', '=', company_seller.id)
-        ], limit=1)
-        if not partner:
-            raise UserError(
-                _('There is no representative for the company %s '
-                  'in the company %s') % (
-                    company_seller.display_name,
-                    self.company_id.display_name))
-
-        vals.update({
-            'partner_id': partner.id,
-        })
+        vals['partner_id'] = company_seller.partner_id.id
 
         po_temp = PurchaseOrder.new(vals)
         po_temp.onchange_partner_id()

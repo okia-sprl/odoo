@@ -10,11 +10,13 @@
         'stock',
         'account',
         'sale',
-        'purchase'
+        'purchase',
+        'purchase_sale_inter_company'
     ],
     'data': [
         "views/inventory_transfer.xml",
         "security/ir.model.access.csv",
+        "security/inventory_transfer_security.xml",
     ],
     'installable': True,
     'application': True,

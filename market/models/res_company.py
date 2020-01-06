@@ -8,8 +8,3 @@ class ResCompany(models.Model):
         'res.company',
         help='Your company will buy good to the following company',
     )
-
-    def _find_company_from_partner(self, partner_id):
-        partner = self.env['res.partner'].browse(partner_id)
-
-        return partner.represent_company_id or False
