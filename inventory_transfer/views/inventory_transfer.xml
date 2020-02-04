@@ -23,6 +23,7 @@
                         <group states="done">
                             <field name="sale_order_id"/>
                             <field name="purchase_order_ref"/>
+                            <field name="total_amount"/>
                         </group>
                     </group>
                     <group string="Lines">
@@ -31,7 +32,9 @@
                                 <field name="product_id" options="{'no_create': 1, 'no_open': 1}"/>
                                 <field name="product_uom_id" options="{'no_create': 1, 'no_open': 1}"  domain="[('id', 'in', allowed_uom_ids and allowed_uom_ids[0][2] or [])]"/>
                                 <field name="product_qty"/>
+                                <field name="unit_price"/>
                                 <field name="production_location_id" options="{'no_create': 1, 'no_open': 1}"/>
+                                <field name="currency_id" invisible="1"/>
                                 <field name="allowed_uom_ids" invisible="1"/>
                             </tree>
                         </field>
@@ -48,6 +51,7 @@
             <tree>
                 <field name="transfer_date"/>
                 <field name="state"/>
+                <field name="total_amount"/>
             </tree>
         </field>
     </record>

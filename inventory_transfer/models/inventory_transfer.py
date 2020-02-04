@@ -15,6 +15,7 @@ class InventoryTransfer(models.Model):
         required=True,
         default=lambda self: self.env.user.company_id.id
     )
+    currency_id = fields.Many2one(related='company_id.currency_id')
     dest_company_id = fields.Many2one('res.company', string='Destination Company', required=True)
     production_location_id = fields.Many2one(
         'stock.location',
@@ -38,9 +39,16 @@ class InventoryTransfer(models.Model):
         index=True,
         readonly=True,
         default='draft')
-    transfer_line_ids = fields.One2many('inventory.transfer.line', 'transfer_id', string='Lines')
+    transfer_line_ids = fields.One2many('inventory.transfer.line', 'transfer_id', string='Lines', copy=True)
     sale_order_id = fields.Many2one('sale.order', string='Sale Order', readonly=True)
     purchase_order_ref = fields.Char('Purchase Order', readonly=True)
+    total_amount = fields.Monetary('Total amount', compute='_compute_total_amount')
+
+    @api.depends('transfer_line_ids.product_qty', 'transfer_line_ids.unit_price')
+    def _compute_total_amount(self):
+        for inventory_transfer in self:
+            inventory_transfer.total_amount = \
+                sum([line.product_qty * line.unit_price for line in inventory_transfer.transfer_line_ids])
 
     @api.model
     def default_get(self, fields_list):
@@ -158,10 +166,12 @@ class InventoryTransfer(models.Model):
             })
             po_line._onchange_quantity()
 
+            po_line['price_unit'] = line.unit_price
+
             purchase_order_line_values = po_line._convert_to_write(po_line._cache)
             purchase_order_line_obj.create(purchase_order_line_values)
 
-        purchase_order.button_confirm()
+        purchase_order.with_context(use_po_line_price_unit=True).button_confirm()
 
         for picking in purchase_order.picking_ids:
             if picking.state != 'assigned':
@@ -229,6 +239,17 @@ class InventoryTransferLine(models.Model):
         compute='_compute_allowed_product_ids',
         readonly=True
     )
+    unit_price = fields.Monetary(
+        'Unit Price',
+        required=True
+    )
+
+    currency_id = fields.Many2one(
+        'res.currency',
+        related='transfer_id.company_id.currency_id',
+        readonly=True,
+        help='Utility field to express amount currency'
+    )
 
     @api.onchange('product_id')
     def onchange_product_id(self):
@@ -238,6 +259,7 @@ class InventoryTransferLine(models.Model):
             return
 
         self.product_uom_id = self.product_id.uom_id.id
+        self.unit_price = self.product_id.list_price
 
     def _compute_allowed_product_ids(self):
         for line in self:
