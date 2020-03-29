@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="stock_pinking_report_wizard_view_form" model="ir.ui.view">
+        <field name="name">stock.picking.report.wizard.view.form</field>
+        <field name="model">stock.picking.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Stock picking report wizard">
+                <button name="print_all_stock_picking_report" type="object" class="btn-primary" string="Print all reports"/>
+                <p class="oe_grey">Print all reports (picking report + daily report)</p>
+                <button name="print_stock_picking_report" type="object" class="btn-info" string="Print picking report" style="margin-right: 5px;"/>
+                <button name="print_daily_stock_picking_report" type="object" class="btn-info" string="Print daily report"/>
+                <footer>
+                    <button string="Close" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="stock_pinking_report_wizard_action" model="ir.actions.act_window">
+        <field name="name">Print picking reports</field>
+        <field name="res_model">stock.picking.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="context">{}</field>
+        <field name="target">new</field>
+    </record>
+    <menuitem id="stock_pinking_report_wizard_menu" name="Print picking reports" parent="stock.menu_warehouse_report"
+              sequence="180" action="stock_pinking_report_wizard_action"/>
+</odoo>

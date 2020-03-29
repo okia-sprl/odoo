@@ -6,7 +6,7 @@ from odoo import models, fields, tools
 class WorkHistoryReport(models.Model):
     _name = 'work.history.report'
     _auto = False
-    _description = "Work History"
+    _description = "Work History Report"
 
     action_id = fields.Many2one('work.action', 'Action')
     location_id = fields.Many2one('stock.location', 'Location')

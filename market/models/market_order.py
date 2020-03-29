@@ -59,7 +59,6 @@ class MarketOrder(models.Model):
             })
 
     @api.onchange('market_product_list_id')
-    @api.multi
     def onchange_market_product_list_id(self):
         self.ensure_one()
 
@@ -88,7 +87,6 @@ class MarketOrder(models.Model):
 
             self.order_line |= line
 
-    @api.multi
     def button_confirm(self):
         self.ensure_one()
 
@@ -105,7 +103,6 @@ class MarketOrder(models.Model):
 
         return result
 
-    @api.multi
     def create_supplier_sale_order(self):
         self.ensure_one()
 
@@ -178,44 +175,37 @@ class MarketOrder(models.Model):
             'min_date': self.stored_date_planned,
         })
 
-    @api.multi
     def print_market_order(self):
         self.ensure_one()
 
         return self.env['report'].get_action(
             self.purchase_order_id, 'purchase.report_purchasequotation')
 
-    @api.multi
     def button_approve(self):
         self.ensure_one()
 
         return self.purchase_order_id.button_approve()
 
-    @api.multi
     def action_view_picking(self):
         self.ensure_one()
 
         return self.purchase_order_id.action_view_picking()
 
-    @api.multi
     def button_draft(self):
         self.ensure_one()
 
         return self.purchase_order_id.button_draft()
 
-    @api.multi
     def button_cancel(self):
         self.ensure_one()
 
         return self.purchase_order_id.button_cancel()
 
-    @api.multi
     def button_done(self):
         self.ensure_one()
 
         return self.purchase_order_id.button_done()
 
-    @api.multi
     def button_unlock(self):
         self.ensure_one()
 

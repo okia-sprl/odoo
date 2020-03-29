@@ -5,13 +5,11 @@
         <field name="provider">on_receipt</field>
         <field name="company_id" ref="base.main_company"/>
         <field name="view_template_id" ref="payment.default_acquirer_button"/>
-        <field name="auto_confirm">none</field>
-        <field name="image" type="base64" file="payment_on_receipt/static/src/img/on_receipt_icon.png"/>
-        <field name="environment">test</field>
-        <field name="website_published" eval="True"/>
+        <field name="image_128" type="base64" file="payment_on_receipt/static/src/img/on_receipt_icon.png"/>
+        <field name="module_id" ref="base.module_payment_on_receipt"/>
         <field name="pre_msg">Pay on receipt.</field>
         <field name="pending_msg">&lt;i&gt;The order is validated&lt;/i&gt;...</field>
-        <field name="post_msg">Please come to the shop to retrieve your order.</field>
+        <field name="done_msg">Please come to the shop to retrieve your order.</field>
         <field name="description" type="html">
             <p>
                 Provide instructions to customers so that they can pay directly at your shop.

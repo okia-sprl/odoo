@@ -1,70 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-        <record id="res_config_settings_view_form" model="ir.ui.view">
-        <field name="name">res.config.settings.view.form.inherit.market</field>
+    <record id="res_config_settings_view_form_inherit" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.inter.company.rules</field>
         <field name="model">res.config.settings</field>
-        <field name="priority" eval="90"/>
-        <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="inherit_id" ref="inter_company_rules.res_config_settings_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//div[hasclass('settings')]" position="inside">
-                <div class="app_settings_block" data-string="Market" string="Market" data-key="market" groups="market.market_order_group_manager">
-                    <h2>Market</h2>
-                    <div class="row mt16 o_settings_container">
-                        <div class="col-12 col-lg-6 o_setting_box">
-                            <div class="o_setting_left_pane"/>
-                            <div class="o_setting_right_pane">
-                                <span class="o_form_label">Market Supplier</span>
-                                <div class="text-muted">
-                                    Define who will supply your products
-                                </div>
-                                <div class="text-muted">
-                                    <field name="market_supplier_id"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-6 o_setting_box">
-                            <div class="o_setting_left_pane"/>
-                            <div class="o_setting_right_pane">
-                                <span class="o_form_label">Market Buyer</span>
-                                <div class="text-muted">
-                                    Define who will buy for your markets
-                                </div>
-                                <div class="text-muted">
-                                    <field name="market_buyer_id"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-6 o_setting_box">
-                            <div class="o_setting_left_pane"/>
-                            <div class="o_setting_right_pane">
-                                <span class="o_form_label">Vendor for market</span>
-                                <div class="text-muted">
-                                    Define who will be manage market order
-                                </div>
-                                <div class="text-muted">
-                                    <field name="market_vendor_id"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <xpath expr="//div[@id='multi_company']//div[hasclass('o_setting_right_pane')]" position='inside'>
+                Your company will by good to the company <field name="seller_company_id"/>
             </xpath>
         </field>
     </record>
 
-        <record id="market_config_settings_action" model="ir.actions.act_window">
-            <field name="name">Settings</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">res.config.settings</field>
-            <field name="view_id" ref="res_config_settings_view_form"/>
-            <field name="view_mode">form</field>
-            <field name="target">inline</field>
-            <field name="context">{'module' : 'market'}</field>
-        </record>
-
-        <menuitem id="main_menu_market_configuration" name="Configuration" parent="market_menu_root" sequence="20" groups="market_order_group_manager"/>
-        <menuitem id="menu_market_config_settings" name="Settings" parent="main_menu_market_configuration"
-            sequence="0" action="market_config_settings_action" />
-    </data>
 </odoo>

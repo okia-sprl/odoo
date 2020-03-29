@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_work_history,access_work_history,model_work_history,base.group_user,1,0,0,0
+access_work_history_stock_manager,access_work_history_stock_manager,model_work_history,stock.group_stock_manager,1,1,1,1
+access_work_action,access_work_action,model_work_action,base.group_user,1,0,0,0
+access_work_action_stock_manager,access_work_action_stock_manager,model_work_action,stock.group_stock_manager,1,1,1,1
+access_work_history_report,access_work_history_report,model_work_history_report,base.group_user,1,0,0,0

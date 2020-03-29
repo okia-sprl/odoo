@@ -1,0 +1,334 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* work_history
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-01-12 10:51+0000\n"
+"PO-Revision-Date: 2018-01-12 10:51+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: work_history
+#: model:ir.ui.view,arch_db:work_history.work_history_wizard_view_form
+msgid "<strong>Product</strong><br/>"
+msgstr "<strong>Produit</strong><br/>"
+
+#. module: work_history
+#: model:ir.model.fields,field_description:work_history.field_work_history_action_id
+#: model:ir.model.fields,field_description:work_history.field_work_history_report_action_id
+#: model:ir.model.fields,field_description:work_history.field_work_history_wizard_action_id
+#: model:ir.ui.view,arch_db:work_history.work_history_view_search
+msgid "Action"
+msgstr "Action"
+
+#. module: work_history
+#: model:ir.ui.menu,name:work_history.work_action_menu
+msgid "Configuration"
+msgstr "Configuration"
+
+#. module: work_history
+#: model:ir.model.fields,field_description:work_history.field_work_action_create_uid
+#: model:ir.model.fields,field_description:work_history.field_work_history_create_uid
+#: model:ir.model.fields,field_description:work_history.field_work_history_wizard_create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: work_history
+#: model:ir.model.fields,field_description:work_history.field_work_action_create_date
+#: model:ir.model.fields,field_description:work_history.field_work_history_create_date
+#: model:ir.model.fields,field_description:work_history.field_work_history_wizard_create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: work_history
+#: model:ir.model.fields,field_description:work_history.field_work_history_date
+#: model:ir.model.fields,field_description:work_history.field_work_history_report_date
+#: model:ir.model.fields,field_description:work_history.field_work_history_wizard_date
+#: model:ir.ui.view,arch_db:work_history.work_history_view_search
+msgid "Date"
+msgstr "Date"
+
+#. module: work_history
+#: model:ir.model.fields,field_description:work_history.field_work_action_description
+#: model:ir.model.fields,field_description:work_history.field_work_history_description
+#: model:ir.model.fields,field_description:work_history.field_work_history_wizard_description
+msgid "Description"
+msgstr "Description"
+
+#. module: work_history
+#: model:ir.model.fields,field_description:work_history.field_work_action_display_name
+#: model:ir.model.fields,field_description:work_history.field_work_history_display_name
+#: model:ir.model.fields,field_description:work_history.field_work_history_report_display_name
+#: model:ir.model.fields,field_description:work_history.field_work_history_wizard_display_name
+msgid "Display Name"
+msgstr "Afficher le nom"
+
+#. module: work_history
+#: model:ir.model.fields,field_description:work_history.field_work_history_duration
+#: model:ir.model.fields,field_description:work_history.field_work_history_report_duration
+#: model:ir.model.fields,field_description:work_history.field_work_history_wizard_duration
+msgid "Duration (in hours)"
+msgstr "Durée (en heures)"
+
+#. module: work_history
+#: model:ir.ui.view,arch_db:work_history.work_history_view_search
+msgid "Group By"
+msgstr "Regrouper par"
+
+#. module: work_history
+#: model:ir.model.fields,field_description:work_history.field_work_action_id
+#: model:ir.model.fields,field_description:work_history.field_work_history_id
+#: model:ir.model.fields,field_description:work_history.field_work_history_report_id
+#: model:ir.model.fields,field_description:work_history.field_work_history_wizard_id
+msgid "ID"
+msgstr "ID"
+
+#. module: work_history
+#: model:ir.ui.view,arch_db:work_history.work_history_wizard_view_form
+msgid "Insert works"
+msgstr "Insérer les travaux"
+
+#. module: work_history
+#: model:ir.model.fields,field_description:work_history.field_work_action___last_update
+#: model:ir.model.fields,field_description:work_history.field_work_history___last_update
+#: model:ir.model.fields,field_description:work_history.field_work_history_report___last_update
+#: model:ir.model.fields,field_description:work_history.field_work_history_wizard___last_update
+msgid "Last Modified on"
+msgstr "Dernière Modification le"
+
+#. module: work_history
+#: model:ir.model.fields,field_description:work_history.field_work_action_write_uid
+#: model:ir.model.fields,field_description:work_history.field_work_history_wizard_write_uid
+#: model:ir.model.fields,field_description:work_history.field_work_history_write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: work_history
+#: model:ir.model.fields,field_description:work_history.field_work_action_write_date
+#: model:ir.model.fields,field_description:work_history.field_work_history_wizard_write_date
+#: model:ir.model.fields,field_description:work_history.field_work_history_write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: work_history
+#: model:ir.model.fields,field_description:work_history.field_work_history_location_id
+#: model:ir.model.fields,field_description:work_history.field_work_history_report_location_id
+#: model:ir.ui.view,arch_db:work_history.work_history_view_search
+msgid "Location"
+msgstr "Lieu"
+
+#. module: work_history
+#: model:ir.model.fields,field_description:work_history.field_work_history_wizard_location_ids
+#: model:ir.ui.view,arch_db:work_history.work_history_wizard_view_form
+msgid "Locations"
+msgstr "Emplacements"
+
+#. module: work_history
+#: model:ir.model.fields,field_description:work_history.field_work_action_name
+msgid "Name"
+msgstr "Nom"
+
+#. module: work_history
+#: model:ir.model.fields,field_description:work_history.field_work_history_manager_nbr
+#: model:ir.model.fields,field_description:work_history.field_work_history_report_manager_nbr
+#: model:ir.model.fields,field_description:work_history.field_work_history_wizard_manager_nbr
+msgid "Nbf of manager"
+msgstr "Nbr de responsables"
+
+#. module: work_history
+#: model:ir.model.fields,field_description:work_history.field_work_history_gwen_nbr
+#: model:ir.model.fields,field_description:work_history.field_work_history_report_gwen_nbr
+#: model:ir.model.fields,field_description:work_history.field_work_history_wizard_gwen_nbr
+msgid "Nbr of Gwen"
+msgstr "Nbr de Gwen"
+
+#. module: work_history
+#: model:ir.model.fields,field_description:work_history.field_work_history_employee_nbr
+#: model:ir.model.fields,field_description:work_history.field_work_history_report_employee_nbr
+#: model:ir.model.fields,field_description:work_history.field_work_history_wizard_employee_nbr
+msgid "Nbr of employees"
+msgstr "Nbr d'employées"
+
+#. module: work_history
+#: model:ir.model.fields,field_description:work_history.field_work_history_freelancer_nbr
+#: model:ir.model.fields,field_description:work_history.field_work_history_report_freelancer_nbr
+#: model:ir.model.fields,field_description:work_history.field_work_history_wizard_freelancer_nbr
+msgid "Nbr of freelancer"
+msgstr "Nbr d'indépendants"
+
+#. module: work_history
+#: model:ir.model.fields,field_description:work_history.field_work_history_report_seasonal_nbr
+#: model:ir.model.fields,field_description:work_history.field_work_history_seasonal_nbr
+#: model:ir.model.fields,field_description:work_history.field_work_history_wizard_seasonal_nbr
+msgid "Nbr of seasonal"
+msgstr "Nbr de saisonniers"
+
+#. module: work_history
+#: model:ir.model.fields,field_description:work_history.field_work_history_report_trainee_nbr
+#: model:ir.model.fields,field_description:work_history.field_work_history_trainee_nbr
+#: model:ir.model.fields,field_description:work_history.field_work_history_wizard_trainee_nbr
+msgid "Nbr of trainee"
+msgstr "Nbr de stagiaires"
+
+#. module: work_history
+#: model:ir.ui.view,arch_db:work_history.work_history_report_view_graph
+msgid "Picking Analysis"
+msgstr "Raport d'opérations"
+
+#. module: work_history
+#: code:addons/work_history/wizards/work_history_wizard.py:41
+#, python-format
+msgid "Please set at least one location"
+msgstr "Veuillez définir au moins un emplacement"
+
+#. module: work_history
+#: model:ir.model.fields,field_description:work_history.field_work_history_product_id
+#: model:ir.model.fields,field_description:work_history.field_work_history_report_product_id
+#: model:ir.model.fields,field_description:work_history.field_work_history_wizard_product_id
+#: model:ir.ui.view,arch_db:work_history.work_history_view_search
+msgid "Product"
+msgstr "Article"
+
+#. module: work_history
+#: model:ir.model.fields,field_description:work_history.field_work_history_quantity
+#: model:ir.model.fields,field_description:work_history.field_work_history_report_quantity
+#: model:ir.model.fields,field_description:work_history.field_work_history_wizard_quantity
+msgid "Quantity"
+msgstr "Quantité"
+
+#. module: work_history
+#: model:ir.ui.menu,name:work_history.work_history_wizard_menu
+msgid "Quick insert"
+msgstr "Insertion rapide"
+
+#. module: work_history
+#: model:ir.ui.menu,name:work_history.work_history_report_menu
+msgid "Report"
+msgstr "Rapport"
+
+#. module: work_history
+#: model:ir.ui.view,arch_db:work_history.work_history_view_search
+msgid "Sales Order"
+msgstr "Bon de commande"
+
+#. module: work_history
+#: model:ir.ui.view,arch_db:work_history.work_history_view_search
+msgid "Search Sales Order"
+msgstr "Recherche de commandes de ventes"
+
+#. module: work_history
+#: model:ir.model.fields,field_description:work_history.field_work_action_sequence
+msgid "Sequence"
+msgstr "Séquence"
+
+#. module: work_history
+#: model:ir.model.fields,field_description:work_history.field_work_history_report_storable_product_id
+#: model:ir.model.fields,field_description:work_history.field_work_history_storable_product_id
+#: model:ir.model.fields,field_description:work_history.field_work_history_wizard_storable_product_id
+#: model:ir.ui.view,arch_db:work_history.work_history_view_search
+msgid "Storable product"
+msgstr "Produit stockable"
+
+#. module: work_history
+#: model:ir.ui.view,arch_db:work_history.work_history_wizard_view_form
+msgid "This wizard will create work history according the number of locations.<br/>\n"
+"                    Following values will be split according the number of locations:"
+msgstr "Cettte fenêtre va créer des historiques de travail selon le nombre d'emplacements.<br/>\n"
+"                    Les valeurs suivantes seront dévisées par le nombre d'emplacements:"
+
+#. module: work_history
+#: model:ir.model.fields,field_description:work_history.field_work_history_report_total_workers
+msgid "Total workers"
+msgstr "Nombre de travailleurs"
+
+#. module: work_history
+#: model:ir.model.fields,field_description:work_history.field_work_history_quantity_uom_id
+#: model:ir.model.fields,field_description:work_history.field_work_history_report_quantity_uom_id
+#: model:ir.model.fields,field_description:work_history.field_work_history_wizard_quantity_uom_id
+msgid "Unit of Measure"
+msgstr "Unité de mesure"
+
+#. module: work_history
+#: model:ir.ui.view,arch_db:work_history.work_history_view_search
+msgid "With employees"
+msgstr "Avec employées"
+
+#. module: work_history
+#: model:ir.ui.view,arch_db:work_history.work_history_view_search
+msgid "With freelancer"
+msgstr "Avec indépendants"
+
+#. module: work_history
+#: model:ir.ui.view,arch_db:work_history.work_history_view_search
+msgid "With Gwen"
+msgstr "Avec Gwen"
+
+#. module: work_history
+#: model:ir.ui.view,arch_db:work_history.work_history_view_search
+msgid "With manager"
+msgstr "Avec responsables"
+
+#. module: work_history
+#: model:ir.ui.view,arch_db:work_history.work_history_view_search
+msgid "With seasonal"
+msgstr "Avec saisonniers"
+
+#. module: work_history
+#: model:ir.ui.view,arch_db:work_history.work_history_view_search
+msgid "With trainee"
+msgstr "Avec stagiaires"
+
+#. module: work_history
+#: model:ir.actions.act_window,name:work_history.work_action_action
+msgid "Work Action"
+msgstr "Type de travail"
+
+#. module: work_history
+#: model:ir.actions.act_window,name:work_history.work_history_action
+#: model:ir.model,name:work_history.model_work_history_report
+#: model:ir.ui.menu,name:work_history.work_history_main_menu
+#: model:ir.ui.view,arch_db:work_history.work_action_view_tree
+#: model:ir.ui.view,arch_db:work_history.work_history_view_form
+#: model:ir.ui.view,arch_db:work_history.work_history_view_tree
+#: model:ir.ui.view,arch_db:work_history.work_history_wizard_view_form
+msgid "Work History"
+msgstr "Historique du travail"
+
+#. module: work_history
+#: model:ir.actions.act_window,name:work_history.work_history_wizard_action
+msgid "Work History Wizard"
+msgstr "Fenêtre des historiques du travail"
+
+#. module: work_history
+#: model:ir.actions.act_window,name:work_history.work_history_report_action
+#: model:ir.ui.view,arch_db:work_history.work_history_report_view_pivot
+msgid "Work history report"
+msgstr "Rapport des historiques de travail"
+
+#. module: work_history
+#: model:ir.ui.menu,name:work_history.work_history_menu
+msgid "Works"
+msgstr "Travaux"
+
+#. module: work_history
+#: model:ir.model,name:work_history.model_work_action
+msgid "work.action"
+msgstr "work.action"
+
+#. module: work_history
+#: model:ir.model,name:work_history.model_work_history
+msgid "work.history"
+msgstr "work.history"
+
+#. module: work_history
+#: model:ir.model,name:work_history.model_work_history_wizard
+msgid "work.history.wizard"
+msgstr "work.history.wizard"
+

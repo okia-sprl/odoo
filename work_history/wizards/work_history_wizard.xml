@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="work_history_wizard_view_form" model="ir.ui.view">
+        <field name="name">work.history.wizard.view.form</field>
+        <field name="model">work.history.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Work History">
+                <p>This wizard will create work history according the number of locations.<br/>
+                    Following values will be split according the number of locations:
+                </p>
+                <ul>
+                    <li><label for="duration"/></li>
+                    <li><label for="employee_nbr"/></li>
+                    <li><label for="seasonal_nbr"/></li>
+                    <li><label for="quantity"/></li>
+                </ul>
+                <group string="Locations">
+                    <field name="location_ids" widget="many2many_tags"/>
+                </group>
+                <group>
+                    <field name="action_id"/>
+                    <field name="date"/>
+                    <field name="duration"/>
+                </group>
+                <group>
+                    <field name="gwen_nbr"/>
+                    <field name="manager_nbr"/>
+                    <field name="employee_nbr"/>
+                    <field name="seasonal_nbr"/>
+                    <field name="freelancer_nbr"/>
+                    <field name="trainee_nbr"/>
+                </group>
+                <group>
+                    <field name="storable_product_id"/>
+                </group>
+                <p><strong>Product</strong><br/>
+                    <field name="quantity" nolabel="1" class="oe_inline" /> <strong>x</strong>
+                    <field name="quantity_uom_id" nolabel="1" class="oe_inline"/>
+                    <field name="product_id" nolabel="1" class="oe_inline"/>
+                </p>
+                <label for="description"/>
+                <field name="description"/>
+                <footer>
+                    <button string="Insert works" type="object" name="insert_works" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="work_history_wizard_action" model="ir.actions.act_window">
+        <field name="name">Work History Wizard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">work.history.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="work_history_wizard_menu" name="Quick insert" sequence="30" action="work_history_wizard_action" parent="work_history_main_menu"/>
+</odoo>

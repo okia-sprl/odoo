@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="exception_rule_sale_category_limitation" model="exception.rule">
+        <field name="name">Check the category of products</field>
+        <field name="description">Some product cannot be sale with this company</field>
+        <field name="active" eval="1"/>
+        <field name="sequence">10</field>
+        <field name="rule_group">sale</field>
+        <field name="model">sale.order</field>
+        <field name="exception_type">by_py_code</field>
+        <field name="code">company_id = sale.company_id.id
+limitations = env['sale.category.limitation'].search([('company_id', '=', company_id)])
+products = sale.order_line.mapped('product_id')
+for product_category in limitations.mapped('product_category_ids'):
+    available_products = env['product.product'].search([('id', 'in', products.ids), ('categ_id', 'child_of', product_category.id)])
+    if available_products != products:
+        failed = True
+        break
+        </field>
+    </record>
+</odoo>

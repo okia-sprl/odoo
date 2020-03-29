@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="stock_picking_daily_report_view_pivot" model="ir.ui.view">
+        <field name="name">stock.picking.daily.report.view.pivot</field>
+        <field name="model">stock.picking.daily.report</field>
+        <field name="arch" type="xml">
+            <pivot string="Picking report" disable_linking="True">
+                <field name="product_id" type="col"/>
+                <field name="partner_id" type="row"/>
+                <field name="qty_to_do" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="stock_picking_daily_report_view_graph" model="ir.ui.view">
+        <field name="name">stock.picking.daily.report.view.graph</field>
+        <field name="model">stock.picking.daily.report</field>
+        <field name="arch" type="xml">
+            <graph string="Picking Analysis" stacked="True">
+                <field name="product_id" type="row"/>
+                <field name="partner_id" type="row"/>
+                <field name="qty_to_do" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="stock_picking_daily_report_action" model="ir.actions.act_window">
+        <field name="name">Picking daily report</field>
+        <field name="res_model">stock.picking.daily.report</field>
+        <field name="view_mode">pivot,graph</field>
+        <field name="context">{}</field>
+        <field name="view_ids"
+               eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'pivot', 'view_id': ref('stock_picking_daily_report_view_pivot')}),
+                          (0, 0, {'view_mode': 'graph', 'view_id': ref('stock_picking_daily_report_view_graph')})]"/>
+    </record>
+    <menuitem id="stock_picking_daily_report_menu" name="Picking daily report" parent="stock.menu_warehouse_report"
+              sequence="170" action="stock_picking_daily_report_action"/>
+
+</odoo>

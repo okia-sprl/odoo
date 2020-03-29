@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="utm_source_market" model="utm.source">
+        <field name="name">Market</field>
+    </record>
+</odoo>

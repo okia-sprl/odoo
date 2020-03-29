@@ -76,10 +76,10 @@
                 <filter string="With freelancer" domain="[('freelancer_nbr','>', 0)]" name="show_with_freelancer"/>
                 <filter string="With trainee" domain="[('trainee_nbr','>', 0)]" name="show_with_trainee"/>
                 <group expand="1" string="Group By">
-                    <filter string="Action" domain="[]" context="{'group_by':'action_id'}" name="action"/>
-                    <filter string="Location" domain="[]" context="{'group_by':'location_id'}" name="location"/>
-                    <filter string="Product" domain="[]" context="{'group_by':'product_id'}" name="product"/>
-                    <filter string="Storable product" domain="[]" context="{'group_by':'storable_product_id'}" name="storable_product"/>
+                    <filter name="group_action_id" string="Action" domain="[]" context="{'group_by':'action_id'}"/>
+                    <filter name="group_location_id" string="Location" domain="[]" context="{'group_by':'location_id'}"/>
+                    <filter name="group_product_id" string="Product" domain="[]" context="{'group_by':'product_id'}"/>
+                    <filter name="group_storable_product_id" string="Storable product" domain="[]" context="{'group_by':'storable_product_id'}"/>
                 </group>
            </search>
         </field>
@@ -89,7 +89,6 @@
         <field name="name">Work History</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">work.history</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 

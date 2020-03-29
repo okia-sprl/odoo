@@ -17,7 +17,6 @@ class PaymentOnReceipt(models.Model):
     provider = fields.Selection(
         selection_add=[('on_receipt', 'On Receipt')])
 
-    @api.multi
     def on_receipt_get_form_action_url(self):
         return '/payment/transfer/feedback'
 

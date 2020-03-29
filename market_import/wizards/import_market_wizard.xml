@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="import_market_wizard_view_form" model="ir.ui.view">
+        <field name="name">import.market.wizard.view.form</field>
+        <field name="model">import.market.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="state" invisible="1"/>
+                    <group>
+                        <field name="name"/>
+                        <field name="date"/>
+                        <field name="market_location_id"/>
+                        <field name="data_file" filename="filename" placeholder="Choose a file to import..." states="new"/>
+                        <field name="filename" invisible="1" states="new"/>
+                    </group>
+                    <field name="description" states="review"/>
+                    <label for="line_ids" states="review"/>
+                    <field name="line_ids" states="review">
+                        <tree editable="bottom" create="0" decoration-danger="not product_id">
+                            <field name="plu_id"/>
+                            <field name="product_id" domain="[('id', 'in', allowed_product_ids and allowed_product_ids[0][2] or [])]" options="{'no_create': True}"/>
+                            <field name="qty" required="1"/>
+                            <field name="qty_available"/>
+                            <field name="unit_price"/>
+                            <field name="amount_untaxed" sum="Total Untaxed amount"/>
+                            <field name="is_to_invoice"/>
+                            <field name="allowed_product_ids" invisible="1"/>
+                            <button name="split_line" type="object" icon="fa-files-o"/>
+                        </tree>
+                    </field>
+                    <footer>
+                        <button name="import_file" string="_Import" type="object" class="btn-primary" states="new"/>
+                        <button name="create_market" string="_Create" type="object" class="btn-primary" states="review"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_import_market_wizard" model="ir.actions.act_window">
+        <field name="name">Import Market</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">import.market.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="import_market_wizard_menu" name="Import Market" sequence="50" action="action_import_market_wizard" parent="market.main_market_menu"/>
+</odoo>

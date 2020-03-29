@@ -36,7 +36,6 @@ class WorkHistoryWizard(models.TransientModel):
     )
     description = fields.Text('Description')
 
-    @api.multi
     def insert_works(self):
         self.ensure_one()
 
