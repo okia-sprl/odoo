@@ -3,7 +3,6 @@
 
 from odoo import fields, models, api, _
 from odoo.exceptions import UserError
-import odoo.addons.decimal_precision as dp
 
 
 class MarketLocation(models.Model):
@@ -194,21 +193,7 @@ class Market(models.Model):
 
         purchase_order.button_confirm()
 
-        self.purchase_order_id = purchase_order.id
-
-        for picking in purchase_order.picking_ids:
-            if picking.state != 'assigned':
-                raise UserError(
-                    _('Cannot validate the purchase order. '
-                      'There is no picking linked to the purchase order.'))
-
-            for pack in picking.pack_operation_ids:
-                if pack.product_qty > 0:
-                    pack.write({'qty_done': pack.product_qty})
-                else:
-                    pack.unlink()
-
-            picking.do_transfer()
+        pickings = purchase_order.picking_ids
 
         sale_order = self.env['sale.order'].sudo().search(
             [('auto_purchase_order_id', '=', purchase_order.id)],
@@ -217,27 +202,15 @@ class Market(models.Model):
             raise UserError(_('Error during the validation of the market.'
                               ' Cannot retrieve the sale order.'))
 
-        for picking in sale_order.picking_ids:
-            if picking.state == 'confirmed':
-                picking.force_assign()
+        pickings |= sale_order.picking_ids
 
-            if picking.state != 'assigned':
-                raise UserError(
-                    _('Cannot validate the picking. Please manualy '
-                      'validate the picking %s') % picking.name)
+        wizard = self.env['stock.immediate.transfer'].create({'pick_ids': [(6, 0, pickings.ids)]})
+        wizard.process()
 
-            if picking.state != 'assigned':
-                raise UserError(_('Cannot validate the purchase order'))
-
-            for pack in picking.pack_operation_ids:
-                if pack.product_qty > 0:
-                    pack.write({'qty_done': pack.product_qty})
-                else:
-                    pack.unlink()
-
-            picking.do_transfer()
-
-        self.sale_order_id = sale_order.id
+        self.write({
+            'purchase_order_id': purchase_order.id,
+            'sale_order_id': sale_order.id
+        })
 
     def _prepare_purchase_order_data(self):
         PurchaseOrder = self.env['purchase.order']
@@ -262,7 +235,7 @@ class Market(models.Model):
             'location_id': self.env.ref('stock.stock_location_stock').id,
             'location_dest_id':
                 self.env.ref('stock.stock_location_customers').id,
-            'min_date': self.market_date,
+            'scheduled_date': self.market_date,
             'origin': self.name,
             'move_type': 'one',
             'picking_type_id': self.env.ref('stock.picking_type_out').id,
@@ -289,21 +262,12 @@ class Market(models.Model):
             StockMove.create(move._convert_to_write(move._cache))
 
         picking.action_assign()
-        if picking.state == 'confirmed':
-            picking.force_assign()
+        for move in picking.move_lines.filtered(lambda m: m.state not in ['done', 'cancel']):
+            for move_line in move.move_line_ids:
+                move_line.qty_done = move_line.product_uom_qty
 
-        if picking.state != 'assigned':
-            raise UserError(
-                _('Cannot validate the picking. Please manualy '
-                  'validate the picking %s') % picking.name)
-
-        for pack in picking.pack_operation_ids:
-            if pack.product_qty > 0:
-                pack.write({'qty_done': pack.product_qty})
-            else:
-                pack.unlink()
-
-        picking.do_transfer()
+        wizard = self.env['stock.immediate.transfer'].create({'pick_ids': [(6, 0, picking.ids)]})
+        wizard.process()
 
 
 class MarketLine(models.Model):
@@ -339,7 +303,7 @@ class MarketLine(models.Model):
     price_unit = fields.Monetary(
         'Unit price',
         required=True,
-        digits=dp.get_precision('Product Price')
+        digits='Product Price'
     )
     amount_untaxed = fields.Monetary(
         'Amount untaxed',

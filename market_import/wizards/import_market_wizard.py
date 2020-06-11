@@ -1,8 +1,11 @@
 import re
+import io
 import csv
 import logging
+import base64
 
 from odoo import api, fields, models, tools, _
+from odoo.tools import pycompat
 from odoo.exceptions import UserError
 
 LINE_SIZE = 10
@@ -59,20 +62,19 @@ class ImportMarketWizard(models.TransientModel):
 
         name_regex = r'(\d+)\s?.*'
 
-        # try:
-        #     unicode_content = base64.b64decode(self.data_file).decode('utf-16')
-        #     content = unicode_content.encode('utf-8')
-        # except Exception as e:
-        #     raise UserError(
-        #         _('File not imported due to format mismatch '
-        #           'or a malformed file.\n\nTechnical Details:\n%s') %
-        #         tools.ustr(e))
+        try:
+            unicode_content = base64.b64decode(self.data_file).decode('utf-16')
+            content = unicode_content.encode('utf-8')
+        except Exception as e:
+            raise UserError(
+                _('File not imported due to format mismatch '
+                  'or a malformed file.\n\nTechnical Details:\n%s') %
+                tools.ustr(e))
 
         plu_not_found = []
         index = 1
 
-        # TODO To migrate
-        csv_iterator = csv.reader(self.data_file)
+        csv_iterator = pycompat.csv_reader(io.BytesIO(content))
         for row in csv_iterator:
             if not row:
                 continue

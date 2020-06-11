@@ -45,6 +45,7 @@
         <field name="res_model">import.market.wizard</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
+        <field name="view_id" ref="import_market_wizard_view_form"/>
     </record>
 
     <menuitem id="import_market_wizard_menu" name="Import Market" sequence="50" action="action_import_market_wizard" parent="market.main_market_menu"/>
