@@ -16,7 +16,8 @@ class StockPickingDailyReport(models.Model):
 
     def init(self):
         tools.drop_view_if_exists(self._cr, 'stock_picking_daily_report')
-        self._cr.execute("""
+        self._cr.execute(
+            """
           CREATE VIEW stock_picking_daily_report AS (
             SELECT s_move.id,
               picking.partner_id AS partner_id,
@@ -33,4 +34,5 @@ class StockPickingDailyReport(models.Model):
               ('assigned', 'partially_available', 'confirmed')
             AND picking.date::DATE = NOW()::DATE
           )
-        """)
+        """
+        )

@@ -10,11 +10,8 @@
     """,
     'category': 'Website',
     'website': 'https://okia.be',
-    'depends': [
-        'website',
-    ],
-    'data': [
-    ],
+    'depends': ['website'],
+    'data': [],
     'installable': True,
     'application': True,
     'auto_install': False,

@@ -10,13 +10,8 @@
     """,
     'category': 'Sale',
     'website': 'https://okia.be',
-    'depends': [
-        'product',
-        'sale',
-    ],
-    'data': [
-        "views/product_template.xml",
-    ],
+    'depends': ['product', 'sale'],
+    'data': ["views/product_template.xml"],
     'installable': True,
     'auto_install': False,
 }

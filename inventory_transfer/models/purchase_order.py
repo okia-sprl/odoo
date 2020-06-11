@@ -1,5 +1,4 @@
-from odoo import api, models, _
-from odoo.exceptions import UserError
+from odoo import api, models
 
 
 class PurchaseOrder(models.Model):

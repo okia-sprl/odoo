@@ -11,12 +11,8 @@ Allow to pay on receipt for webshop.
     """,
     'author': 'Sylvain Van Hoof <sylvain@okia.be>',
     'depends': ['payment'],
-    'data': [
-        'views/on_receipt.xml',
-        'data/payment_acquirer.xml',
-    ],
-    'demo': [
-    ],
+    'data': ['views/on_receipt.xml', 'data/payment_acquirer.xml'],
+    'demo': [],
     'qweb': [],
     'installable': True,
     'application': False,

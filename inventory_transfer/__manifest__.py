@@ -6,13 +6,7 @@
     'summary': 'Allow to transfer an inventory from a company to an another',
     'sequence': 30,
     'category': 'Inventory',
-    'depends': [
-        'stock',
-        'account',
-        'sale',
-        'purchase',
-        'inter_company_rules'
-    ],
+    'depends': ['stock', 'account', 'sale', 'purchase', 'inter_company_rules'],
     'data': [
         "views/inventory_transfer.xml",
         "security/ir.model.access.csv",

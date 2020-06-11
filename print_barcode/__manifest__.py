@@ -10,13 +10,8 @@
     """,
     'category': 'Stock',
     'website': 'https://okia.be',
-    'depends': [
-        'stock',
-    ],
-    'data': [
-        "wizards/print_barcode.xml",
-        "views/report_location_barcode.xml",
-    ],
+    'depends': ['stock'],
+    'data': ["wizards/print_barcode.xml", "views/report_location_barcode.xml"],
     'installable': True,
     'application': True,
     'auto_install': False,

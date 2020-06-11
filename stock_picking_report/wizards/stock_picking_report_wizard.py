@@ -15,8 +15,7 @@ class StockPickingReportWizard(models.TransientModel):
     _name = 'stock.picking.report.wizard'
     _description = 'Stock Picking Report Wizard'
 
-    report_scope = fields.Integer('Report scope',
-                                  readonly=True)
+    report_scope = fields.Integer('Report scope', readonly=True)
 
     def print_stock_picking_report(self):
         template = 'stock_picking_report.stock_picking_report'
@@ -35,10 +34,7 @@ class StockPickingReportWizard(models.TransientModel):
         lang_str = self.env.user.lang or 'en_US'
         lang = lang_obj.search([('code', '=', lang_str)])
 
-        picking_report_scope = int(
-            self.env['ir.config_parameter'].sudo()
-                .get_param('stock.picking_report_scope', 7)
-        )
+        picking_report_scope = int(self.env['ir.config_parameter'].sudo().get_param('stock.picking_report_scope', 7))
         result = []
 
         date_today = date.today()
@@ -53,10 +49,7 @@ class StockPickingReportWizard(models.TransientModel):
     def default_get(self, fields):
         result = super(StockPickingReportWizard, self).default_get(fields)
 
-        picking_report_scope = int(
-            self.env['ir.config_parameter'].sudo()
-                .get_param('stock.picking_report_scope', 7)
-        )
+        picking_report_scope = int(self.env['ir.config_parameter'].sudo().get_param('stock.picking_report_scope', 7))
         result['report_scope'] = picking_report_scope
 
         return result
@@ -75,8 +68,7 @@ class StockPickingReportWizard(models.TransientModel):
         date_end = datetime.strptime(days[-1], lang.date_format)
         date_end_str = fields.Date.to_string(date_end)
 
-        lines = self.env['stock.picking.report'].search(
-            [('scheduled_date', '<=', date_end_str)])
+        lines = self.env['stock.picking.report'].search([('scheduled_date', '<=', date_end_str)])
 
         for line in lines:
             scheduled_date = line.scheduled_date
@@ -92,13 +84,9 @@ class StockPickingReportWizard(models.TransientModel):
             product_uom = product.uom_so_id or product.uom_id
 
             result_by_product = result.get(product, {})
-            qty, uom, qty_available = \
-                result_by_product.get(scheduled_date_str, [0, None, None])
+            qty, uom, qty_available = result_by_product.get(scheduled_date_str, [0, None, None])
 
-            qty_to_do = line.product_uom_id._compute_quantity(
-                line.qty_to_do,
-                product_uom
-            )
+            qty_to_do = line.product_uom_id._compute_quantity(line.qty_to_do, product_uom)
 
             qty += qty_to_do
             if not uom:
@@ -107,8 +95,7 @@ class StockPickingReportWizard(models.TransientModel):
             if qty_available is None:
                 qty_available = product.qty_available
 
-            result_by_product[scheduled_date_str] = \
-                [qty, uom, qty_available]
+            result_by_product[scheduled_date_str] = [qty, uom, qty_available]
             result[product] = result_by_product
 
         return result
@@ -135,13 +122,9 @@ class StockPickingReportWizard(models.TransientModel):
             product_uom = product.uom_so_id or product.uom_id
 
             result_by_product = result.get(product, {})
-            qty, uom, qty_available = \
-                result_by_product.get(partner_name, [0, None, None])
+            qty, uom, qty_available = result_by_product.get(partner_name, [0, None, None])
 
-            qty_to_do = line.product_uom_id._compute_quantity(
-                line.qty_to_do,
-                product_uom
-            )
+            qty_to_do = line.product_uom_id._compute_quantity(line.qty_to_do, product_uom)
 
             qty += qty_to_do
             if not uom:

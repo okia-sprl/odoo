@@ -10,8 +10,7 @@ class ProductPLU(models.Model):
     code = fields.Integer('Code', required=True)
     line_ids = fields.One2many('product.plu.line', 'plu_id', string='Lines')
 
-    _sql_constraints = [
-        ('unique_plu', 'UNIQUE(code)', _('The PLU code must be unique'))]
+    _sql_constraints = [('unique_plu', 'UNIQUE(code)', _('The PLU code must be unique'))]
 
     def name_get(self):
         result = []
@@ -26,19 +25,10 @@ class ProductPLULine(models.Model):
     _name = 'product.plu.line'
     _description = 'Line of Product PLU'
 
-    plu_id = fields.Many2one(
-        'product.plu',
-        string='PLU',
-        required=True,
-        ondelete='cascade'
-    )
+    plu_id = fields.Many2one('product.plu', string='PLU', required=True, ondelete='cascade')
     product_id = fields.Many2one(
-        'product.product',
-        string='Product',
-        domain=['|', ('active', '=', False), ('active', '=', True)]
+        'product.product', string='Product', domain=['|', ('active', '=', False), ('active', '=', True)]
     )
     is_to_invoice = fields.Boolean(
-        'To invoice',
-        help='Product marked as "To invoice" will generate '
-             'a sale/purchase order'
+        'To invoice', help='Product marked as "To invoice" will generate ' 'a sale/purchase order'
     )

@@ -22,12 +22,12 @@ class WorkHistoryReport(models.Model):
     product_id = fields.Many2one('product.product', 'Product')
     quantity = fields.Float('Quantity')
     quantity_uom_id = fields.Many2one('uom.uom', 'Unit of Measure',)
-    storable_product_id = fields.Many2one(
-        'product.product', 'Storable product')
+    storable_product_id = fields.Many2one('product.product', 'Storable product')
 
     def init(self):
         tools.drop_view_if_exists(self._cr, 'work_history_report')
-        self._cr.execute("""
+        self._cr.execute(
+            """
           CREATE VIEW work_history_report AS (
             SELECT id,
               action_id,
@@ -48,4 +48,5 @@ class WorkHistoryReport(models.Model):
               storable_product_id
             FROM work_history
           )
-        """)
+        """
+        )

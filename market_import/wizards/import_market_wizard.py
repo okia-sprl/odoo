@@ -1,6 +1,5 @@
 import re
 import io
-import csv
 import logging
 import base64
 
@@ -22,38 +21,17 @@ class ImportMarketWizard(models.TransientModel):
     _name = 'import.market.wizard'
     _description = 'Import Market Wizard'
 
-    name = fields.Char(
-        required=True,
-        readonly=True,
-        states={'new': [('readonly', False)]}
-    )
-    state = fields.Selection(
-        [('new', 'New'),
-         ('review', 'Review'),
-         ('validation', 'Validation')],
-        default='new'
-    )
-    date = fields.Date(
-        'Date',
-        default=fields.Date.today,
-        readonly=True,
-        states={'new': [('readonly', False)]}
-    )
+    name = fields.Char(required=True, readonly=True, states={'new': [('readonly', False)]})
+    state = fields.Selection([('new', 'New'), ('review', 'Review'), ('validation', 'Validation')], default='new')
+    date = fields.Date('Date', default=fields.Date.today, readonly=True, states={'new': [('readonly', False)]})
     data_file = fields.Binary('CSV File', required=True)
     filename = fields.Char()
-    line_ids = fields.One2many(
-        'import.market.wizard.line', 'wizard_id', string='Lines')
+    line_ids = fields.One2many('import.market.wizard.line', 'wizard_id', string='Lines')
     company_id = fields.Many2one(
-        'res.company',
-        string='Company',
-        required=True,
-        default=lambda self: self.env.user.company_id
+        'res.company', string='Company', required=True, default=lambda self: self.env.user.company_id
     )
     market_location_id = fields.Many2one('market.location', string='Location')
-    description = fields.Text(
-        'Description',
-        readonly=True,
-    )
+    description = fields.Text('Description', readonly=True,)
 
     def import_file(self):
         self.ensure_one()
@@ -67,9 +45,9 @@ class ImportMarketWizard(models.TransientModel):
             content = unicode_content.encode('utf-8')
         except Exception as e:
             raise UserError(
-                _('File not imported due to format mismatch '
-                  'or a malformed file.\n\nTechnical Details:\n%s') %
-                tools.ustr(e))
+                _('File not imported due to format mismatch ' 'or a malformed file.\n\nTechnical Details:\n%s')
+                % tools.ustr(e)
+            )
 
         plu_not_found = []
         index = 1
@@ -90,9 +68,7 @@ class ImportMarketWizard(models.TransientModel):
             try:
                 num_plu = int(num_plu_str)
             except Exception:
-                raise UserError(
-                    _('Invalid PLU %s (should be a number) with line %s')
-                    % (num_plu_str, '; '.join(row)))
+                raise UserError(_('Invalid PLU %s (should be a number) with line %s') % (num_plu_str, '; '.join(row)))
 
             plu = ProductPLU.search([('code', '=', num_plu)])
             if not plu:
@@ -110,24 +86,19 @@ class ImportMarketWizard(models.TransientModel):
             try:
                 weight = float(weight_str)
             except Exception:
-                raise UserError(
-                    _('Invalid Weight with line %s') % '; '.join(row))
+                raise UserError(_('Invalid Weight with line %s') % '; '.join(row))
 
-            amount_untaxed_str = \
-                row[INDEX_AMOUNT_UNTAXED].replace('.', '').replace(',', '.')
+            amount_untaxed_str = row[INDEX_AMOUNT_UNTAXED].replace('.', '').replace(',', '.')
             try:
                 amount_untaxed = float(amount_untaxed_str)
             except Exception:
-                raise UserError(
-                    _('Invalid Untaxed amount with line %s') % '; '.join(row))
+                raise UserError(_('Invalid Untaxed amount with line %s') % '; '.join(row))
 
-            amount_taxed_str = \
-                row[INDEX_AMOUNT_TAXED].replace('.', '').replace(',', '.')
+            amount_taxed_str = row[INDEX_AMOUNT_TAXED].replace('.', '').replace(',', '.')
             try:
                 amount_taxed = float(amount_taxed_str)
             except Exception:
-                raise UserError(
-                    _('Invalid Taxed amount with line %s') % '; '.join(row))
+                raise UserError(_('Invalid Taxed amount with line %s') % '; '.join(row))
 
             vals = {
                 'wizard_id': self.id,
@@ -141,64 +112,63 @@ class ImportMarketWizard(models.TransientModel):
 
             line = plu.line_ids.filtered(lambda line: line.product_id.active)
             if len(line) == 1:
-                vals.update({
-                    'product_id': line.product_id.id,
-                    'is_to_invoice': line.is_to_invoice,
-                    'unit_price': line.product_id.list_price,
-                })
+                vals.update(
+                    {
+                        'product_id': line.product_id.id,
+                        'is_to_invoice': line.is_to_invoice,
+                        'unit_price': line.product_id.list_price,
+                    }
+                )
 
             self.line_ids.create(vals)
 
             index += 1
 
         if plu_not_found:
-            self.description = _('PLU not found: %s') % \
-                               ', '.join([str(x) for x in plu_not_found])
+            self.description = _('PLU not found: %s') % ', '.join([str(x) for x in plu_not_found])
 
         self.state = 'review'
 
-        action = \
-            self.env.ref('market_import.action_import_market_wizard').read()[0]
+        action = self.env.ref('market_import.action_import_market_wizard').read()[0]
 
-        action.update({
-            'name': _('Review'),
-            'res_id': self.id,
-        })
+        action.update({'name': _('Review'), 'res_id': self.id})
 
         return action
 
     def create_market(self):
         self.ensure_one()
 
-        lines_without_product = \
-            self.line_ids.filtered(lambda line: not line.product_id)
+        lines_without_product = self.line_ids.filtered(lambda line: not line.product_id)
         if lines_without_product:
-            raise UserError(_('Please select a product for each '
-                              'lines or delete this line if needed.'))
+            raise UserError(_('Please select a product for each ' 'lines or delete this line if needed.'))
 
-        market = self.env['market.market'].create({
-            'description': self.name,
-            'market_date': self.date,
-            'notes': self.description,
-            'market_location_id': self.market_location_id.id
-        })
+        market = self.env['market.market'].create(
+            {
+                'description': self.name,
+                'market_date': self.date,
+                'notes': self.description,
+                'market_location_id': self.market_location_id.id,
+            }
+        )
 
         MarketLine = self.env['market.line']
         for line in self.line_ids:
             if not line.qty:
                 continue
 
-            MarketLine.create({
-                'market_id': market.id,
-                'product_id': line.product_id.id,
-                'product_uom_id': line.product_id.uom_id.id,
-                'product_qty': line.qty,
-                'is_to_invoice': line.is_to_invoice,
-                'price_unit': line.unit_price,
-                'market_amount_untaxed': line.market_amount_untaxed,
-                'market_amount_taxed': line.market_amount_taxed,
-                'plu_id': line.plu_id.id,
-            })
+            MarketLine.create(
+                {
+                    'market_id': market.id,
+                    'product_id': line.product_id.id,
+                    'product_uom_id': line.product_id.uom_id.id,
+                    'product_qty': line.qty,
+                    'is_to_invoice': line.is_to_invoice,
+                    'price_unit': line.unit_price,
+                    'market_amount_untaxed': line.market_amount_untaxed,
+                    'market_amount_taxed': line.market_amount_taxed,
+                    'plu_id': line.plu_id.id,
+                }
+            )
 
         return {
             'name': self.name,
@@ -215,62 +185,34 @@ class ImportMarketWizardLine(models.TransientModel):
     _order = 'wizard_id, sequence'
     _description = 'Line of Import Market Wizard'
 
-    wizard_id = fields.Many2one(
-        'import.market.wizard', required=True, string='Wizard')
-    sequence = fields.Integer(
-        'Sequence',
-        default=999,
-        required=True
-    )
-    plu_id = fields.Many2one(
-        'product.plu',
-        string='PLU',
-        required=True,
-        ondelete='cascade',
-        readonly=True,
-    )
+    wizard_id = fields.Many2one('import.market.wizard', required=True, string='Wizard')
+    sequence = fields.Integer('Sequence', default=999, required=True)
+    plu_id = fields.Many2one('product.plu', string='PLU', required=True, ondelete='cascade', readonly=True,)
     allowed_product_ids = fields.Many2many(
-        'product.product',
-        string='Products',
-        compute='_compute_allowed_product_ids',
-        readonly=True
+        'product.product', string='Products', compute='_compute_allowed_product_ids', readonly=True
     )
-    product_id = fields.Many2one(
-        'product.product',
-        string='Product selected',
-    )
-    qty_available = fields.Float(
-        related='product_id.qty_available', readonly=True)
+    product_id = fields.Many2one('product.product', string='Product selected',)
+    qty_available = fields.Float(related='product_id.qty_available', readonly=True)
     initial_qty = fields.Float('Initial Qty')
     qty = fields.Float('Qty')
     is_to_invoice = fields.Boolean('To invoice')
 
-    unit_price = fields.Monetary(
-        'Unit Price',
-        currency_field='company_currency_id',
-    )
+    unit_price = fields.Monetary('Unit Price', currency_field='company_currency_id',)
     amount_untaxed = fields.Monetary(
-        'Amount untaxed',
-        currency_field='company_currency_id',
-        compute='_compute_amount_untaxed',
-        readonly=True
+        'Amount untaxed', currency_field='company_currency_id', compute='_compute_amount_untaxed', readonly=True
     )
     market_amount_untaxed = fields.Monetary(
-        'Amount untaxed on the market',
-        currency_field='company_currency_id',
-        readonly=True
+        'Amount untaxed on the market', currency_field='company_currency_id', readonly=True
     )
     market_amount_taxed = fields.Monetary(
-        'Amount taxed on the market',
-        currency_field='company_currency_id',
-        readonly=True
+        'Amount taxed on the market', currency_field='company_currency_id', readonly=True
     )
 
     company_currency_id = fields.Many2one(
         'res.currency',
         related='wizard_id.company_id.currency_id',
         readonly=True,
-        help='Utility field to express amount currency'
+        help='Utility field to express amount currency',
     )
 
     @api.depends('qty', 'unit_price')
@@ -294,18 +236,12 @@ class ImportMarketWizardLine(models.TransientModel):
 
         sequence = self.sequence
 
-        other_lines = self.search(
-            [('wizard_id', '=', self.wizard_id.id),
-             ('sequence', '>', sequence)]
-        )
+        other_lines = self.search([('wizard_id', '=', self.wizard_id.id), ('sequence', '>', sequence)])
         for other_line in other_lines:
             other_line.sequence += 1
 
         initial_qty = self.initial_qty
-        same_lines = self.search([
-            ('wizard_id', '=', self.wizard_id.id),
-            ('plu_id', '=', self.plu_id.id)
-        ])
+        same_lines = self.search([('wizard_id', '=', self.wizard_id.id), ('plu_id', '=', self.plu_id.id)])
         current_qty = sum(same_lines.mapped('qty'))
 
         if current_qty >= initial_qty:
@@ -313,19 +249,10 @@ class ImportMarketWizardLine(models.TransientModel):
         else:
             new_qty = initial_qty - current_qty
 
-        self.copy({
-            'sequence': sequence + 1,
-            'qty': new_qty,
-            'product_id': None,
-            'is_to_invoice': False
-        })
+        self.copy({'sequence': sequence + 1, 'qty': new_qty, 'product_id': None, 'is_to_invoice': False})
 
-        action = \
-            self.env.ref('market_import.action_import_market_wizard').read()[0]
+        action = self.env.ref('market_import.action_import_market_wizard').read()[0]
 
-        action.update({
-            'name': _('Review'),
-            'res_id': self.wizard_id.id,
-        })
+        action.update({'name': _('Review'), 'res_id': self.wizard_id.id})
 
         return action

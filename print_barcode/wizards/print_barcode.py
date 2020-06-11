@@ -8,24 +8,11 @@ class PrintBarcode(models.TransientModel):
 
     is_group_by_category = fields.Boolean('Group by category', default=True)
     nbr_columns = fields.Integer('Nbr of columns', default=3, required=True)
-    barcode_height = fields.Integer(
-        'Barcode height', default=50, required=True)
+    barcode_height = fields.Integer('Barcode height', default=50, required=True)
     barcode_width = fields.Integer('Barcode width', default=300, required=True)
-    order_by = fields.Selection(
-        [('name', 'Name'),
-         ('barcode', 'Barcode')],
-        default='name',
-        required=True
-    )
-    nbr_products = fields.Integer(
-        'Nbr products',
-        readonly=True,
-        compute='_compute_nbr_products'
-    )
-    product_category_id = fields.Many2one(
-        'product.category',
-        string='Product category (optional)'
-    )
+    order_by = fields.Selection([('name', 'Name'), ('barcode', 'Barcode')], default='name', required=True)
+    nbr_products = fields.Integer('Nbr products', readonly=True, compute='_compute_nbr_products')
+    product_category_id = fields.Many2one('product.category', string='Product category (optional)')
 
     def get_products(self):
         self.ensure_one()
@@ -43,8 +30,7 @@ class PrintBarcode(models.TransientModel):
             elif active_model == 'product.template':
                 domain += [('product_tmpl_id', 'in', active_ids)]
             else:
-                raise UserError(
-                    _('Invalid source model to print a barcode'))
+                raise UserError(_('Invalid source model to print a barcode'))
 
         return self.env['product.product'].search(domain, order=self.order_by)
 
@@ -63,7 +49,7 @@ class PrintBarcode(models.TransientModel):
             'barcode_height': self.barcode_height,
             'barcode_width': self.barcode_width,
             'is_group_by_category': self.is_group_by_category,
-            'order_by': self.order_by
+            'order_by': self.order_by,
         }
 
         template = 'print_barcode.report_product_barcode'
@@ -79,8 +65,7 @@ class ReportProductBarcode(models.AbstractModel):
         product_template_obj = self.env['product.template']
 
         order_by = data and data.get('order_by')
-        is_group_by_category = \
-            data and data.get('is_group_by_category', False) or False
+        is_group_by_category = data and data.get('is_group_by_category', False) or False
 
         products = product_template_obj.browse(docids)
 
@@ -94,14 +79,11 @@ class ReportProductBarcode(models.AbstractModel):
         if is_group_by_category:
             products_by_category = []
             categories = self.env['product.category'].search(
-                [('id', 'in', products.mapped('categ_id').ids)],
-                order='parent_left'
+                [('id', 'in', products.mapped('categ_id').ids)], order='parent_left'
             )
             for category in categories:
                 category_products = product_template_obj.search(
-                    [('id', 'in', products.ids),
-                     ('categ_id', '=', category.id)],
-                    order=order_by
+                    [('id', 'in', products.ids), ('categ_id', '=', category.id)], order=order_by
                 )
                 products_by_category.append((category, category_products))
 

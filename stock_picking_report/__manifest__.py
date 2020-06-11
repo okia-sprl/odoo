@@ -10,10 +10,7 @@
     """,
     'category': 'Stock',
     'website': 'https://okia.be',
-    'depends': [
-        'stock',
-        'sale_uom',
-    ],
+    'depends': ['stock', 'sale_uom'],
     'data': [
         # Reports
         "report/stock_picking_report.xml",
@@ -21,13 +18,10 @@
         "report/template_stock_picking_report.xml",
         "report/template_stock_picking_daily_report.xml",
         "report/template_stock_picking_all_report.xml",
-
         # Wizards
         "wizards/stock_picking_report_wizard.xml",
-
         # Security
         "security/ir.model.access.csv",
-
         # Data
         "data/paperformat.xml",
     ],

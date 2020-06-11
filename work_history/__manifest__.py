@@ -18,13 +18,10 @@
         "views/work_history.xml",
         "views/work_action.xml",
         "wizards/work_history_wizard.xml",
-
         # Data
         "data/work.action.csv",
-
         # Reports
         "reports/work_history_report.xml",
-
         # Security
         "security/ir.model.access.csv",
     ],

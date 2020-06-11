@@ -14,10 +14,9 @@ class AccountPrintJournal(models.TransientModel):
 
         if self.is_only_market:
             journals = self.env['account.journal'].search(
-                [('type', 'in', ['sale', 'purchase']),
-                 ('is_market', '=', True)])
+                [('type', 'in', ['sale', 'purchase']), ('is_market', '=', True)]
+            )
         else:
-            journals = self.env['account.journal'].search(
-                [('type', 'in', ['sale', 'purchase'])])
+            journals = self.env['account.journal'].search([('type', 'in', ['sale', 'purchase'])])
 
         self.journal_ids = [(6, 0, journals.ids)]
