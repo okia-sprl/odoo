@@ -8,9 +8,23 @@ class InventoryTransfer(models.Model):
     _order = 'transfer_date DESC'
     _rec_name = 'transfer_date'
 
+    @api.model
+    def _domain_location_id(self):
+        if self.env.context.get('active_model') == 'stock.inventory':
+            inventory = self.env['stock.inventory'].browse(self.env.context.get('active_id'))
+            if inventory.exists() and inventory.location_ids:
+                return (
+                    "[('company_id', '=', company_id), "
+                    "('usage', 'in', ['internal', 'transit']), ('id', 'child_of', %s)]" % inventory.location_ids.ids
+                )
+        return
+
     transfer_date = fields.Datetime(required=True, default=lambda self: fields.Datetime.now())
     company_id = fields.Many2one(
-        'res.company', string='Company', required=True, default=lambda self: self.env.user.company_id.id
+        'res.company',
+        string='Company',
+        required=True,
+        default=lambda self: self.env.user.company_ids[0] if len(self.env.user.company_ids) == 1 else None,
     )
     currency_id = fields.Many2one(related='company_id.currency_id')
     dest_company_id = fields.Many2one('res.company', string='Destination Company', required=True)
@@ -18,14 +32,11 @@ class InventoryTransfer(models.Model):
         'stock.location',
         string='Production Location',
         required=True,
-        domain=[('usage', '=', 'production')],
+        domain="[('usage', '=', 'production')]",
         default=lambda self: self.env['stock.location'].search([('usage', '=', 'production')], limit=1),
     )
     location_id = fields.Many2one(
-        'stock.location',
-        string='Location',
-        required=True,
-        default=lambda self: self.env['stock.inventory']._default_location_id(),
+        'stock.location', string='Location', required=True, domain="[('usage', 'in', ['internal', 'transit'])]",
     )
     state = fields.Selection(
         string='Status',
@@ -74,7 +85,7 @@ class InventoryTransfer(models.Model):
         if self.state != 'draft':
             raise UserError(_('You cannot validate a transfer already validated'))
 
-        if self.env.user.company_id != self.company_id:
+        if self.company_id not in self.env.user.company_ids:
             raise UserError(_('You cannot execute this transfer with an another company.'))
 
         if not self.transfer_line_ids:
@@ -83,27 +94,37 @@ class InventoryTransfer(models.Model):
         self.clean_stock()
         self.create_stock_moves()
 
-        self.sudo().create_purchase_order()
+        self.create_purchase_order()
 
         self.state = 'done'
 
     def clean_stock(self):
+        quants = self.env['stock.quant'].search(
+            [
+                ('location_id', 'child_of', self.location_id.id),
+                ('company_id', '=', self.company_id.id),
+                ('quantity', '>', 0),
+            ]
+        )
+
+        if not quants:
+            return
+
         stock_inventory = self.env['stock.inventory'].create(
             {
                 'name': 'Clean the stock from inventory transfer %s' % self.transfer_date,
-                'filter': 'none',
-                'location_id': self.location_id.id,
+                'location_ids': [(6, 0, self.location_id.ids)],
                 'company_id': self.company_id.id,
-                'exhausted': True,
+                'prefill_counted_quantity': 'zero',
             }
         )
-        stock_inventory.prepare_inventory()
-        if not stock_inventory.line_ids.filtered(lambda line: line.product_qty):
+        stock_inventory.action_start()
+        if not stock_inventory.line_ids:
+            stock_inventory.action_cancel_draft()
             stock_inventory.unlink()
             return
 
-        stock_inventory.reset_real_qty()
-        stock_inventory.action_done()
+        stock_inventory.action_validate()
 
     def create_stock_moves(self):
         stock_picking_type = self.env['stock.picking.type'].search(
@@ -138,7 +159,8 @@ class InventoryTransfer(models.Model):
                 }
             )
 
-        stock_picking.do_transfer()
+        wizard = self.env['stock.immediate.transfer'].create({'pick_ids': [(6, 0, stock_picking.ids)]})
+        wizard.process()
 
     def create_purchase_order(self):
         purchase_order_obj = self.env['purchase.order']
@@ -166,19 +188,8 @@ class InventoryTransfer(models.Model):
 
         purchase_order.with_context(use_po_line_price_unit=True).button_confirm()
 
-        for picking in purchase_order.picking_ids:
-            if picking.state != 'assigned':
-                raise UserError(
-                    _('Cannot validate the purchase order. ' 'There is no picking linked to the purchase order.')
-                )
-
-            for pack in picking.pack_operation_ids:
-                if pack.product_qty > 0:
-                    pack.write({'qty_done': pack.product_qty})
-                else:
-                    pack.unlink()
-
-            picking.do_transfer()
+        wizard = self.env['stock.immediate.transfer'].create({'pick_ids': [(6, 0, purchase_order.picking_ids.ids)]})
+        wizard.process()
 
         self.env.user.write({'company_id': self.company_id.id})
 
@@ -190,25 +201,8 @@ class InventoryTransfer(models.Model):
                 _('The Sale Order has not been created. It seems to have a problem with the intercompany flow')
             )
 
-        for picking in sale_order.picking_ids:
-            if picking.state == 'confirmed':
-                picking.force_assign()
-
-            if picking.state != 'assigned':
-                raise UserError(
-                    _('Cannot validate the picking. Please manualy ' 'validate the picking %s') % picking.name
-                )
-
-            if picking.state != 'assigned':
-                raise UserError(_('Cannot validate the purchase order'))
-
-            for pack in picking.pack_operation_ids:
-                if pack.product_qty > 0:
-                    pack.write({'qty_done': pack.product_qty})
-                else:
-                    pack.unlink()
-
-            picking.do_transfer()
+        wizard = self.env['stock.immediate.transfer'].create({'pick_ids': [(6, 0, sale_order.picking_ids)]})
+        wizard.process()
 
         self.sale_order_id = sale_order.id
 
@@ -220,13 +214,13 @@ class InventoryTransferLine(models.Model):
     company_id = fields.Many2one(related='transfer_id.company_id', store=True)
     transfer_id = fields.Many2one('inventory.transfer', string='Inventory Transfer', required=True, ondelete='cascade')
     product_id = fields.Many2one('product.product', string='Product', required=True)
+    product_uom_category_id = fields.Many2one(related='product_id.uom_id.category_id')
     product_qty = fields.Float('Qty', required=True)
-    product_uom_id = fields.Many2one('uom.uom', string='UoM', required=True)
+    product_uom_id = fields.Many2one(
+        'uom.uom', string='UoM', required=True, domain="[('category_id', '=', product_uom_category_id)]"
+    )
     production_location_id = fields.Many2one(
         'stock.location', string='Production Location', required=True, domain=[('usage', '=', 'production')],
-    )
-    allowed_uom_ids = fields.Many2many(
-        'uom.uom', string='Allowed UoM', compute='_compute_allowed_product_ids', readonly=True
     )
     unit_price = fields.Monetary('Unit Price', required=True)
 
@@ -246,13 +240,3 @@ class InventoryTransferLine(models.Model):
 
         self.product_uom_id = self.product_id.uom_id.id
         self.unit_price = self.product_id.list_price
-
-    def _compute_allowed_product_ids(self):
-        for line in self:
-            if not line.product_id:
-                continue
-
-            uom_category = line.product_id.uom_id.category_id
-            uoms = self.env['uom.uom'].search([('category_id', '=', uom_category.id)])
-
-            line.allowed_product_ids = [(6, 0, uoms.ids)]
