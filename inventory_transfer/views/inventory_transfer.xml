@@ -22,7 +22,7 @@
                         </group>
                         <group states="done">
                             <field name="sale_order_id"/>
-                            <field name="purchase_order_ref"/>
+                            <field name="purchase_order_id"/>
                             <field name="total_amount"/>
                         </group>
                     </group>

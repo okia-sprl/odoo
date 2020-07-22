@@ -8,35 +8,50 @@ class InventoryTransfer(models.Model):
     _order = 'transfer_date DESC'
     _rec_name = 'transfer_date'
 
-    @api.model
-    def _domain_location_id(self):
-        if self.env.context.get('active_model') == 'stock.inventory':
-            inventory = self.env['stock.inventory'].browse(self.env.context.get('active_id'))
-            if inventory.exists() and inventory.location_ids:
-                return (
-                    "[('company_id', '=', company_id), "
-                    "('usage', 'in', ['internal', 'transit']), ('id', 'child_of', %s)]" % inventory.location_ids.ids
-                )
-        return
-
-    transfer_date = fields.Datetime(required=True, default=lambda self: fields.Datetime.now())
+    transfer_date = fields.Datetime(
+        required=True,
+        default=lambda self: fields.Datetime.now(),
+        readonly=True,
+        states={'draft': [('readonly', False)]},
+    )
     company_id = fields.Many2one(
         'res.company',
         string='Company',
         required=True,
-        default=lambda self: self.env.user.company_ids[0] if len(self.env.user.company_ids) == 1 else None,
+        default=lambda self: self.env.company,
+        domain="[('id', '=', company_id)]",
+        readonly=True,
+        states={'draft': [('readonly', False)]},
     )
     currency_id = fields.Many2one(related='company_id.currency_id')
-    dest_company_id = fields.Many2one('res.company', string='Destination Company', required=True)
+    dest_company_id = fields.Many2one(
+        'res.company',
+        string='Destination Company',
+        required=True,
+        default=lambda self: self.env['res.company'].search([('id', '!=', self.env.company.id)], limit=1),
+        domain="[('id', '!=', company_id)]",
+        readonly=True,
+        states={'draft': [('readonly', False)]},
+    )
     production_location_id = fields.Many2one(
         'stock.location',
         string='Production Location',
         required=True,
-        domain="[('usage', '=', 'production')]",
+        domain="[('usage', '=', 'production'), ('company_id', '=', company_id)]",
         default=lambda self: self.env['stock.location'].search([('usage', '=', 'production')], limit=1),
+        readonly=True,
+        states={'draft': [('readonly', False)]},
+        check_company=True,
     )
     location_id = fields.Many2one(
-        'stock.location', string='Location', required=True, domain="[('usage', 'in', ['internal', 'transit'])]",
+        'stock.location',
+        string='Location',
+        required=True,
+        domain="[('usage', '=', 'internal'), ('company_id', '=', company_id)]",
+        readonly=True,
+        states={'draft': [('readonly', False)]},
+        default=lambda self: self.env['stock.location'].search([('usage', '=', 'internal')], limit=1),
+        check_company=True,
     )
     state = fields.Selection(
         string='Status',
@@ -46,9 +61,16 @@ class InventoryTransfer(models.Model):
         readonly=True,
         default='draft',
     )
-    transfer_line_ids = fields.One2many('inventory.transfer.line', 'transfer_id', string='Lines', copy=True)
-    sale_order_id = fields.Many2one('sale.order', string='Sale Order', readonly=True)
-    purchase_order_ref = fields.Char('Purchase Order', readonly=True)
+    transfer_line_ids = fields.One2many(
+        'inventory.transfer.line',
+        'transfer_id',
+        string='Lines',
+        copy=True,
+        readonly=True,
+        states={'draft': [('readonly', False)]},
+    )
+    sale_order_id = fields.Many2one('sale.order', string='Sale Order', readonly=True,)
+    purchase_order_id = fields.Many2one('purchase.order', string='Purchase Order', readonly=True)
     total_amount = fields.Monetary('Total amount', compute='_compute_total_amount')
 
     @api.depends('transfer_line_ids.product_qty', 'transfer_line_ids.unit_price')
@@ -57,17 +79,6 @@ class InventoryTransfer(models.Model):
             inventory_transfer.total_amount = sum(
                 [line.product_qty * line.unit_price for line in inventory_transfer.transfer_line_ids]
             )
-
-    @api.model
-    def default_get(self, fields_list):
-        result = super(InventoryTransfer, self).default_get(fields_list)
-
-        if not result.get('dest_company_id') and result.get('company_id'):
-            other_company = self.env['res.company'].search([('id', '!=', result['company_id'])])
-            if len(other_company) == 1:
-                result['dest_company_id'] = other_company.id
-
-        return result
 
     @api.constrains('state')
     def check_state(self):
@@ -94,7 +105,7 @@ class InventoryTransfer(models.Model):
         self.clean_stock()
         self.create_stock_moves()
 
-        self.create_purchase_order()
+        self.create_sale_order()
 
         self.state = 'done'
 
@@ -162,49 +173,49 @@ class InventoryTransfer(models.Model):
         wizard = self.env['stock.immediate.transfer'].create({'pick_ids': [(6, 0, stock_picking.ids)]})
         wizard.process()
 
-    def create_purchase_order(self):
-        purchase_order_obj = self.env['purchase.order']
-        purchase_order_line_obj = self.env['purchase.order.line']
+    def create_sale_order(self):
+        SaleOrder = self.env['sale.order']
+        SaleOrderLine = self.env['sale.order.line']
 
-        self.env.user.write({'company_id': self.dest_company_id.id})
+        sale_order = SaleOrder.with_context(force_company=self.company_id.id).new(
+            {'partner_id': self.dest_company_id.partner_id.id}
+        )
+        sale_order.onchange_partner_id()
 
-        purchase_order = purchase_order_obj.new({'partner_id': self.company_id.partner_id.id})
-        purchase_order.onchange_partner_id()
-
-        purchase_order_values = purchase_order._convert_to_write(purchase_order._cache)
-        purchase_order = purchase_order_obj.create(purchase_order_values)
+        sale_order_values = sale_order._convert_to_write(sale_order._cache)
+        sale_order = SaleOrder.create(sale_order_values)
 
         for line in self.transfer_line_ids:
-            po_line = purchase_order_line_obj.new({'order_id': purchase_order.id, 'product_id': line.product_id.id})
-            po_line.onchange_product_id()
+            so_line = SaleOrderLine.new({'order_id': sale_order.id, 'product_id': line.product_id.id})
+            so_line.product_id_change()
 
-            po_line.update({'product_uom': line.product_uom_id.id, 'product_qty': line.product_qty})
-            po_line._onchange_quantity()
+            so_line.update({'product_uom': line.product_uom_id.id, 'product_uom_qty': line.product_qty})
+            so_line.product_uom_change()
 
-            po_line['price_unit'] = line.unit_price
+            so_line['price_unit'] = line.unit_price
 
-            purchase_order_line_values = po_line._convert_to_write(po_line._cache)
-            purchase_order_line_obj.create(purchase_order_line_values)
+            sale_order_line_values = so_line._convert_to_write(so_line._cache)
+            SaleOrderLine.create(sale_order_line_values)
 
-        purchase_order.with_context(use_po_line_price_unit=True).button_confirm()
+        sale_order.action_confirm()
 
-        wizard = self.env['stock.immediate.transfer'].create({'pick_ids': [(6, 0, purchase_order.picking_ids.ids)]})
+        wizard = self.env['stock.immediate.transfer'].create({'pick_ids': [(6, 0, sale_order.picking_ids.ids)]})
         wizard.process()
 
         self.env.user.write({'company_id': self.company_id.id})
 
-        self.purchase_order_ref = purchase_order.name
+        self.sale_order_id = sale_order.id
 
-        sale_order = self.env['sale.order'].search([('auto_purchase_order_id', '=', purchase_order.id)])
-        if not sale_order:
+        purchase_order = self.env['purchase.order'].search([('auto_sale_order_id', '=', sale_order.id)])
+        if not purchase_order:
             raise UserError(
-                _('The Sale Order has not been created. It seems to have a problem with the intercompany flow')
+                _('The Purchase Order has not been created. It seems to have a problem with the intercompany flow')
             )
 
-        wizard = self.env['stock.immediate.transfer'].create({'pick_ids': [(6, 0, sale_order.picking_ids)]})
+        wizard = self.env['stock.immediate.transfer'].create({'pick_ids': [(6, 0, sale_order.picking_ids.ids)]})
         wizard.process()
 
-        self.sale_order_id = sale_order.id
+        self.purchase_order_id = purchase_order.id
 
 
 class InventoryTransferLine(models.Model):
