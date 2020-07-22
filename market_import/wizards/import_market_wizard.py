@@ -112,13 +112,7 @@ class ImportMarketWizard(models.TransientModel):
 
             line = plu.line_ids.filtered(lambda line: line.product_id.active)
             if len(line) == 1:
-                vals.update(
-                    {
-                        'product_id': line.product_id.id,
-                        'is_to_invoice': line.is_to_invoice,
-                        'unit_price': line.product_id.list_price,
-                    }
-                )
+                vals.update({'product_id': line.product_id.id, 'unit_price': line.product_id.list_price})
 
             self.line_ids.create(vals)
 
@@ -162,7 +156,6 @@ class ImportMarketWizard(models.TransientModel):
                     'product_id': line.product_id.id,
                     'product_uom_id': line.product_id.uom_id.id,
                     'product_qty': line.qty,
-                    'is_to_invoice': line.is_to_invoice,
                     'price_unit': line.unit_price,
                     'market_amount_untaxed': line.market_amount_untaxed,
                     'market_amount_taxed': line.market_amount_taxed,
@@ -195,7 +188,6 @@ class ImportMarketWizardLine(models.TransientModel):
     qty_available = fields.Float(related='product_id.qty_available', readonly=True)
     initial_qty = fields.Float('Initial Qty')
     qty = fields.Float('Qty')
-    is_to_invoice = fields.Boolean('To invoice')
 
     unit_price = fields.Monetary('Unit Price', currency_field='company_currency_id',)
     amount_untaxed = fields.Monetary(
@@ -249,7 +241,7 @@ class ImportMarketWizardLine(models.TransientModel):
         else:
             new_qty = initial_qty - current_qty
 
-        self.copy({'sequence': sequence + 1, 'qty': new_qty, 'product_id': None, 'is_to_invoice': False})
+        self.copy({'sequence': sequence + 1, 'qty': new_qty, 'product_id': None})
 
         action = self.env.ref('market_import.action_import_market_wizard').read()[0]
 

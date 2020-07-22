@@ -24,7 +24,6 @@
                             <field name="qty_available"/>
                             <field name="unit_price"/>
                             <field name="amount_untaxed" sum="Total Untaxed amount"/>
-                            <field name="is_to_invoice"/>
                             <field name="allowed_product_ids" invisible="1"/>
                             <button name="split_line" type="object" icon="fa-files-o"/>
                         </tree>

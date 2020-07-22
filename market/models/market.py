@@ -17,12 +17,12 @@ class MarketLocation(models.Model):
 class Market(models.Model):
     _name = 'market.market'
     _description = 'Market'
+    _order = 'market_date DESC'
 
     @api.depends('market_line_ids.product_qty', 'market_line_ids.product_id', 'market_line_ids.price_unit')
     def _amount_all(self):
         for market in self:
-            lines_to_invoice = market.market_line_ids.filtered(lambda line: line.is_to_invoice)
-            sum_to_invoice = sum(lines_to_invoice.mapped('amount_untaxed'))
+            sum_to_invoice = sum(market.market_line_ids.mapped('amount_untaxed'))
 
             market_amount_untaxed = sum(market.market_line_ids.mapped('market_amount_untaxed'))
             market_amount_taxed = sum(market.market_line_ids.mapped('market_amount_taxed'))
@@ -51,8 +51,6 @@ class Market(models.Model):
     market_location_id = fields.Many2one(
         'market.location', string='Location', readonly=True, states={'draft': [('readonly', False)]}
     )
-    purchase_order_id = fields.Many2one('purchase.order', string='Purchase order', readonly=True, copy=False)
-    sale_order_id = fields.Many2one('sale.order', string='Sale Order', readonly=True, copy=False)
     market_date = fields.Datetime('Market date', readonly=True, states={'draft': [('readonly', False)]}, copy=False)
     market_line_ids = fields.One2many(
         'market.line', 'market_id', string='Lines', readonly=True, states={'draft': [('readonly', False)]}, copy=True
@@ -85,7 +83,6 @@ class Market(models.Model):
         if self.state != 'draft':
             raise UserError(_('You can only confirm a draft market'))
 
-        self.create_purchase_order()
         self.move_quants()
         self.state = 'confirm'
 
@@ -96,73 +93,6 @@ class Market(models.Model):
             raise UserError(_('You can only cancel a draft market'))
 
         self.state = 'cancel'
-
-    def create_purchase_order(self):
-        self.ensure_one()
-
-        lines_to_invoice = self.market_line_ids.filtered(lambda line: line.is_to_invoice)
-
-        if not lines_to_invoice:
-            return
-
-        PurchaseOrder = self.env['purchase.order']
-        PurchaseOrderLine = self.env['purchase.order.line']
-
-        vals = self._prepare_purchase_order_data()
-        purchase_order = PurchaseOrder.create(vals)
-
-        for line in lines_to_invoice:
-            line_vals = {
-                'order_id': purchase_order.id,
-                'sequence': line.plu_id.code,
-                'product_qty': line.product_qty,
-                'product_id': line.product_id.id,
-            }
-            po_line = PurchaseOrderLine.new(line_vals)
-            po_line.onchange_product_id()
-
-            po_line.name = line.plu_id.display_name
-            po_line.price_unit = line.price_unit
-            po_line.product_qty = line.product_qty
-            po_line.product_uom = line.product_uom_id.id
-
-            po_line.date_planned = self.market_date
-
-            PurchaseOrderLine.create(po_line._convert_to_write(po_line._cache))
-
-        purchase_order.button_confirm()
-
-        pickings = purchase_order.picking_ids
-
-        sale_order = (
-            self.env['sale.order']
-            .sudo()
-            .search([('auto_purchase_order_id', '=', purchase_order.id)], limit=1, order='id DESC')
-        )
-        if not sale_order:
-            raise UserError(_('Error during the validation of the market.' ' Cannot retrieve the sale order.'))
-
-        pickings |= sale_order.picking_ids
-
-        wizard = self.env['stock.immediate.transfer'].create({'pick_ids': [(6, 0, pickings.ids)]})
-        wizard.process()
-
-        self.write({'purchase_order_id': purchase_order.id, 'sale_order_id': sale_order.id})
-
-    def _prepare_purchase_order_data(self):
-        PurchaseOrder = self.env['purchase.order']
-        vals = PurchaseOrder.default_get([])
-
-        company_seller = self.company_id.seller_company_id
-        if not company_seller:
-            raise UserError(_('Please define the company seller in the configuration'))
-
-        vals['partner_id'] = company_seller.partner_id.id
-
-        po_temp = PurchaseOrder.new(vals)
-        po_temp.onchange_partner_id()
-
-        return po_temp._convert_to_write(po_temp._cache)
 
     def _prepare_stock_picking_data(self):
         self.ensure_one()
@@ -231,7 +161,6 @@ class MarketLine(models.Model):
     product_uom_id = fields.Many2one('uom.uom', string='UoM', required=True)
     product_qty = fields.Float('Product Qty', required=True)
     qty_available = fields.Float(related='product_id.qty_available', readonly=True)
-    is_to_invoice = fields.Boolean('To invoice')
     plu_id = fields.Many2one('product.plu', string='PLU', readonly=True)
 
     price_unit = fields.Monetary('Unit price', required=True, digits='Product Price')

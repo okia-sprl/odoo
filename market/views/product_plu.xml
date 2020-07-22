@@ -12,7 +12,6 @@
                         <field name="line_ids">
                             <tree editable="bottom">
                                 <field name="product_id"/>
-                                <field name="is_to_invoice"/>
                             </tree>
                         </field>
                     </group>
