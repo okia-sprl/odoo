@@ -18,16 +18,16 @@ class StockPickingReportWizard(models.TransientModel):
     report_scope = fields.Integer('Report scope', readonly=True)
 
     def print_stock_picking_report(self):
-        template = 'stock_picking_report.stock_picking_report'
-        return self.env["report"].get_action(self, template)
+        template = 'stock_picking_report.action_stock_picking_report'
+        return self.env.ref(template).report_action(self)
 
     def print_daily_stock_picking_report(self):
-        template = 'stock_picking_report.stock_picking_daily_report'
-        return self.env["report"].get_action(self, template)
+        template = 'stock_picking_report.action_stock_picking_daily_report'
+        return self.env.ref(template).report_action(self)
 
     def print_all_stock_picking_report(self):
-        template = 'stock_picking_report.stock_picking_all_report'
-        return self.env["report"].get_action(self, template)
+        template = 'stock_picking_report.action_stock_picking_all_report'
+        return self.env.ref(template).report_action(self)
 
     def get_days(self):
         lang_obj = self.env['res.lang']
