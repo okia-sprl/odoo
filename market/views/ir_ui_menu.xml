@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+    <menuitem id="market_menu_root" name="Markets" sequence="80" web_icon="market,static/description/icon.png" groups="market_group_user"/>
+    <menuitem id="main_market_menu" name="Market" sequence="1" parent="market_menu_root"/>
     <menuitem id="main_menu_market_configuration" name="Configuration" parent="market_menu_root" sequence="20" groups="market_group_manager"/>
     <menuitem id="sub_menu_market_configuration" name="Configuration" parent="main_menu_market_configuration" sequence="1"/>
 </odoo>

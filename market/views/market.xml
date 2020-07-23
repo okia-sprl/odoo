@@ -64,7 +64,5 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="market_menu_root" name="Markets" sequence="80" web_icon="market,static/description/icon.png" groups="market_group_user"/>
-    <menuitem id="main_market_menu" name="Market" sequence="1" parent="market_menu_root"/>
     <menuitem id="market_menu" name="Market" sequence="1" action="market_action" parent="main_market_menu"/>
 </odoo>
