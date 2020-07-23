@@ -13,6 +13,7 @@
                         <field name="market_location_id"/>
                         <field name="data_file" filename="filename" placeholder="Choose a file to import..." states="new"/>
                         <field name="filename" invisible="1" states="new"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
                     </group>
                     <field name="description" states="review"/>
                     <label for="line_ids" states="review"/>

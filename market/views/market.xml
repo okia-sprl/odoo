@@ -9,6 +9,7 @@
                 <field name="description"/>
                 <field name="market_date"/>
                 <field name="market_amount_taxed"/>
+                <field name="company_id" groups="base.group_multi_company"/>
                 <field name="state"/>
             </tree>
         </field>
@@ -32,6 +33,7 @@
                             <field name="description" required="True"/>
                             <field name="market_date" required="True"/>
                             <field name="market_location_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
                         </group>
                     </group>
                     <label for="market_line_ids"/>

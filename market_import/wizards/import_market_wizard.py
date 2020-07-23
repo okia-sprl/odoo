@@ -28,7 +28,7 @@ class ImportMarketWizard(models.TransientModel):
     filename = fields.Char()
     line_ids = fields.One2many('import.market.wizard.line', 'wizard_id', string='Lines')
     company_id = fields.Many2one(
-        'res.company', string='Company', required=True, default=lambda self: self.env.user.company_id
+        'res.company', string='Company', required=True, default=lambda self: self.env.company.id
     )
     market_location_id = fields.Many2one('market.location', string='Location')
     description = fields.Text('Description', readonly=True,)
