@@ -177,9 +177,7 @@ class InventoryTransfer(models.Model):
         SaleOrder = self.env['sale.order']
         SaleOrderLine = self.env['sale.order.line']
 
-        sale_order = SaleOrder.with_context(force_company=self.company_id.id).new(
-            {'partner_id': self.dest_company_id.partner_id.id}
-        )
+        sale_order = SaleOrder.new({'partner_id': self.dest_company_id.partner_id.id})
         sale_order.onchange_partner_id()
 
         sale_order_values = sale_order._convert_to_write(sale_order._cache)
@@ -199,21 +197,25 @@ class InventoryTransfer(models.Model):
 
         sale_order.action_confirm()
 
+        pickings_to_assign = sale_order.picking_ids.filtered(lambda picking: picking.state == 'confirmed')
+        if pickings_to_assign:
+            pickings_to_assign.action_assign()
         wizard = self.env['stock.immediate.transfer'].create({'pick_ids': [(6, 0, sale_order.picking_ids.ids)]})
         wizard.process()
 
-        self.env.user.write({'company_id': self.company_id.id})
-
         self.sale_order_id = sale_order.id
 
-        purchase_order = self.env['purchase.order'].search([('auto_sale_order_id', '=', sale_order.id)])
+        purchase_order = self.env['purchase.order'].sudo().search([('auto_sale_order_id', '=', sale_order.id)])
         if not purchase_order:
             raise UserError(
                 _('The Purchase Order has not been created. It seems to have a problem with the intercompany flow')
             )
 
-        wizard = self.env['stock.immediate.transfer'].create({'pick_ids': [(6, 0, sale_order.picking_ids.ids)]})
-        wizard.process()
+        pickings_to_assign = purchase_order.picking_ids.filtered(lambda picking: picking.state == 'confirmed')
+        if pickings_to_assign:
+            pickings_to_assign.sudo().action_assign()
+        wizard = self.env['stock.immediate.transfer'].create({'pick_ids': [(6, 0, purchase_order.picking_ids.ids)]})
+        wizard.sudo().process()
 
         self.purchase_order_id = purchase_order.id
 
