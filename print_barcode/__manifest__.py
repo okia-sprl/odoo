@@ -12,7 +12,7 @@
     'website': 'https://okia.be',
     'depends': ['stock'],
     'data': ["wizards/print_barcode.xml", "views/report_location_barcode.xml"],
-    'installable': True,
+    'installable': False,
     'application': True,
     'auto_install': False,
 }

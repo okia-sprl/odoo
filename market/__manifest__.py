@@ -12,7 +12,7 @@
 
     """,
     'category': 'Purchase',
-    'depends': ['inter_company_rules'],
+    'depends': ['sale_purchase_inter_company_rules'],
     'data': [
         # Security
         "security/market_security.xml",
@@ -20,7 +20,6 @@
         # Views
         "views/ir_ui_menu.xml",
         "views/market.xml",
-        "views/res_config_view.xml",
         "views/market_location.xml",
         "views/product_plu.xml",
         # Data

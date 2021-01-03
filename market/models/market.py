@@ -163,7 +163,7 @@ class MarketLine(models.Model):
     qty_available = fields.Float(related='product_id.qty_available', readonly=True)
     plu_id = fields.Many2one('product.plu', string='PLU', readonly=True)
 
-    price_unit = fields.Monetary('Unit price', required=True, digits='Product Price')
+    price_unit = fields.Monetary('Unit price', required=True)
     amount_untaxed = fields.Monetary('Amount untaxed', store=True, readonly=True, compute='_compute_unit_price')
 
     market_amount_untaxed = fields.Monetary('Market Amount Untaxed', readonly=True)

@@ -13,7 +13,7 @@
         # TODO to upgrade
         # 'wizard/account_report_print_journal_view.xml',
     ],
-    'installable': True,
+    'installable': False,
     'application': True,
     'auto_install': False,
 }

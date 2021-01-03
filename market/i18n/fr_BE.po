@@ -1,14 +1,14 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* market
+# 	* market
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0+e\n"
+"Project-Id-Version: Odoo Server 14.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-03 22:58+0000\n"
-"PO-Revision-Date: 2020-02-03 22:58+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2021-01-03 23:02+0000\n"
+"PO-Revision-Date: 2021-01-03 23:02+0000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,66 +16,35 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_location_address
+#: model:ir.model.fields,field_description:market.field_market_location__address
 msgid "Address"
 msgstr "Adresse"
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_line_amount_untaxed
+#: model:ir.model.fields,field_description:market.field_market_line__amount_untaxed
 msgid "Amount untaxed"
 msgstr "Montant non taxé"
 
 #. module: market
-#: model:ir.ui.view,arch_db:market.market_config_settings_view_form
-msgid "Apply"
-msgstr "Appliquer"
-
-#. module: market
-#: model:ir.ui.view,arch_db:market.market_config_settings_view_form
-#: model:ir.ui.view,arch_db:market.market_view_form
+#: model_terms:ir.ui.view,arch_db:market.market_view_form
 msgid "Cancel"
 msgstr "Annuler"
 
 #. module: market
-#: selection:market.market,state:0
+#: model:ir.model.fields.selection,name:market.selection__market_market__state__cancel
 msgid "Cancelled"
-msgstr "Annulée"
+msgstr "Annulé"
 
 #. module: market
-#: code:addons/market/models/market.py:224
-#: code:addons/market/models/market.py:295
-#, python-format
-msgid "Cannot validate the picking. Please manualy validate the picking %s"
-msgstr "Impossible de valider ce picking. Veuillez valider manuellement le picking %s"
-
-#. module: market
-#: code:addons/market/models/market.py:228
-#, python-format
-msgid "Cannot validate the purchase order"
-msgstr "Impossible de valider le bon d'achat"
-
-#. module: market
-#: code:addons/market/models/market.py:200
-#, python-format
-msgid "Cannot validate the purchase order. There is no picking linked to the purchase order."
-msgstr "Impossible de valider le bon d'achat. Il n'y a pas de picking liée à ce bon d'achat."
-
-#. module: market
-#: model:ir.model.fields,field_description:market.field_product_plu_code
+#: model:ir.model.fields,field_description:market.field_product_plu__code
 msgid "Code"
 msgstr "Code"
 
 #. module: market
-#: model:ir.model,name:market.model_res_company
-msgid "Companies"
-msgstr "Sociétés"
-
-#. module: market
-#: model:ir.model.fields,field_description:market.field_market_config_settings_company_id
-#: model:ir.model.fields,field_description:market.field_market_line_company_id
-#: model:ir.model.fields,field_description:market.field_market_market_company_id
+#: model:ir.model.fields,field_description:market.field_market_line__company_id
+#: model:ir.model.fields,field_description:market.field_market_market__company_id
 msgid "Company"
-msgstr "Société"
+msgstr "Entreprise"
 
 #. module: market
 #: model:ir.ui.menu,name:market.main_menu_market_configuration
@@ -84,124 +53,122 @@ msgid "Configuration"
 msgstr "Configuration"
 
 #. module: market
-#: model:ir.actions.act_window,name:market.market_config_settings_action
-#: model:ir.ui.view,arch_db:market.market_config_settings_view_form
-msgid "Configure Market"
-msgstr "Configurer les marchés"
-
-#. module: market
-#: model:ir.ui.view,arch_db:market.market_view_form
+#: model_terms:ir.ui.view,arch_db:market.market_view_form
 msgid "Confirm"
 msgstr "Confirmer"
 
 #. module: market
-#: selection:market.market,state:0
+#: model:ir.model.fields.selection,name:market.selection__market_market__state__confirm
 msgid "Confirmed"
 msgstr "Confirmé"
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_config_settings_create_uid
-#: model:ir.model.fields,field_description:market.field_market_line_create_uid
-#: model:ir.model.fields,field_description:market.field_market_location_create_uid
-#: model:ir.model.fields,field_description:market.field_market_market_create_uid
+#: model:ir.model.fields,field_description:market.field_market_line__create_uid
+#: model:ir.model.fields,field_description:market.field_market_location__create_uid
+#: model:ir.model.fields,field_description:market.field_market_market__create_uid
+#: model:ir.model.fields,field_description:market.field_product_plu__create_uid
+#: model:ir.model.fields,field_description:market.field_product_plu_line__create_uid
 msgid "Created by"
-msgstr "Créé par"
+msgstr ""
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_config_settings_create_date
-#: model:ir.model.fields,field_description:market.field_market_line_create_date
-#: model:ir.model.fields,field_description:market.field_market_location_create_date
-#: model:ir.model.fields,field_description:market.field_market_market_create_date
+#: model:ir.model.fields,field_description:market.field_market_line__create_date
+#: model:ir.model.fields,field_description:market.field_market_location__create_date
+#: model:ir.model.fields,field_description:market.field_market_market__create_date
+#: model:ir.model.fields,field_description:market.field_product_plu__create_date
+#: model:ir.model.fields,field_description:market.field_product_plu_line__create_date
 msgid "Created on"
-msgstr "Créé le"
+msgstr ""
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_line_currency_id
-#: model:ir.model.fields,field_description:market.field_market_market_currency_id
+#: model:ir.model.fields,field_description:market.field_market_line__currency_id
+#: model:ir.model.fields,field_description:market.field_market_market__currency_id
 msgid "Currency"
 msgstr "Devise"
 
 #. module: market
-#: model:ir.model.fields,help:market.field_market_line_qty_available
-msgid "Current quantity of products.\n"
+#: model:ir.model.fields,help:market.field_market_line__qty_available
+msgid ""
+"Current quantity of products.\n"
 "In a context with a single Stock Location, this includes goods stored at this Location, or any of its children.\n"
 "In a context with a single Warehouse, this includes goods stored in the Stock Location of this Warehouse, or any of its children.\n"
 "stored in the Stock Location of the Warehouse of this Shop, or any of its children.\n"
 "Otherwise, this includes goods stored in any Stock Location with 'internal' type."
-msgstr "Quantité actuelle d'articles en stock.\n"
-"Dans le contexte d'un seul emplacement de stock, ceci inclue les marchandises stockées dans cet emplacement et ses enfants.\n"
-"Dans le contexte d'un seul entrepôt, ceci inclue les marchandises stockées dans l'emplacement de l'entrepôt et ses enfants.\n"
-"Dans le contexte d'un magasin, ceci inclue les marchandises stockées dans l'entrepôt de ce magasin et ses enfants.\n"
-"Dans les autres contextes, ceci inclue les marchandises stockées dans n'importe quel emplacement de type 'interne'."
+msgstr ""
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_market_description
+#: model:ir.model.fields,field_description:market.field_market_market__description
 msgid "Description"
-msgstr "Description"
+msgstr ""
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_config_settings_display_name
-#: model:ir.model.fields,field_description:market.field_market_line_display_name
-#: model:ir.model.fields,field_description:market.field_market_location_display_name
-#: model:ir.model.fields,field_description:market.field_market_market_display_name
-#: model:ir.model.fields,field_description:market.field_product_plu_display_name
-#: model:ir.model.fields,field_description:market.field_product_plu_line_display_name
+#: model:ir.model.fields,field_description:market.field_market_line__display_name
+#: model:ir.model.fields,field_description:market.field_market_location__display_name
+#: model:ir.model.fields,field_description:market.field_market_market__display_name
+#: model:ir.model.fields,field_description:market.field_product_plu__display_name
+#: model:ir.model.fields,field_description:market.field_product_plu_line__display_name
 msgid "Display Name"
-msgstr "Nom affiché"
+msgstr ""
 
 #. module: market
-#: selection:market.market,state:0
+#: model:ir.model.fields.selection,name:market.selection__market_market__state__draft
 msgid "Draft"
-msgstr "Draft"
+msgstr "Brouillon"
 
 #. module: market
-#: code:addons/market/models/market.py:215
-#, python-format
-msgid "Error during the validation of the market. Cannot retrieve the sale order."
-msgstr "Erreur durant la validation du marché. Impossible de récupérer le bon de vente."
-
-#. module: market
-#: model:ir.model.fields,field_description:market.field_market_config_settings_id
-#: model:ir.model.fields,field_description:market.field_market_line_id
-#: model:ir.model.fields,field_description:market.field_market_location_id
-#: model:ir.model.fields,field_description:market.field_market_market_id
+#: model:ir.model.fields,field_description:market.field_market_line__id
+#: model:ir.model.fields,field_description:market.field_market_location__id
+#: model:ir.model.fields,field_description:market.field_market_market__id
+#: model:ir.model.fields,field_description:market.field_product_plu__id
+#: model:ir.model.fields,field_description:market.field_product_plu_line__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_config_settings___last_update
-#: model:ir.model.fields,field_description:market.field_market_line___last_update
-#: model:ir.model.fields,field_description:market.field_market_location___last_update
-#: model:ir.model.fields,field_description:market.field_market_market___last_update
-#: model:ir.model.fields,field_description:market.field_product_plu___last_update
-#: model:ir.model.fields,field_description:market.field_product_plu_line___last_update
+#: model:ir.model.fields,field_description:market.field_market_line____last_update
+#: model:ir.model.fields,field_description:market.field_market_location____last_update
+#: model:ir.model.fields,field_description:market.field_market_market____last_update
+#: model:ir.model.fields,field_description:market.field_product_plu____last_update
+#: model:ir.model.fields,field_description:market.field_product_plu_line____last_update
 msgid "Last Modified on"
-msgstr "Dernière modification le"
+msgstr ""
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_config_settings_write_uid
-#: model:ir.model.fields,field_description:market.field_market_line_write_uid
-#: model:ir.model.fields,field_description:market.field_market_location_write_uid
-#: model:ir.model.fields,field_description:market.field_market_market_write_uid
+#: model:ir.model.fields,field_description:market.field_market_line__write_uid
+#: model:ir.model.fields,field_description:market.field_market_location__write_uid
+#: model:ir.model.fields,field_description:market.field_market_market__write_uid
+#: model:ir.model.fields,field_description:market.field_product_plu__write_uid
+#: model:ir.model.fields,field_description:market.field_product_plu_line__write_uid
 msgid "Last Updated by"
-msgstr "Mis à jour par"
+msgstr ""
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_config_settings_write_date
-#: model:ir.model.fields,field_description:market.field_market_line_write_date
-#: model:ir.model.fields,field_description:market.field_market_location_write_date
-#: model:ir.model.fields,field_description:market.field_market_market_write_date
+#: model:ir.model.fields,field_description:market.field_market_line__write_date
+#: model:ir.model.fields,field_description:market.field_market_location__write_date
+#: model:ir.model.fields,field_description:market.field_market_market__write_date
+#: model:ir.model.fields,field_description:market.field_product_plu__write_date
+#: model:ir.model.fields,field_description:market.field_product_plu_line__write_date
 msgid "Last Updated on"
-msgstr "Mis à jour le"
+msgstr ""
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_market_market_line_ids
-#: model:ir.model.fields,field_description:market.field_product_plu_line_ids
+#: model:ir.model,name:market.model_market_line
+msgid "Line of Market"
+msgstr "Ligne du marché"
+
+#. module: market
+#: model:ir.model,name:market.model_product_plu_line
+msgid "Line of Product PLU"
+msgstr "Ligne du PLU"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_market__market_line_ids
+#: model:ir.model.fields,field_description:market.field_product_plu__line_ids
 msgid "Lines"
 msgstr "Lignes"
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_market_market_location_id
+#: model:ir.model.fields,field_description:market.field_market_market__market_location_id
 #: model:ir.ui.menu,name:market.market_menu_location
 msgid "Location"
 msgstr "Emplacement"
@@ -213,47 +180,53 @@ msgstr "Gestionnaire"
 
 #. module: market
 #: model:ir.actions.act_window,name:market.market_action
-#: model:ir.model.fields,field_description:market.field_market_line_market_id
+#: model:ir.model,name:market.model_market_market
+#: model:ir.model.fields,field_description:market.field_market_line__market_id
 #: model:ir.module.category,name:market.category_market
 #: model:ir.ui.menu,name:market.main_market_menu
 #: model:ir.ui.menu,name:market.market_menu
-#: model:ir.ui.view,arch_db:market.market_view_form
 #: model:utm.source,name:market.utm_source_market
+#: model_terms:ir.ui.view,arch_db:market.market_view_form
 msgid "Market"
 msgstr "Marché"
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_line_market_amount_taxed
+#: model:ir.model.fields,field_description:market.field_market_line__market_amount_taxed
 msgid "Market Amount Taxed"
-msgstr "Montant taxé"
+msgstr "Montant TVAC du marché"
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_line_market_amount_untaxed
+#: model:ir.model.fields,field_description:market.field_market_line__market_amount_untaxed
 msgid "Market Amount Untaxed"
-msgstr "Montant non taxé sur marché"
+msgstr "Montant HTVA du marché"
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_market_market_amount_taxed
+#: model:ir.model,name:market.model_market_location
+msgid "Market Location"
+msgstr "Emplacement du marché"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_market__market_amount_taxed
 msgid "Market Taxed Amount"
-msgstr "Montant taxé sur marché"
+msgstr "Montant TVAC du marché"
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_line_market_unit_price_taxed
+#: model:ir.model.fields,field_description:market.field_market_line__market_unit_price_taxed
 msgid "Market Unit price taxed"
-msgstr "Prix unitaire TVAC sur marché"
+msgstr "Prix unitaire TVAC du marché"
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_line_market_unit_price_untaxed
+#: model:ir.model.fields,field_description:market.field_market_line__market_unit_price_untaxed
 msgid "Market Unit price untaxed"
-msgstr "Prix untaire HTVA sur marché"
+msgstr "Prix unitaire HTVA du marché"
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_market_market_amount_untaxed
+#: model:ir.model.fields,field_description:market.field_market_market__market_amount_untaxed
 msgid "Market Untaxed Amount"
-msgstr "Montant non taxé"
+msgstr "Montant HTVA du marché"
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_market_market_date
+#: model:ir.model.fields,field_description:market.field_market_market__market_date
 msgid "Market date"
 msgstr "Date du marché"
 
@@ -263,7 +236,7 @@ msgid "Market location"
 msgstr "Emplacement du marché"
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_market_name
+#: model:ir.model.fields,field_description:market.field_market_market__name
 msgid "Market ref"
 msgstr "Référence du marché"
 
@@ -273,135 +246,72 @@ msgid "Markets"
 msgstr "Marchés"
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_location_name
-#: model:ir.model.fields,field_description:market.field_product_plu_name
+#: model:ir.model.fields,field_description:market.field_market_location__name
+#: model:ir.model.fields,field_description:market.field_product_plu__name
 msgid "Name"
 msgstr "Nom"
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_location_notes
-#: model:ir.model.fields,field_description:market.field_market_market_notes
+#: model:ir.model.fields,field_description:market.field_market_location__notes
+#: model:ir.model.fields,field_description:market.field_market_market__notes
 msgid "Notes"
-msgstr "Commentaires"
+msgstr ""
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_line_plu_id
-#: model:ir.model.fields,field_description:market.field_product_plu_line_plu_id
+#: model:ir.model.fields,field_description:market.field_market_line__plu_id
+#: model:ir.model.fields,field_description:market.field_product_plu_line__plu_id
 msgid "PLU"
-msgstr "PLU"
+msgstr ""
 
 #. module: market
-#: model:ir.model,name:market.model_res_partner
-msgid "Partner"
-msgstr "Partenaire"
-
-#. module: market
-#: code:addons/market/models/market.py:247
-#, python-format
-msgid "Please define the company seller in the configuration"
-msgstr "Veuillez définir la société vendeuse dans la configuration"
-
-#. module: market
-#: model:ir.model.fields,field_description:market.field_market_line_product_id
-#: model:ir.model.fields,field_description:market.field_product_plu_line_product_id
+#: model:ir.model.fields,field_description:market.field_market_line__product_id
+#: model:ir.model.fields,field_description:market.field_product_plu_line__product_id
 msgid "Product"
 msgstr "Produit"
 
 #. module: market
 #: model:ir.actions.act_window,name:market.action_product_plu
+#: model:ir.model,name:market.model_product_plu
 #: model:ir.ui.menu,name:market.product_plu_menu
 msgid "Product PLU"
 msgstr "PLU Produit"
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_line_product_qty
+#: model:ir.model.fields,field_description:market.field_market_line__product_qty
 msgid "Product Qty"
 msgstr "Qté produit"
 
 #. module: market
-#: model:ir.model.fields,help:market.field_product_plu_line_is_to_invoice
-msgid "Product marked as \"To invoice\" will generate a sale/purchase order"
-msgstr "Les produits marqués comme \"A factuer\" vont générer un bon d'achat et un bon de vente"
-
-#. module: market
-#: model:ir.model,name:market.model_purchase_order
-msgid "Purchase Order"
-msgstr "Commande fournisseur"
-
-#. module: market
-#: model:ir.model,name:market.model_purchase_order_line
-msgid "Purchase Order Line"
-msgstr "Ligne de commande d'achat"
-
-#. module: market
-#: model:ir.model.fields,field_description:market.field_market_market_purchase_order_id
-msgid "Purchase order"
-msgstr "Bon d'achat"
-
-#. module: market
-#: model:ir.model.fields,field_description:market.field_market_line_qty_available
+#: model:ir.model.fields,field_description:market.field_market_line__qty_available
 msgid "Quantity On Hand"
-msgstr "Quantité en stock"
+msgstr "Quantité en main"
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_market_sale_order_id
-msgid "Sale Order"
-msgstr "Bon de commande"
-
-#. module: market
-#: model:ir.model.fields,field_description:market.field_market_config_settings_seller_company_id
-#: model:ir.model.fields,field_description:market.field_res_company_seller_company_id
-msgid "Seller company id"
-msgstr "Seller company id"
-
-#. module: market
-#: model:ir.ui.menu,name:market.menu_market_config_settings
-msgid "Settings"
-msgstr "Configuration"
-
-#. module: market
-#: model:ir.model.fields,field_description:market.field_market_market_state
+#: model:ir.model.fields,field_description:market.field_market_market__state
 msgid "State"
-msgstr "État"
+msgstr "Etat"
 
 #. module: market
-#: code:addons/market/models/product_plu.py:13
-#: sql_constraint:product.plu:0
+#: code:addons/market/models/product_plu.py:0
+#: model:ir.model.constraint,message:market.constraint_product_plu_unique_plu
 #, python-format
 msgid "The PLU code must be unique"
 msgstr "Le code du PLU doit être unique"
 
 #. module: market
-#: model:ir.ui.view,arch_db:market.market_config_settings_view_form
-msgid "The company"
-msgstr "La société"
-
-#. module: market
-#: code:addons/market/models/purchase_order.py:20
-#, python-format
-msgid "There is no representative for the company %s in the company %s"
-msgstr "Il n'y a pas de représentant de la société %s dans la société %s"
-
-#. module: market
-#: model:ir.model.fields,field_description:market.field_market_line_is_to_invoice
-#: model:ir.model.fields,field_description:market.field_product_plu_line_is_to_invoice
-msgid "To invoice"
-msgstr "A facturer"
-
-#. module: market
-#: model:ir.model.fields,field_description:market.field_market_line_price_unit
+#: model:ir.model.fields,field_description:market.field_market_line__price_unit
 msgid "Unit price"
 msgstr "Prix unitaire"
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_market_amount_taxed
+#: model:ir.model.fields,field_description:market.field_market_market__amount_taxed
 msgid "Untaxed Amount"
-msgstr "Montant HT"
+msgstr "Montant HTVA"
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_line_product_uom_id
+#: model:ir.model.fields,field_description:market.field_market_line__product_uom_id
 msgid "UoM"
-msgstr "UoM"
+msgstr ""
 
 #. module: market
 #: model:res.groups,name:market.market_group_user
@@ -409,65 +319,13 @@ msgid "User"
 msgstr "Utilisateur"
 
 #. module: market
-#: code:addons/market/models/market.py:155
+#: code:addons/market/models/market.py:0
 #, python-format
 msgid "You can only cancel a draft market"
 msgstr "Vous pouvez seulement annuler un marché dans l'état brouillon"
 
 #. module: market
-#: code:addons/market/models/market.py:145
+#: code:addons/market/models/market.py:0
 #, python-format
 msgid "You can only confirm a draft market"
 msgstr "Vous pouvez seulement confirmer un marché dans l'état brouillon"
-
-#. module: market
-#: model:ir.model.fields,help:market.field_market_config_settings_seller_company_id
-#: model:ir.model.fields,help:market.field_res_company_seller_company_id
-msgid "Your company will buy good to the following company"
-msgstr "Votre sociétés va acheter des à la société suivante"
-
-#. module: market
-#: model:ir.model,name:market.model_market_config_settings
-msgid "market.config.settings"
-msgstr "market.config.settings"
-
-#. module: market
-#: model:ir.model,name:market.model_market_line
-msgid "market.line"
-msgstr "market.line"
-
-#. module: market
-#: model:ir.model,name:market.model_market_location
-msgid "market.location"
-msgstr "market.location"
-
-#. module: market
-#: model:ir.model,name:market.model_market_market
-msgid "market.market"
-msgstr "market.market"
-
-#. module: market
-#: model:ir.model,name:market.model_market_order
-msgid "market.order"
-msgstr "market.order"
-
-#. module: market
-#: model:ir.model,name:market.model_market_product_list
-msgid "market.product.list"
-msgstr "market.product.list"
-
-#. module: market
-#: model:ir.model,name:market.model_product_plu
-msgid "product.plu"
-msgstr "product.plu"
-
-#. module: market
-#: model:ir.model,name:market.model_product_plu_line
-msgid "product.plu.line"
-msgstr "product.plu.line"
-
-#. module: market
-#: model:ir.ui.view,arch_db:market.market_config_settings_view_form
-msgid "will buy goods from the company"
-msgstr "va acheter des biens à la société"
-

@@ -12,7 +12,7 @@
     'website': 'https://okia.be',
     'depends': ['website'],
     'data': [],
-    'installable': True,
+    'installable': False,
     'application': True,
     'auto_install': False,
 }

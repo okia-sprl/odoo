@@ -13,6 +13,6 @@
         "data/sale_category_limitation.xml",
         "security/ir.model.access.csv",
     ],
-    'installable': True,
+    'installable': False,
     'application': False,
 }

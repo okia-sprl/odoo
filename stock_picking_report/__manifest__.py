@@ -25,7 +25,7 @@
         # Data
         "data/paperformat.xml",
     ],
-    'installable': True,
+    'installable': False,
     'application': True,
     'auto_install': False,
 }

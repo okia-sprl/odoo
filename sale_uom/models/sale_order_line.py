@@ -8,9 +8,9 @@ class SaleOrderLine(models.Model):
     def product_id_change(self):
         self.ensure_one()
 
-        result = super(SaleOrderLine, self).product_id_change()
+        result = super().product_id_change()
 
-        if not self.product_id or not self._context.get('partner_id'):
+        if not self.product_id:
             return result
 
         if self.product_id.uom_so_id:

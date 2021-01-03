@@ -10,6 +10,7 @@
     'data': [
         # Wizards
         "wizards/import_market_wizard.xml",
+        "security/ir.model.access.csv",
     ],
     'installable': True,
     'application': True,

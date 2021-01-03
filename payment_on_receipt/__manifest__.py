@@ -14,6 +14,6 @@ Allow to pay on receipt for webshop.
     'data': ['views/on_receipt.xml', 'data/payment_acquirer.xml'],
     'demo': [],
     'qweb': [],
-    'installable': True,
+    'installable': False,
     'application': False,
 }
