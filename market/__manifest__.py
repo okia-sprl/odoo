@@ -12,7 +12,7 @@
 
     """,
     'category': 'Purchase',
-    'depends': ['sale_purchase_inter_company_rules'],
+    'depends': ['sale_purchase_inter_company_rules', 'stock', 'force_availability'],
     'data': [
         # Security
         "security/market_security.xml",

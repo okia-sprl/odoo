@@ -70,6 +70,7 @@ class Market(models.Model):
     market_amount_taxed = fields.Monetary(
         string='Market Taxed Amount', store=True, readonly=True, compute='_amount_all'
     )
+    stock_picking_id = fields.Many2one('stock.picking', string='Transfer', readonly=True)
 
     @api.model
     def create(self, vals):
@@ -133,8 +134,20 @@ class Market(models.Model):
             for move_line in move.move_line_ids:
                 move_line.qty_done = move_line.product_uom_qty
 
-        wizard = self.env['stock.immediate.transfer'].create({'pick_ids': [(6, 0, picking.ids)]})
+        immediate_transfer_line_ids = [(0, 0, {'to_immediate': True, 'picking_id': picking.id}) for picking in picking]
+
+        wizard = self.env['stock.immediate.transfer'].create(
+            {'pick_ids': [(6, 0, picking.ids)], 'immediate_transfer_line_ids': immediate_transfer_line_ids}
+        )
         wizard.process()
+
+        picking.action_assign()
+        if picking.state == 'confirmed':
+            picking.force_availability()
+
+        picking.button_validate()
+
+        self.stock_picking_id = picking.id
 
 
 class MarketLine(models.Model):

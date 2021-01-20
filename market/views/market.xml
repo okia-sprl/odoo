@@ -33,6 +33,7 @@
                             <field name="description" required="True"/>
                             <field name="market_date" required="True"/>
                             <field name="market_location_id"/>
+                            <field name="stock_picking_id" states="confirm"/>
                             <field name="company_id" groups="base.group_multi_company"/>
                         </group>
                     </group>
