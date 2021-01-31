@@ -6,6 +6,9 @@ class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
     def force_availability(self):
+        if not self:
+            return
+
         if not self.env.user.has_group('stock.group_stock_manager'):
             raise ValidationError(_('You are not allowed to execute this action'))
 
