@@ -47,7 +47,7 @@ class ProductTemplate(models.Model):
             product_tmpl.average_cost = average_cost
             product_tmpl.is_price_update_required = (
                 float_compare(product_tmpl.list_price, average_cost, precision_rounding=product_tmpl.uom_id.rounding)
-                > 0
+                != 0
             )
 
     def _search_is_price_update_required(self, operator, value):
@@ -64,7 +64,7 @@ class ProductTemplate(models.Model):
                 float_compare(
                     product_tmpl.list_price, product_tmpl.average_cost, precision_rounding=product_tmpl.uom_id.rounding
                 )
-                > 0
+                != 0
             )
 
             if value and is_price_to_update:
