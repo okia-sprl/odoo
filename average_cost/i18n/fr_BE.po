@@ -1,0 +1,254 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* average_cost
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-11 22:35+0000\n"
+"PO-Revision-Date: 2021-04-11 22:35+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: average_cost
+#: model_terms:ir.ui.view,arch_db:average_cost.res_config_settings_view_form_inherit
+msgid "<span class=\"o_form_label\">Average Cost Configuration</span>"
+msgstr "<span class=\"o_form_label\">Configuration du coût moyen</span>"
+
+#. module: average_cost
+#: model_terms:ir.ui.view,arch_db:average_cost.product_template_view_form_inherit
+msgid ""
+"<span>\n"
+"                            Apply Average Cost\n"
+"                        </span>"
+msgstr ""
+"<span>\n"
+"                            Appliquer le coût moyen\n"
+"                        </span>"
+
+#. module: average_cost
+#: model:ir.model.fields,field_description:average_cost.field_product_product__average_cost
+#: model:ir.model.fields,field_description:average_cost.field_product_template__average_cost
+msgid "Average Cost"
+msgstr "Coût moyen"
+
+#. module: average_cost
+#: model:ir.model.fields,field_description:average_cost.field_res_company__average_cost_coefficient
+#: model:ir.model.fields,field_description:average_cost.field_res_config_settings__average_cost_coefficient
+msgid "Average Cost Coefficient"
+msgstr "Coefficient du coût moyen"
+
+#. module: average_cost
+#: model:ir.model,name:average_cost.model_average_cost_helper
+msgid "Average Cost Helper"
+msgstr "Aide au coût moyen"
+
+#. module: average_cost
+#: model:ir.model.fields,field_description:average_cost.field_res_company__average_cost_range
+#: model:ir.model.fields,field_description:average_cost.field_res_config_settings__average_cost_range
+msgid "Average Cost Range"
+msgstr "Intervalle du coût moyen"
+
+#. module: average_cost
+#: model:ir.model.fields,field_description:average_cost.field_res_company__average_cost_range_type
+#: model:ir.model.fields,field_description:average_cost.field_res_config_settings__average_cost_range_type
+msgid "Average Cost Range Type"
+msgstr "Type d'intervalle du coût moyen"
+
+#. module: average_cost
+#: model_terms:ir.ui.view,arch_db:average_cost.product_template_kanban_view_inherit
+msgid "Average Cost:"
+msgstr "Coût Moyen:"
+
+#. module: average_cost
+#: model_terms:ir.ui.view,arch_db:average_cost.average_cost_helper_view_form
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: average_cost
+#: model:ir.model,name:average_cost.model_res_company
+msgid "Companies"
+msgstr "Sociétés"
+
+#. module: average_cost
+#: model:ir.model,name:average_cost.model_res_config_settings
+msgid "Config Settings"
+msgstr "Paramètres de config"
+
+#. module: average_cost
+#: model_terms:ir.ui.view,arch_db:average_cost.average_cost_helper_view_form
+msgid "Confirm"
+msgstr "Confirmer"
+
+#. module: average_cost
+#: model:ir.model.fields,field_description:average_cost.field_average_cost_helper__create_uid
+#: model:ir.model.fields,field_description:average_cost.field_average_cost_helper_line__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: average_cost
+#: model:ir.model.fields,field_description:average_cost.field_average_cost_helper__create_date
+#: model:ir.model.fields,field_description:average_cost.field_average_cost_helper_line__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: average_cost
+#: model:ir.model.fields,field_description:average_cost.field_average_cost_helper_line__currency_id
+msgid "Currency"
+msgstr "Devise"
+
+#. module: average_cost
+#: model:ir.model.fields,field_description:average_cost.field_average_cost_helper__current_coefficient
+msgid "Current Coefficient"
+msgstr "Coefficient actuel"
+
+#. module: average_cost
+#: model_terms:ir.ui.view,arch_db:average_cost.average_cost_helper_view_form
+msgid "Current coefficient:"
+msgstr "Coefficient actuel:"
+
+#. module: average_cost
+#: model:ir.model.fields.selection,name:average_cost.selection__res_company__average_cost_range_type__day
+msgid "Days"
+msgstr "Jours"
+
+#. module: average_cost
+#: model_terms:ir.ui.view,arch_db:average_cost.average_cost_helper_view_form
+msgid "Did you check to see if there were multiple product pages?"
+msgstr "Avez-vous vérifié s'il y avait plusieurs pages de produits ?"
+
+#. module: average_cost
+#: model:ir.model.fields,field_description:average_cost.field_average_cost_helper__display_name
+#: model:ir.model.fields,field_description:average_cost.field_average_cost_helper_line__display_name
+#: model:ir.model.fields,field_description:average_cost.field_product_template__display_name
+#: model:ir.model.fields,field_description:average_cost.field_res_company__display_name
+#: model:ir.model.fields,field_description:average_cost.field_res_config_settings__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: average_cost
+#: model:ir.model.fields,field_description:average_cost.field_average_cost_helper__id
+#: model:ir.model.fields,field_description:average_cost.field_average_cost_helper_line__id
+#: model:ir.model.fields,field_description:average_cost.field_product_template__id
+#: model:ir.model.fields,field_description:average_cost.field_res_company__id
+#: model:ir.model.fields,field_description:average_cost.field_res_config_settings__id
+msgid "ID"
+msgstr ""
+
+#. module: average_cost
+#: model:ir.model.fields,field_description:average_cost.field_average_cost_helper____last_update
+#: model:ir.model.fields,field_description:average_cost.field_average_cost_helper_line____last_update
+#: model:ir.model.fields,field_description:average_cost.field_product_template____last_update
+#: model:ir.model.fields,field_description:average_cost.field_res_company____last_update
+#: model:ir.model.fields,field_description:average_cost.field_res_config_settings____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: average_cost
+#: model:ir.model.fields,field_description:average_cost.field_average_cost_helper__write_uid
+#: model:ir.model.fields,field_description:average_cost.field_average_cost_helper_line__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: average_cost
+#: model:ir.model.fields,field_description:average_cost.field_average_cost_helper__write_date
+#: model:ir.model.fields,field_description:average_cost.field_average_cost_helper_line__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: average_cost
+#: model:ir.model.fields,field_description:average_cost.field_average_cost_helper__product_category_id
+msgid "Limit to products"
+msgstr "Limiter aux produits"
+
+#. module: average_cost
+#: model:ir.model,name:average_cost.model_average_cost_helper_line
+msgid "Line of Average Cost Helper"
+msgstr "Ligne d'aide au coût moyen"
+
+#. module: average_cost
+#: model:ir.model.fields,field_description:average_cost.field_average_cost_helper__line_ids
+msgid "Lines"
+msgstr "Lignes"
+
+#. module: average_cost
+#: model:ir.model.fields.selection,name:average_cost.selection__res_company__average_cost_range_type__month
+msgid "Months"
+msgstr "Mois"
+
+#. module: average_cost
+#: model:ir.model.fields,field_description:average_cost.field_average_cost_helper_line__new_price
+msgid "New Price"
+msgstr "Nouveau prix"
+
+#. module: average_cost
+#: code:addons/average_cost/models/product_template.py:0
+#, python-format
+msgid "Operation not supported"
+msgstr "Opération non supportée"
+
+#. module: average_cost
+#: model:ir.model.fields,field_description:average_cost.field_product_product__is_price_update_required
+#: model:ir.model.fields,field_description:average_cost.field_product_template__is_price_update_required
+msgid "Price Update Required"
+msgstr "Mise à jour du prix requise"
+
+#. module: average_cost
+#: model:ir.model.fields,help:average_cost.field_average_cost_helper_line__current_price
+msgid "Price at which the product is sold to customers."
+msgstr "Prix auquel le produit est vendu aux clients."
+
+#. module: average_cost
+#: model_terms:ir.ui.view,arch_db:average_cost.product_template_search_view_inherit
+msgid "Prices to update"
+msgstr "Prix à mettre à jour"
+
+#. module: average_cost
+#: model:ir.model.fields,field_description:average_cost.field_average_cost_helper_line__product_tmpl_id
+msgid "Product"
+msgstr "Produit"
+
+#. module: average_cost
+#: model:ir.model,name:average_cost.model_product_template
+msgid "Product Template"
+msgstr "Modèle d'article"
+
+#. module: average_cost
+#: model:ir.model.fields,field_description:average_cost.field_average_cost_helper__is_remove_product_without_average_cost
+msgid "Remove products without average cost"
+msgstr "Enlever les produits sans coût moyen"
+
+#. module: average_cost
+#: model:ir.model.fields,field_description:average_cost.field_average_cost_helper_line__current_price
+msgid "Sales Price"
+msgstr "Prix de vente"
+
+#. module: average_cost
+#: model_terms:ir.ui.view,arch_db:average_cost.res_config_settings_view_form_inherit
+msgid ""
+"The Average Cost is computed as the average of product purchase over "
+"specific period multiply by a coefficient"
+msgstr ""
+"Le coût moyen est calculé sur base de la moyenne des achats sur "
+"une période spécifique multiplié par un coefficient"
+
+#. module: average_cost
+#: model_terms:ir.ui.view,arch_db:average_cost.average_cost_helper_view_form
+msgid "Update Prices"
+msgstr "Mettre à jour les prix"
+
+#. module: average_cost
+#: model:ir.actions.act_window,name:average_cost.action_average_cost_helper
+#: model:ir.ui.menu,name:average_cost.menu_average_cost_helper
+msgid "Update of product prices"
+msgstr "Mise à jour des prix des produits"
+
+#. module: average_cost
+#: model:ir.model.fields,field_description:average_cost.field_average_cost_helper_line__wizard_id
+msgid "Wizard"
+msgstr "Wizard"

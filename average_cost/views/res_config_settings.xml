@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form_inherit" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='pricing_setting_container']" position="inside">
+                <div class="col-12 col-lg-6 o_setting_box"
+                        id="average_cost"
+                        title="The Average Cost is computed as the average of product purchase over specific period multiply by a coefficient">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Average Cost Configuration</span>
+                            <div class="text-muted">
+                                The Average Cost is computed as the average of product purchase over specific period multiply by a coefficient
+                            </div>
+                            <label for="average_cost_coefficient"/>
+                            <field name="average_cost_coefficient"/>
+                            <label for="average_cost_range"/>
+                            <field name="average_cost_range"/>
+                            <label for="average_cost_range_type"/>
+                            <field name="average_cost_range_type"/>
+                        </div>
+                    </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

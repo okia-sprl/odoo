@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_average_cost_helper,access_average_cost_helper,model_average_cost_helper,product.group_product_pricelist,1,1,1,1
+access_average_cost_helper_line,access_average_cost_helper_line,model_average_cost_helper_line,product.group_product_pricelist,1,1,1,1
