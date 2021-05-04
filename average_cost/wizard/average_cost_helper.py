@@ -9,7 +9,7 @@ class AverageCostHelper(models.TransientModel):
     product_category_id = fields.Many2one('product.category', string='Limit to products')
     is_remove_product_without_average_cost = fields.Boolean('Remove products without average cost')
     line_ids = fields.One2many(
-        'average.cost.helper.line', 'wizard_id', string='Lines', compute='_compute_line_ids', readonly=False
+        'average.cost.helper.line', 'wizard_id', string='Lines', compute='_compute_line_ids', readonly=False, store=True
     )
     current_coefficient = fields.Float(
         'Current Coefficient', readonly=True, default=lambda self: self.env.company.average_cost_coefficient
@@ -54,12 +54,14 @@ class AverageCostHelperLine(models.TransientModel):
     product_tmpl_id = fields.Many2one('product.template', string='Product', required=True, ondelete='cascade')
     currency_id = fields.Many2one('res.currency', string='Currency', default=lambda self: self.env.company.currency_id)
     current_price = fields.Float(related='product_tmpl_id.list_price')
-    new_price = fields.Monetary('New Price', compute='_compute_new_price', readonly=False)
+    new_price = fields.Monetary('New Price', compute='_compute_new_price', readonly=False, store=True)
 
     @api.depends('product_tmpl_id')
     def _compute_new_price(self):
         for line in self:
-            if line.new_price or not line.product_tmpl_id:
+            if line.new_price:
                 continue
-
-            line.new_price = line.product_tmpl_id.average_cost
+            elif not line.product_tmpl_id:
+                line.new_price = 0
+            else:
+                line.new_price = line.product_tmpl_id.average_cost or line.product_tmpl_id.list_price
