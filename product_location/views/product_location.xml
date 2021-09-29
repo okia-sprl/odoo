@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_location_view_tree" model="ir.ui.view">
+        <field name="name">product.location.view.tree</field>
+        <field name="model">product.location</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_product_location" model="ir.actions.act_window">
+        <field name="name">Product Location</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.location</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_product_location" name="Product Locations" sequence="10" action="action_product_location" parent="stock.menu_warehouse_config"/>
+</odoo>
