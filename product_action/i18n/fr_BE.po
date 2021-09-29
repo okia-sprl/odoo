@@ -1,0 +1,82 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_action
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-09-29 21:32+0000\n"
+"PO-Revision-Date: 2021-09-29 21:32+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: product_action
+#: model:ir.model.fields,field_description:product_action.field_product_action__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: product_action
+#: model:ir.model.fields,field_description:product_action.field_product_action__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: product_action
+#: model:ir.model.fields,field_description:product_action.field_product_action__display_name
+#: model:ir.model.fields,field_description:product_action.field_product_template__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: product_action
+#: model:ir.model.fields,field_description:product_action.field_product_action__id
+#: model:ir.model.fields,field_description:product_action.field_product_template__id
+msgid "ID"
+msgstr ""
+
+#. module: product_action
+#: model:ir.model.fields,field_description:product_action.field_product_action____last_update
+#: model:ir.model.fields,field_description:product_action.field_product_template____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: product_action
+#: model:ir.model.fields,field_description:product_action.field_product_action__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: product_action
+#: model:ir.model.fields,field_description:product_action.field_product_action__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: product_action
+#: model:ir.model.fields,field_description:product_action.field_product_action__name
+msgid "Name"
+msgstr "Nom"
+
+#. module: product_action
+#: model:ir.actions.act_window,name:product_action.action_product_action
+#: model:ir.model,name:product_action.model_product_action
+msgid "Product Action"
+msgstr "Action sur produit"
+
+#. module: product_action
+#: model:ir.model.fields,field_description:product_action.field_product_product__product_action_ids
+#: model:ir.model.fields,field_description:product_action.field_product_template__product_action_ids
+#: model:ir.ui.menu,name:product_action.menu_product_action
+msgid "Product Actions"
+msgstr "Actions sur produit"
+
+#. module: product_action
+#: model:ir.model,name:product_action.model_product_template
+msgid "Product Template"
+msgstr "Modèle d'article"
+
+#. module: product_action
+#: model:ir.model.fields,field_description:product_action.field_product_action__sequence
+msgid "Sequence"
+msgstr "Séquence"
