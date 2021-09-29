@@ -10,7 +10,7 @@
     """,
     'category': 'Stock',
     'website': 'https://okia.be',
-    'depends': ['stock', 'sale_uom'],
+    'depends': ['stock', 'sale_uom', 'product_location', 'product_action'],
     'data': [
         # Reports
         "report/stock_picking_report.xml",
@@ -23,9 +23,9 @@
         # Security
         "security/ir.model.access.csv",
         # Data
-        "data/paperformat.xml",
+        # "data/paperformat.xml",
     ],
-    'installable': False,
-    'application': True,
+    'installable': True,
+    'application': False,
     'auto_install': False,
 }

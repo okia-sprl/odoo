@@ -4,30 +4,41 @@
 
         <template id="stock_picking_daily_report_body">
             <t t-set="partners" t-value="docs.get_partners()"/>
-            <t t-set="lines" t-value="docs.get_daily_lines()"/>
+            <t t-set="product_locations_values" t-value="docs.get_daily_lines()"/>
+
+            <h1>Daily picking report fo <t t-esc="datetime.datetime.now().strftime('%Y-%m-%d')" t-options="{'widget': 'date'}"/></h1>
 
             <table class="stock_picking_report">
-                <tr>
-                    <th/>
-                    <th t-foreach="partners" t-as="partner">
-                        <span t-esc="partner"/>
-                    </th>
-                    <th>Barcode</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th/>
+                        <th t-foreach="partners" t-as="partner">
+                            <span t-esc="partner"/>
+                        </th>
+                    </tr>
+                </thead>
 
-                <tr t-foreach="lines" t-as="product">
-                    <td><span t-esc="product.name"/></td>
-                    <td t-foreach="partners" t-as="partner">
-                        <t t-if="partner in lines[product]">
-                            <span t-esc="lines[product][partner][0]"/> <strong>x</strong>
-                            <span t-esc="lines[product][partner][1]"/>
-                            (<span t-esc="lines[product][partner][2]"/>)
-                        </t>
-                    </td>
-                    <td>
-                        <img class="barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=1' % ('Code128', product.barcode, 200, 50)"/>
-                    </td>
-                </tr>
+                <t t-foreach="product_locations_values" t-as="product_location_values">
+                    <t t-set="product_location" t-value="product_location_values[0]"/>
+                    <t t-set="product_location_lines" t-value="product_location_values[1]"/>
+
+                    <tr>
+                        <td colspan="9"><h3><span t-if="product_location" t-esc="product_location.name"/><t t-else="">No Location</t></h3></td>
+                    </tr>
+
+                    <tr t-foreach="product_location_lines" t-as="product_location_line">
+                        <td>
+                            <span t-field="product_location_line[0].name"/>
+                            <t t-if="product_location_line[0].product_action_ids"> (<strong><t t-esc="', '.join(product_location_line[0].product_action_ids.mapped('name'))" /></strong>)</t>
+                        </td>
+                        <td t-foreach="partners" t-as="partner">
+                            <t t-if="partner in product_location_line[1]">
+                                <span t-esc="product_location_line[1][partner][0]"/> <strong>x</strong>
+                                <span t-esc="product_location_line[1][partner][1]"/>
+                            </t>
+                        </td>
+                    </tr>
+                </t>
             </table>
         </template>
 
@@ -41,14 +52,12 @@
             </t>
         </template>
 
-        <report
-                string="Picking Daily Report"
-                id="action_stock_picking_daily_report"
-                model="stock.picking.report.wizard"
-                report_type="qweb-pdf"
-                name="stock_picking_report.stock_picking_daily_report"
-                file="stock_picking_daily_report"
-        />
-
+        <record id="action_stock_picking_daily_report" model="ir.actions.report">
+            <field name="name">Picking Daily Report</field>
+            <field name="model">stock.picking.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">stock_picking_report.stock_picking_daily_report</field>
+            <field name="report_file">stock_picking_report.stock_picking_daily_report</field>
+        </record>
     </data>
 </odoo>

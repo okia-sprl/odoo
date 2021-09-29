@@ -10,6 +10,7 @@ class StockPickingDailyReport(models.Model):
 
     partner_id = fields.Many2one('res.partner', string='Partner')
     product_id = fields.Many2one('product.product', 'Product')
+    product_location_id = fields.Many2one('product.location', string='Product Location')
     picking_id = fields.Many2one('stock.picking', 'Picking')
     qty_to_do = fields.Float('Quantity to do')
     product_uom_id = fields.Many2one('uom.uom', 'Unit')
@@ -22,6 +23,7 @@ class StockPickingDailyReport(models.Model):
             SELECT s_move.id,
               picking.partner_id AS partner_id,
               product.id AS product_id,
+              pt.product_location_id as product_location_id,
               picking.id AS picking_id,
               s_move.product_uom_qty AS qty_to_do,
               s_move.product_uom AS product_uom_id
@@ -30,9 +32,10 @@ class StockPickingDailyReport(models.Model):
                 ON s_move.picking_id = picking.id
               LEFT JOIN product_product AS product
                 ON s_move.product_id = product.id
+              LEFT JOIN product_template pt ON product.product_tmpl_id = pt.id
             WHERE picking.state IN
               ('assigned', 'partially_available', 'confirmed')
-            AND picking.date::DATE = NOW()::DATE
+            AND picking.scheduled_date::DATE <= NOW()::DATE
           )
         """
         )

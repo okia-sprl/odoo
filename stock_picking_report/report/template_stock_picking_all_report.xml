@@ -17,14 +17,12 @@
             </t>
         </template>
 
-        <report
-                string="Picking All Report"
-                id="action_stock_picking_all_report"
-                model="stock.picking.report.wizard"
-                report_type="qweb-pdf"
-                name="stock_picking_report.stock_picking_all_report"
-                file="stock_picking_all_report"
-        />
-
+        <record id="action_stock_picking_all_report" model="ir.actions.report">
+            <field name="name">Picking All Report</field>
+            <field name="model">stock.picking.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">stock_picking_report.stock_picking_all_report</field>
+            <field name="report_file">stock_picking_report.stock_picking_all_report</field>
+        </record>
     </data>
 </odoo>

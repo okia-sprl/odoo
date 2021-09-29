@@ -9,32 +9,43 @@
 
         <template id="stock_picking_report_body">
             <t t-set="days" t-value="docs.get_days()"/>
-            <t t-set="lines" t-value="docs.get_lines()"/>
+            <t t-set="product_locations_values" t-value="docs.get_lines()"/>
+
+            <h1>Picking report from <t t-esc="days[0]"/> to <t t-esc="days[-1]"/></h1>
 
             <table class="stock_picking_report">
-                <tr>
-                    <th/>
-                    <th t-foreach="days" t-as="day">
-                        <span t-esc="day"/>
-                    </th>
-                    <th>Barcode</th>
-                    <th>Comment</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th/>
+                        <th t-foreach="days" t-as="day">
+                            <span t-esc="day"/>
+                        </th>
+                        <th>Comment</th>
+                    </tr>
+                </thead>
 
-                <tr t-foreach="lines" t-as="product">
-                    <td><span t-esc="product.name"/></td>
-                    <td t-foreach="days" t-as="day">
-                        <t t-if="day in lines[product]">
-                            <span t-esc="lines[product][day][0]"/> <strong>x</strong>
-                            <span t-esc="lines[product][day][1]"/>
-                            (<span t-esc="lines[product][day][2]"/>)
-                        </t>
-                    </td>
-                    <td>
-                        <img class="barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=1' % ('Code128', product.barcode, 200, 50)"/>
-                    </td>
-                    <td class="stock_picking_report_comment"/>
-                </tr>
+                <t t-foreach="product_locations_values" t-as="product_location_values">
+                    <t t-set="product_location" t-value="product_location_values[0]"/>
+                    <t t-set="product_location_lines" t-value="product_location_values[1]"/>
+
+                    <tr>
+                        <td colspan="9"><h3><span t-if="product_location" t-esc="product_location.name"/><t t-else="">No Location</t></h3></td>
+                    </tr>
+                    <tr t-foreach="product_location_lines" t-as="product_location_line">
+
+                        <td>
+                            <span t-field="product_location_line[0].name"/>
+                            <t t-if="product_location_line[0].product_action_ids"> (<strong><t t-esc="', '.join(product_location_line[0].product_action_ids.mapped('name'))" /></strong>)</t>
+                        </td>
+                        <td t-foreach="days" t-as="day">
+                            <t t-if="day in product_location_line[1]">
+                                <span t-esc="product_location_line[1][day][0]"/> <strong>x</strong>
+                                <span t-esc="product_location_line[1][day][1]"/>
+                            </t>
+                        </td>
+                        <td class="stock_picking_report_comment"/>
+                    </tr>
+                </t>
             </table>
         </template>
 
@@ -48,14 +59,12 @@
             </t>
         </template>
 
-        <report
-                string="Picking Report"
-                id="action_stock_picking_report"
-                model="stock.picking.report.wizard"
-                report_type="qweb-pdf"
-                name="stock_picking_report.stock_picking_report"
-                file="stock_picking_report"
-        />
-
+        <record id="action_stock_picking_report" model="ir.actions.report">
+            <field name="name">Picking Report</field>
+            <field name="model">stock.picking.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">stock_picking_report.stock_picking_report</field>
+            <field name="report_file">stock_picking_report.stock_picking_report</field>
+        </record>
     </data>
 </odoo>
