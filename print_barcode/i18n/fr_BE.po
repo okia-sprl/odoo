@@ -142,4 +142,3 @@ msgstr "print.barcode"
 #: model:ir.model,name:print_barcode.model_report_print_barcode_report_product_barcode
 msgid "report.print_barcode.report_product_barcode"
 msgstr "report.print_barcode.report_product_barcode"
-

@@ -331,4 +331,3 @@ msgstr "work.history"
 #: model:ir.model,name:work_history.model_work_history_wizard
 msgid "work.history.wizard"
 msgstr "work.history.wizard"
-

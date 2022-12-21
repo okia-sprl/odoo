@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Okia SPRL <sylvain@okia.be>
 
 from datetime import date, datetime
@@ -12,29 +11,29 @@ DATE_LENGTH = len(date.today().strftime(DATE_FORMAT))
 
 
 class StockPickingReportWizard(models.TransientModel):
-    _name = 'stock.picking.report.wizard'
-    _description = 'Stock Picking Report Wizard'
+    _name = "stock.picking.report.wizard"
+    _description = "Stock Picking Report Wizard"
 
     report_scope = fields.Integer(
-        'Report scope', readonly=True, default=lambda self: self.env.company.picking_report_scope
+        "Report scope", readonly=True, default=lambda self: self.env.company.picking_report_scope
     )
 
     def print_stock_picking_report(self):
-        template = 'stock_picking_report.action_stock_picking_report'
+        template = "stock_picking_report.action_stock_picking_report"
         return self.env.ref(template).report_action(self)
 
     def print_daily_stock_picking_report(self):
-        template = 'stock_picking_report.action_stock_picking_daily_report'
+        template = "stock_picking_report.action_stock_picking_daily_report"
         return self.env.ref(template).report_action(self)
 
     def print_all_stock_picking_report(self):
-        template = 'stock_picking_report.action_stock_picking_all_report'
+        template = "stock_picking_report.action_stock_picking_all_report"
         return self.env.ref(template).report_action(self)
 
     def get_days(self):
-        lang_obj = self.env['res.lang']
-        lang_str = self.env.user.lang or 'en_US'
-        lang = lang_obj.search([('code', '=', lang_str)])
+        lang_obj = self.env["res.lang"]
+        lang_str = self.env.user.lang or "en_US"
+        lang = lang_obj.search([("code", "=", lang_str)])
 
         picking_report_scope = self.env.company.picking_report_scope
         result = []
@@ -51,17 +50,17 @@ class StockPickingReportWizard(models.TransientModel):
         days = self.get_days()
         values_by_product = {}
 
-        lang_obj = self.env['res.lang']
-        lang_str = self.env.user.lang or 'en_US'
-        lang = lang_obj.search([('code', '=', lang_str)])
+        lang_obj = self.env["res.lang"]
+        lang_str = self.env.user.lang or "en_US"
+        lang = lang_obj.search([("code", "=", lang_str)])
 
         if not days:
-            raise UserError(_('Please define at least one day'))
+            raise UserError(_("Please define at least one day"))
 
         date_end = datetime.strptime(days[-1], lang.date_format)
         date_end_str = fields.Date.to_string(date_end)
 
-        lines = self.env['stock.picking.report'].search([('scheduled_date', '<=', date_end_str)])
+        lines = self.env["stock.picking.report"].search([("scheduled_date", "<=", date_end_str)])
 
         for line in lines:
             scheduled_date = line.scheduled_date
@@ -71,7 +70,7 @@ class StockPickingReportWizard(models.TransientModel):
                 continue
 
             product = line.product_id
-            if product.type != 'product':
+            if product.type != "product":
                 continue
 
             product_uom = product.uom_so_id or product.uom_id
@@ -109,13 +108,13 @@ class StockPickingReportWizard(models.TransientModel):
 
     @api.model
     def get_partners(self):
-        lines = self.env['stock.picking.daily.report'].search([])
+        lines = self.env["stock.picking.daily.report"].search([])
 
         return {line.partner_id.name for line in lines}
 
     @api.model
     def get_daily_lines(self):
-        report_lines = self.env['stock.picking.daily.report'].search([])
+        report_lines = self.env["stock.picking.daily.report"].search([])
 
         values_by_product = {}
         for line in report_lines:
@@ -123,7 +122,7 @@ class StockPickingReportWizard(models.TransientModel):
 
             product = line.product_id
 
-            if product.type != 'product':
+            if product.type != "product":
                 continue
 
             product_uom = product.uom_so_id or product.uom_id

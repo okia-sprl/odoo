@@ -1,19 +1,18 @@
-# -*- coding: utf-8 -*-
 # Okia SPRL <sylvain@okia.be>
 {
-    'name': 'Work History',
-    'version': '0.1',
-    'summary': 'Manage and follow all works',
-    'sequence': 30,
-    'description': """
+    "name": "Work History",
+    "version": "0.1",
+    "summary": "Manage and follow all works",
+    "sequence": 30,
+    "description": """
     Manage and follow all works
     ===================================
     """,
-    'category': 'Other',
-    'website': 'https://lafermedupeuplier.be',
-    'images': ['images/accounts.jpeg'],
-    'depends': ['stock'],
-    'data': [
+    "category": "Other",
+    "website": "https://lafermedupeuplier.be",
+    "images": ["images/accounts.jpeg"],
+    "depends": ["stock"],
+    "data": [
         # Views
         "views/work_history.xml",
         "views/work_action.xml",
@@ -25,7 +24,7 @@
         # Security
         "security/ir.model.access.csv",
     ],
-    'installable': False,
-    'application': True,
-    'auto_install': False,
+    "installable": False,
+    "application": True,
+    "auto_install": False,
 }

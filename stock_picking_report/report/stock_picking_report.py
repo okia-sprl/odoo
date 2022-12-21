@@ -2,20 +2,20 @@ from odoo import models, fields, tools
 
 
 class StockPickingReport(models.Model):
-    _name = 'stock.picking.report'
+    _name = "stock.picking.report"
     _auto = False
     _description = "Picking Analysis"
 
-    scheduled_date = fields.Date('Scheduled Date')
-    partner_id = fields.Many2one('res.partner', string='Partner')
-    product_id = fields.Many2one('product.product', 'Product')
-    product_location_id = fields.Many2one('product.location', string='Product Location')
-    picking_id = fields.Many2one('stock.picking', 'Picking')
-    qty_to_do = fields.Float('Quantity to do')
-    product_uom_id = fields.Many2one('uom.uom', 'Unit')
+    scheduled_date = fields.Date("Scheduled Date")
+    partner_id = fields.Many2one("res.partner", string="Partner")
+    product_id = fields.Many2one("product.product", "Product")
+    product_location_id = fields.Many2one("product.location", string="Product Location")
+    picking_id = fields.Many2one("stock.picking", "Picking")
+    qty_to_do = fields.Float("Quantity to do")
+    product_uom_id = fields.Many2one("uom.uom", "Unit")
 
     def init(self):
-        tools.drop_view_if_exists(self._cr, 'stock_picking_report')
+        tools.drop_view_if_exists(self._cr, "stock_picking_report")
         self._cr.execute(
             """
           CREATE VIEW stock_picking_report AS (

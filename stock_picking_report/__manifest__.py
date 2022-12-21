@@ -1,17 +1,16 @@
-# -*- coding: utf-8 -*-
 # Okia SPRL <sylvain@okia.be>
 {
-    'name': 'Stock Picking Report',
-    'version': '0.1',
-    'summary': 'Display a report with deliveries to do',
-    'sequence': 30,
-    'description': """
+    "name": "Stock Picking Report",
+    "version": "0.1",
+    "summary": "Display a report with deliveries to do",
+    "sequence": 30,
+    "description": """
     Display a report with deliveries to do
     """,
-    'category': 'Stock',
-    'website': 'https://okia.be',
-    'depends': ['stock', 'sale_uom', 'product_location', 'product_action'],
-    'data': [
+    "category": "Stock",
+    "website": "https://okia.be",
+    "depends": ["stock", "sale_uom", "product_location", "product_action"],
+    "data": [
         # Reports
         "report/stock_picking_report.xml",
         "report/stock_picking_daily_report.xml",
@@ -25,7 +24,7 @@
         # Data
         # "data/paperformat.xml",
     ],
-    'installable': True,
-    'application': False,
-    'auto_install': False,
+    "installable": True,
+    "application": False,
+    "auto_install": False,
 }

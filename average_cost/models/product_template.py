@@ -6,18 +6,18 @@ from odoo.tools import float_compare
 from odoo.exceptions import UserError
 
 DATE_RANGE_FUNCTION = {
-    'day': lambda interval: relativedelta(days=interval),
-    'month': lambda interval: relativedelta(months=interval),
+    "day": lambda interval: relativedelta(days=interval),
+    "month": lambda interval: relativedelta(months=interval),
     False: lambda interval: relativedelta(0),
 }
 
 
 class ProductTemplate(models.Model):
-    _inherit = 'product.template'
+    _inherit = "product.template"
 
-    average_cost = fields.Float('Average Cost', compute='_compute_average_cost', readonly=True)
+    average_cost = fields.Float("Average Cost", compute="_compute_average_cost", readonly=True)
     is_price_update_required = fields.Boolean(
-        'Price Update Required', compute='_compute_average_cost', search='_search_is_price_update_required'
+        "Price Update Required", compute="_compute_average_cost", search="_search_is_price_update_required"
     )
 
     def _compute_average_cost(self):
@@ -27,15 +27,15 @@ class ProductTemplate(models.Model):
 
         start_date = today - DATE_RANGE_FUNCTION[company.average_cost_range_type](company.average_cost_range)
 
-        PurchaseOrderLine = self.env['purchase.order.line']
+        PurchaseOrderLine = self.env["purchase.order.line"]
 
         for product_tmpl in self:
             lines = PurchaseOrderLine.search(
                 [
-                    ('product_id.product_tmpl_id', '=', product_tmpl.id),
-                    ('company_id', '=', company.id),
-                    ('state', '=', 'purchase'),
-                    ('order_id.date_approve', '>=', start_date),
+                    ("product_id.product_tmpl_id", "=", product_tmpl.id),
+                    ("company_id", "=", company.id),
+                    ("state", "=", "purchase"),
+                    ("order_id.date_approve", ">=", start_date),
                 ]
             )
 
@@ -51,14 +51,14 @@ class ProductTemplate(models.Model):
             )
 
     def _search_is_price_update_required(self, operator, value):
-        if operator not in ['=', '!='] or not isinstance(value, bool):
-            raise UserError(_('Operation not supported'))
-        if operator != '=':
+        if operator not in ["=", "!="] or not isinstance(value, bool):
+            raise UserError(_("Operation not supported"))
+        if operator != "=":
             value = not value
 
         product_tmpl_ids = []
 
-        products_tmpl = self.env['product.template'].search([])
+        products_tmpl = self.env["product.template"].search([])
         for product_tmpl in products_tmpl:
             is_price_to_update = (
                 float_compare(
@@ -72,7 +72,7 @@ class ProductTemplate(models.Model):
             elif not value and not is_price_to_update:
                 product_tmpl_ids.append(product_tmpl.id)
 
-        return [('id', 'in', product_tmpl_ids)]
+        return [("id", "in", product_tmpl_ids)]
 
     def apply_average_cost(self):
         for product_tmpl in self:

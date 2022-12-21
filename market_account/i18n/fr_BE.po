@@ -34,4 +34,3 @@ msgstr "Est un journal de marché"
 #: model:ir.model.fields,field_description:market_account.field_account_print_journal_is_only_market
 msgid "Only market"
 msgstr "Only market"
-

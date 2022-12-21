@@ -81,4 +81,3 @@ msgstr "Restriction de vente par les catégories d'articels"
 #: model:exception.rule,description:sale_category_limitation.exception_rule_sale_category_limitation
 msgid "Some product cannot be sale with this company"
 msgstr "Certains articles ne peuvent pas être vendu avec cette société"
-

@@ -2,9 +2,9 @@ from odoo import api, models
 
 
 class SaleOrderLine(models.Model):
-    _inherit = 'sale.order.line'
+    _inherit = "sale.order.line"
 
-    @api.onchange('product_id')
+    @api.onchange("product_id")
     def product_id_change(self):
         self.ensure_one()
 

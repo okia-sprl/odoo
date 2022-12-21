@@ -38,4 +38,3 @@ msgstr "Betaling verwerver"
 #: model:ir.model,name:payment_on_receipt.model_payment_transaction
 msgid "Payment Transaction"
 msgstr "Betalingstransactie"
-
