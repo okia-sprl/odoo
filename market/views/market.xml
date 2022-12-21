@@ -45,7 +45,6 @@
                             <field name="product_uom_id"/>
                             <field name="price_unit"/>
                             <field name="market_unit_price_untaxed"/>
-                            <field name="market_amount_untaxed"/>
                             <field name="market_unit_price_taxed"/>
                             <field name="market_amount_taxed"/>
                             <field name="qty_available"/>

@@ -1,4 +1,3 @@
-import re
 import io
 import logging
 import base64
@@ -7,12 +6,11 @@ from odoo import api, fields, models, tools, _
 from odoo.tools import pycompat
 from odoo.exceptions import UserError
 
-LINE_SIZE = 10
+LINE_SIZE = 11
 INDEX_PLU = 1
-INDEX_QTY = 2
-INDEX_WEIGHT = 3
-INDEX_AMOUNT_TAXED = 4
-INDEX_AMOUNT_UNTAXED = 5
+INDEX_QTY = 4
+INDEX_WEIGHT = 5
+INDEX_AMOUNT_TAXED = 6
 
 _logger = logging.getLogger(__name__)
 
@@ -31,14 +29,15 @@ class ImportMarketWizard(models.TransientModel):
         'res.company', string='Company', required=True, default=lambda self: self.env.company.id
     )
     market_location_id = fields.Many2one('market.location', string='Location')
-    description = fields.Text('Description', readonly=True,)
+    description = fields.Text(
+        'Description',
+        readonly=True,
+    )
 
     def import_file(self):
         self.ensure_one()
 
-        ProductPLU = self.env['product.plu']
-
-        name_regex = r'(\d+)\s?.*'
+        plu_by_code = {plu.code: plu for plu in self.env['product.plu'].search([])}
 
         try:
             unicode_content = base64.b64decode(self.data_file).decode('utf-16')
@@ -52,6 +51,8 @@ class ImportMarketWizard(models.TransientModel):
         plu_not_found = []
         index = 1
 
+        line_values = []
+
         csv_iterator = pycompat.csv_reader(io.BytesIO(content))
         for row in csv_iterator:
             if not row:
@@ -60,17 +61,14 @@ class ImportMarketWizard(models.TransientModel):
             if len(row) != LINE_SIZE:
                 raise UserError(_('Line %s invalid: %s') % (index, row))
 
-            regex_result = re.match(name_regex, row[INDEX_PLU])
-            if not regex_result:
-                raise UserError(_('The column with the PLU is malformed'))
-
-            num_plu_str = regex_result.group(1)
             try:
-                num_plu = int(num_plu_str)
+                num_plu = int(row[INDEX_PLU])
             except Exception:
-                raise UserError(_('Invalid PLU %s (should be a number) with line %s') % (num_plu_str, '; '.join(row)))
+                raise UserError(
+                    _('Invalid PLU %s (should be a number) with line %s') % (row.get(INDEX_PLU), '; '.join(row))
+                )
 
-            plu = ProductPLU.search([('code', '=', num_plu)])
+            plu = plu_by_code.get(num_plu)
             if not plu:
                 plu_not_found.append(num_plu)
                 _logger.warning(_('PLU %s not found') % num_plu)
@@ -88,12 +86,6 @@ class ImportMarketWizard(models.TransientModel):
             except Exception:
                 raise UserError(_('Invalid Weight with line %s') % '; '.join(row))
 
-            amount_untaxed_str = row[INDEX_AMOUNT_UNTAXED].replace('.', '').replace(',', '.')
-            try:
-                amount_untaxed = float(amount_untaxed_str)
-            except Exception:
-                raise UserError(_('Invalid Untaxed amount with line %s') % '; '.join(row))
-
             amount_taxed_str = row[INDEX_AMOUNT_TAXED].replace('.', '').replace(',', '.')
             try:
                 amount_taxed = float(amount_taxed_str)
@@ -106,17 +98,18 @@ class ImportMarketWizard(models.TransientModel):
                 'plu_id': plu.id,
                 'qty': weight or qty,
                 'initial_qty': weight or qty,
-                'market_amount_untaxed': amount_untaxed,
                 'market_amount_taxed': amount_taxed,
             }
 
-            line = plu.line_ids.filtered(lambda line: line.product_id.active)
+            line = plu.line_ids.filtered(lambda plu_line: plu_line.product_id.active)
             if len(line) == 1:
                 vals.update({'product_id': line.product_id.id, 'unit_price': line.product_id.list_price})
 
-            self.line_ids.create(vals)
+            line_values.append(vals)
 
             index += 1
+
+        self.line_ids.create(line_values)
 
         if plu_not_found:
             self.description = _('PLU not found: %s') % ', '.join([str(x) for x in plu_not_found])
@@ -157,7 +150,6 @@ class ImportMarketWizard(models.TransientModel):
                     'product_uom_id': line.product_id.uom_id.id,
                     'product_qty': line.qty,
                     'price_unit': line.unit_price,
-                    'market_amount_untaxed': line.market_amount_untaxed,
                     'market_amount_taxed': line.market_amount_taxed,
                     'plu_id': line.plu_id.id,
                 }
@@ -180,21 +172,30 @@ class ImportMarketWizardLine(models.TransientModel):
 
     wizard_id = fields.Many2one('import.market.wizard', required=True, string='Wizard')
     sequence = fields.Integer('Sequence', default=999, required=True)
-    plu_id = fields.Many2one('product.plu', string='PLU', required=True, ondelete='cascade', readonly=True,)
+    plu_id = fields.Many2one(
+        'product.plu',
+        string='PLU',
+        required=True,
+        ondelete='cascade',
+        readonly=True,
+    )
     allowed_product_ids = fields.Many2many(
         'product.product', string='Products', compute='_compute_allowed_product_ids', readonly=True
     )
-    product_id = fields.Many2one('product.product', string='Product selected',)
+    product_id = fields.Many2one(
+        'product.product',
+        string='Product selected',
+    )
     qty_available = fields.Float(related='product_id.qty_available', readonly=True)
     initial_qty = fields.Float('Initial Qty')
     qty = fields.Float('Qty')
 
-    unit_price = fields.Monetary('Unit Price', currency_field='company_currency_id',)
+    unit_price = fields.Monetary(
+        'Unit Price',
+        currency_field='company_currency_id',
+    )
     amount_untaxed = fields.Monetary(
         'Amount untaxed', currency_field='company_currency_id', compute='_compute_amount_untaxed', readonly=True
-    )
-    market_amount_untaxed = fields.Monetary(
-        'Amount untaxed on the market', currency_field='company_currency_id', readonly=True
     )
     market_amount_taxed = fields.Monetary(
         'Amount taxed on the market', currency_field='company_currency_id', readonly=True

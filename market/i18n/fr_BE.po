@@ -221,11 +221,6 @@ msgid "Market Unit price untaxed"
 msgstr "Prix unitaire HTVA du marché"
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_market__market_amount_untaxed
-msgid "Market Untaxed Amount"
-msgstr "Montant HTVA du marché"
-
-#. module: market
 #: model:ir.model.fields,field_description:market.field_market_market__market_date
 msgid "Market date"
 msgstr "Date du marché"

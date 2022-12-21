@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Okia SPRL <sylvain@okia.be>
 
 from odoo import fields, models, api, _
@@ -24,13 +23,11 @@ class Market(models.Model):
         for market in self:
             sum_to_invoice = sum(market.market_line_ids.mapped('amount_untaxed'))
 
-            market_amount_untaxed = sum(market.market_line_ids.mapped('market_amount_untaxed'))
             market_amount_taxed = sum(market.market_line_ids.mapped('market_amount_taxed'))
 
             market.update(
                 {
                     'amount_taxed': sum_to_invoice,
-                    'market_amount_untaxed': market_amount_untaxed,
                     'market_amount_taxed': market_amount_taxed,
                 }
             )
@@ -63,9 +60,11 @@ class Market(models.Model):
         readonly=True,
         default=lambda self: self.env.user.company_id.currency_id.id,
     )
-    amount_taxed = fields.Monetary(string='Untaxed Amount', store=True, readonly=True, compute='_amount_all',)
-    market_amount_untaxed = fields.Monetary(
-        string='Market Untaxed Amount', store=True, readonly=True, compute='_amount_all',
+    amount_taxed = fields.Monetary(
+        string='Untaxed Amount',
+        store=True,
+        readonly=True,
+        compute='_amount_all',
     )
     market_amount_taxed = fields.Monetary(
         string='Market Taxed Amount', store=True, readonly=True, compute='_amount_all'
@@ -76,7 +75,7 @@ class Market(models.Model):
     def create(self, vals):
         if vals.get('name', 'New') == 'New':
             vals['name'] = self.env['ir.sequence'].next_by_code('market.market') or '/'
-        return super(Market, self).create(vals)
+        return super().create(vals)
 
     def action_confirm(self):
         self.ensure_one()
@@ -154,7 +153,7 @@ class MarketLine(models.Model):
     _name = 'market.line'
     _description = 'Line of Market'
 
-    @api.depends('market_amount_taxed', 'market_amount_untaxed', 'product_qty')
+    @api.depends('market_amount_taxed', 'product_qty')
     def _compute_unit_price(self):
         for line in self:
             if not line.product_qty:
@@ -165,7 +164,6 @@ class MarketLine(models.Model):
                 {
                     'amount_untaxed': line.price_unit * qty,
                     'market_unit_price_taxed': line.market_amount_taxed / qty,
-                    'market_unit_price_untaxed': line.market_amount_untaxed / qty,
                 }
             )
 
@@ -179,7 +177,6 @@ class MarketLine(models.Model):
     price_unit = fields.Monetary('Unit price', required=True)
     amount_untaxed = fields.Monetary('Amount untaxed', store=True, readonly=True, compute='_compute_unit_price')
 
-    market_amount_untaxed = fields.Monetary('Market Amount Untaxed', readonly=True)
     market_amount_taxed = fields.Monetary('Market Amount Taxed', readonly=True)
     market_unit_price_untaxed = fields.Monetary(
         'Market Unit price untaxed', compute='_compute_unit_price', store=True, readonly=True

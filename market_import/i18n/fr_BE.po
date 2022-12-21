@@ -26,11 +26,6 @@ msgid "Amount untaxed"
 msgstr "Montant HTVA"
 
 #. module: market_import
-#: model:ir.model.fields,field_description:market_import.field_import_market_wizard_line__market_amount_untaxed
-msgid "Amount untaxed on the market"
-msgstr "Montant HTVA sur le marché"
-
-#. module: market_import
 #: model:ir.model.fields,field_description:market_import.field_import_market_wizard__data_file
 msgid "CSV File"
 msgstr "Fichier CSV"
