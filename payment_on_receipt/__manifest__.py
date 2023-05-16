@@ -15,4 +15,5 @@ Allow to pay on receipt for webshop.
     "qweb": [],
     "installable": False,
     "application": False,
+    "license": "LGPL-3",
 }

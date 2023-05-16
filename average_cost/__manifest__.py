@@ -1,6 +1,6 @@
 {
     "name": "Average Cost",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "summary": "Compute the average cost of yours products",
     "sequence": 30,
     "category": "Sale",
@@ -14,4 +14,5 @@
     "installable": True,
     "application": True,
     "auto_install": False,
+    "license": "LGPL-3",
 }
