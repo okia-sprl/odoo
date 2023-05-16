@@ -26,7 +26,7 @@
                             <field name="unit_price"/>
                             <field name="amount_untaxed" sum="Total Untaxed amount"/>
                             <field name="allowed_product_ids" invisible="1"/>
-                            <button name="split_line" type="object" icon="fa-files-o"/>
+                            <button name="split_line" type="object" icon="fa-files-o" title="Split Lines"/>
                         </tree>
                     </field>
                     <footer>

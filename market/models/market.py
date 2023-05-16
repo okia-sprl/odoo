@@ -71,11 +71,12 @@ class Market(models.Model):
     )
     stock_picking_id = fields.Many2one("stock.picking", string="Transfer", readonly=True)
 
-    @api.model
-    def create(self, vals):
-        if vals.get("name", "New") == "New":
-            vals["name"] = self.env["ir.sequence"].next_by_code("market.market") or "/"
-        return super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get("name", "New") == "New":
+                vals["name"] = self.env["ir.sequence"].next_by_code("market.market") or "/"
+        return super().create(vals_list)
 
     def action_confirm(self):
         self.ensure_one()
