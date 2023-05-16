@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <template id="report_assets_common" name="report_assets_common" inherit_id="web.report_assets_common">
-            <xpath expr="." position="inside">
-                <link rel="stylesheet" href="/stock_picking_report/static/src/css/picking_report.css"/>
-            </xpath>
-        </template>
-
         <template id="stock_picking_report_body">
             <t t-set="days" t-value="docs.get_days()"/>
             <t t-set="product_locations_values" t-value="docs.get_lines()"/>

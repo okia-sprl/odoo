@@ -28,4 +28,7 @@
     "application": False,
     "auto_install": False,
     "license": "LGPL-3",
+    "web.assets_backend": [
+        "stock_picking_report/static/src/css/*.css",
+    ],
 }
