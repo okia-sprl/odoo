@@ -6,7 +6,7 @@ from odoo import api, fields, models, tools, _
 from odoo.tools import pycompat
 from odoo.exceptions import UserError
 
-LINE_SIZE = 11
+LINE_SIZE = 12
 INDEX_PLU = 1
 INDEX_QTY = 4
 INDEX_WEIGHT = 5

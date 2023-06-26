@@ -115,6 +115,7 @@ class Market(models.Model):
         vals = self._prepare_stock_picking_data()
         picking = self.env["stock.picking"].create(vals)
 
+        stock_moves_values = []
         for line in self.market_line_ids:
             move = StockMove.new(
                 {
@@ -122,24 +123,19 @@ class Market(models.Model):
                     "product_id": line.product_id.id,
                     "location_id": vals["location_id"],
                     "location_dest_id": vals["location_dest_id"],
+                    "product_uom_qty": line.product_qty,
                 }
             )
-            move.onchange_product_id()
-            move.product_uom_qty = line.product_qty
+            move._onchange_product_id()
 
-            StockMove.create(move._convert_to_write(move._cache))
+            stock_moves_values.append(move._convert_to_write(move._cache))
+
+        StockMove.create(stock_moves_values)
 
         picking.action_assign()
-        for move in picking.move_lines.filtered(lambda m: m.state not in ["done", "cancel"]):
+        for move in picking.move_ids.filtered(lambda m: m.state not in ["done", "cancel"]):
             for move_line in move.move_line_ids:
-                move_line.qty_done = move_line.product_uom_qty
-
-        immediate_transfer_line_ids = [(0, 0, {"to_immediate": True, "picking_id": picking.id}) for picking in picking]
-
-        wizard = self.env["stock.immediate.transfer"].create(
-            {"pick_ids": [(6, 0, picking.ids)], "immediate_transfer_line_ids": immediate_transfer_line_ids}
-        )
-        wizard.process()
+                move_line.qty_done = move_line.reserved_uom_qty
 
         picking.action_assign()
         if picking.state == "confirmed":

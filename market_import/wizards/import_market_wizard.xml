@@ -30,8 +30,8 @@
                         </tree>
                     </field>
                     <footer>
-                        <button name="import_file" string="_Import" type="object" class="btn-primary" states="new"/>
-                        <button name="create_market" string="_Create" type="object" class="btn-primary" states="review"/>
+                        <button name="import_file" string="Import" type="object" class="btn-primary" states="new"/>
+                        <button name="create_market" string="Create" type="object" class="btn-primary" states="review"/>
                         <button string="Cancel" class="btn-default" special="cancel"/>
                     </footer>
                 </sheet>
