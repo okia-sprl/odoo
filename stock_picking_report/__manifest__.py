@@ -9,7 +9,7 @@
     """,
     "category": "Stock",
     "website": "https://okia.be",
-    "depends": ["stock", "sale_uom", "product_location", "product_action"],
+    "depends": ["stock", "product_location", "product_action"],
     "data": [
         # Reports
         "report/stock_picking_report.xml",
