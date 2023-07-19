@@ -1,4 +1,4 @@
-from odoo import api, fields, models, _
+from odoo import api, fields, models, Command, _
 from odoo.exceptions import UserError
 
 
@@ -106,40 +106,11 @@ class InventoryTransfer(models.Model):
         if not self.transfer_line_ids:
             raise UserError(_("Please insert at least one line"))
 
-        self.clean_stock()
         self.create_stock_moves()
 
         self.create_sale_order()
 
         self.state = "done"
-
-    def clean_stock(self):
-        quants = self.env["stock.quant"].search(
-            [
-                ("location_id", "child_of", self.location_id.id),
-                ("company_id", "=", self.company_id.id),
-                ("quantity", ">", 0),
-            ]
-        )
-
-        if not quants:
-            return
-
-        stock_inventory = self.env["stock.inventory"].create(
-            {
-                "name": "Clean the stock from inventory transfer %s" % self.transfer_date,
-                "location_ids": [(6, 0, self.location_id.ids)],
-                "company_id": self.company_id.id,
-                "prefill_counted_quantity": "zero",
-            }
-        )
-        stock_inventory.action_start()
-        if not stock_inventory.line_ids:
-            stock_inventory.action_cancel_draft()
-            stock_inventory.unlink()
-            return
-
-        stock_inventory.action_validate()
 
     def create_stock_moves(self):
         stock_picking_type = self.env["stock.picking.type"].search(
@@ -187,26 +158,20 @@ class InventoryTransfer(models.Model):
 
     def create_sale_order(self):
         SaleOrder = self.env["sale.order"]
-        SaleOrderLine = self.env["sale.order.line"]
 
-        sale_order = SaleOrder.new({"partner_id": self.dest_company_id.partner_id.id})
-        sale_order.onchange_partner_id()
-
-        sale_order_values = sale_order._convert_to_write(sale_order._cache)
-        sale_order = SaleOrder.create(sale_order_values)
-
+        lines_values = []
         for line in self.transfer_line_ids:
-            so_line = SaleOrderLine.new({"order_id": sale_order.id, "product_id": line.product_id.id})
-            so_line.product_id_change()
+            lines_values.append(
+                Command.create(
+                    {
+                        "product_id": line.product_id.id,
+                        "product_uom_qty": line.product_qty,
+                        "price_unit": line.unit_price,
+                    }
+                )
+            )
 
-            so_line.update({"product_uom": line.product_uom_id.id, "product_uom_qty": line.product_qty})
-            so_line.product_uom_change()
-
-            so_line["price_unit"] = line.unit_price
-
-            sale_order_line_values = so_line._convert_to_write(so_line._cache)
-            SaleOrderLine.create(sale_order_line_values)
-
+        sale_order = SaleOrder.create([{"partner_id": self.dest_company_id.partner_id.id, "order_line": lines_values}])
         sale_order.action_confirm()
 
         pickings_to_assign = sale_order.picking_ids.filtered(lambda picking: picking.state == "confirmed")
