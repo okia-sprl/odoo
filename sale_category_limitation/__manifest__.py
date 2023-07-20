@@ -2,10 +2,10 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "Sale limitation by product categories",
+    "author": "Okia SRL",
     "category": "Sales",
     "summary": "Limit yours sales by product categories",
     "version": "1.0",
-    "author": "Sylvain Van Hoof <sylvain@okia.be>",
     "depends": ["sale", "sale_exception"],
     "data": [
         "views/sale_category_limitation.xml",

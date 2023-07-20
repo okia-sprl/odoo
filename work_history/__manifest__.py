@@ -1,7 +1,8 @@
 # Okia SPRL <sylvain@okia.be>
 {
     "name": "Work History",
-    "version": "0.1",
+    "author": "Okia SRL",
+    "version": "16.0.1.0",
     "summary": "Manage and follow all works",
     "sequence": 30,
     "description": """

@@ -1,7 +1,8 @@
 # Okia SPRL <sylvain@okia.be>
 {
     "name": "Market - Import",
-    "version": "0.1",
+    "author": "Okia SRL",
+    "version": "16.0.1.0",
     "summary": "Import markets from yours balances",
     "sequence": 30,
     "category": "Purchase",

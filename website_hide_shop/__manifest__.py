@@ -1,7 +1,8 @@
 # Okia SPRL <sylvain@okia.be>
 {
     "name": "Website Hide Shop",
-    "version": "0.1",
+    "author": "Okia SRL",
+    "version": "16.0.1.0",
     "summary": "Show Shop button only for connected users",
     "sequence": 30,
     "description": """

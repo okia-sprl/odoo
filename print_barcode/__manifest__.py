@@ -1,7 +1,8 @@
 # Okia SPRL <sylvain@okia.be>
 {
     "name": "Print Barcode",
-    "version": "0.1",
+    "author": "Okia SRL",
+    "version": "16.0.1.0",
     "summary": "Allows to manage print barcode configuration",
     "sequence": 30,
     "description": """

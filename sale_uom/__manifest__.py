@@ -1,7 +1,8 @@
 # Okia SPRL <sylvain@okia.be>
 {
     "name": "Sale Unit of Measure",
-    "version": "0.1",
+    "author": "Okia SRL",
+    "version": "16.0.1.0",
     "summary": "Add a Unit of Measure for sale",
     "sequence": 30,
     "description": """

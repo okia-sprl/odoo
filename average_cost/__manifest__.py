@@ -1,5 +1,6 @@
 {
     "name": "Average Cost",
+    "author": "Okia SRL",
     "version": "16.0.1.0.0",
     "summary": "Compute the average cost of yours products",
     "sequence": 30,

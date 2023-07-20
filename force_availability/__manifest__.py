@@ -1,6 +1,7 @@
 {
     "name": "Force Availability",
-    "version": "0.1",
+    "author": "Okia SRL",
+    "version": "16.0.1.0",
     "summary": "Allow to force availability on transfers",
     "sequence": 30,
     "category": "Inventory",

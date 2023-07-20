@@ -1,7 +1,8 @@
 # Okia SPRL <sylvain@okia.be>
 {
     "name": "Inventory Transfer",
-    "version": "0.1",
+    "author": "Okia SRL",
+    "version": "16.0.1.0",
     "summary": "Allow to transfer an inventory from a company to an another",
     "sequence": 30,
     "category": "Inventory",

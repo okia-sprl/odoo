@@ -1,6 +1,7 @@
 {
     "name": "Product Location",
-    "version": "0.1",
+    "author": "Okia SRL",
+    "version": "16.0.1.0",
     "summary": "Define a product location on yours products",
     "sequence": 30,
     "description": """
