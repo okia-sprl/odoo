@@ -4,15 +4,6 @@ from odoo import fields, models, api, _
 from odoo.exceptions import UserError
 
 
-class MarketLocation(models.Model):
-    _name = "market.location"
-    _description = "Market Location"
-
-    name = fields.Char("Name", required=True)
-    address = fields.Char("Address")
-    notes = fields.Text("Notes")
-
-
 class Market(models.Model):
     _name = "market.market"
     _description = "Market"
@@ -45,9 +36,7 @@ class Market(models.Model):
         readonly=True,
         states={"draft": [("readonly", False)]},
     )
-    market_location_id = fields.Many2one(
-        "market.location", string="Location", readonly=True, states={"draft": [("readonly", False)]}
-    )
+    location_id = fields.Many2one("res.partner", string="Location")
     market_date = fields.Datetime("Market date", readonly=True, states={"draft": [("readonly", False)]}, copy=False)
     market_line_ids = fields.One2many(
         "market.line", "market_id", string="Lines", readonly=True, states={"draft": [("readonly", False)]}, copy=True
@@ -150,6 +139,42 @@ class MarketLine(models.Model):
     _name = "market.line"
     _description = "Line of Market"
 
+    market_id = fields.Many2one("market.market", string="Market", required=True, ondelete="cascade")
+    product_id = fields.Many2one("product.product", string="Product", required=True)
+    product_uom_id = fields.Many2one("uom.uom", string="UoM", required=True, compute="_compute_product_uom_id")
+    product_qty = fields.Float("Product Qty", required=True)
+    qty_available = fields.Float(related="product_id.qty_available", readonly=True, depends=["product_id"])
+    plu = fields.Char(related="product_id.plu", depends=["product_id"])
+    plu_id = fields.Many2one("product.plu", string="PLU (depreciated)", readonly=True)
+
+    price_unit = fields.Monetary("Unit price", required=True)
+    amount_untaxed = fields.Monetary("Amount untaxed", store=True, readonly=True, compute="_compute_unit_price")
+
+    market_amount_taxed = fields.Monetary("Market Amount Taxed", readonly=True)
+    market_unit_price_untaxed = fields.Monetary(
+        "Market Unit price untaxed", compute="_compute_unit_price", store=True, readonly=True
+    )
+    market_unit_price_taxed = fields.Monetary(
+        "Market Unit price taxed", compute="_compute_unit_price", store=True, readonly=True
+    )
+    currency_id = fields.Many2one(
+        related="market_id.currency_id", store=True, string="Currency", readonly=True, depends=["market_id"]
+    )
+    company_id = fields.Many2one(
+        "res.company",
+        related="market_id.company_id",
+        string="Company",
+        store=True,
+        readonly=True,
+        depends=["market_id"],
+    )
+
+    @api.depends("product_id")
+    def _compute_product_uom_id(self):
+        for line in self:
+            if not line.product_uom_id or (line.product_id.uom_id.id != line.product_uom_id.id):
+                line.product_uom_id = line.product_id.uom_id
+
     @api.depends("market_amount_taxed", "product_qty")
     def _compute_unit_price(self):
         for line in self:
@@ -163,25 +188,3 @@ class MarketLine(models.Model):
                     "market_unit_price_taxed": line.market_amount_taxed / qty,
                 }
             )
-
-    market_id = fields.Many2one("market.market", string="Market", required=True, ondelete="cascade")
-    product_id = fields.Many2one("product.product", string="Product", required=True)
-    product_uom_id = fields.Many2one("uom.uom", string="UoM", required=True)
-    product_qty = fields.Float("Product Qty", required=True)
-    qty_available = fields.Float(related="product_id.qty_available", readonly=True)
-    plu_id = fields.Many2one("product.plu", string="PLU", readonly=True)
-
-    price_unit = fields.Monetary("Unit price", required=True)
-    amount_untaxed = fields.Monetary("Amount untaxed", store=True, readonly=True, compute="_compute_unit_price")
-
-    market_amount_taxed = fields.Monetary("Market Amount Taxed", readonly=True)
-    market_unit_price_untaxed = fields.Monetary(
-        "Market Unit price untaxed", compute="_compute_unit_price", store=True, readonly=True
-    )
-    market_unit_price_taxed = fields.Monetary(
-        "Market Unit price taxed", compute="_compute_unit_price", store=True, readonly=True
-    )
-    currency_id = fields.Many2one(related="market_id.currency_id", store=True, string="Currency", readonly=True)
-    company_id = fields.Many2one(
-        "res.company", related="market_id.company_id", string="Company", store=True, readonly=True
-    )

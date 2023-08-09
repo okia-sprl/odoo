@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="product_normal_form_view_inherit">
+        <field name="name">product_normal_form_view_inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='default_code']" position="after">
+                <field name="plu"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="product_normal_tree_view_inherit">
+        <field name="name">product_normal_tree_view_inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='default_code']" position="after">
+                <field name="plu" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="product_search_form_view_inherit">
+        <field name="name">product_search_form_view_inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_search_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='categ_id']" position="after">
+                <field name="plu"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -4,7 +4,7 @@ from odoo import fields, models, _
 class ProductPLU(models.Model):
     _name = "product.plu"
     _order = "code"
-    _description = "Product PLU"
+    _description = "Product PLU (Depreciated)"
 
     name = fields.Char("Name", required=True)
     code = fields.Integer("Code", required=True)

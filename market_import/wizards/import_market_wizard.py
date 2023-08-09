@@ -28,7 +28,7 @@ class ImportMarketWizard(models.TransientModel):
     company_id = fields.Many2one(
         "res.company", string="Company", required=True, default=lambda self: self.env.company.id
     )
-    market_location_id = fields.Many2one("market.location", string="Location")
+    location_id = fields.Many2one("res.partner", string="Location")
     description = fields.Text(
         "Description",
         readonly=True,
@@ -37,7 +37,9 @@ class ImportMarketWizard(models.TransientModel):
     def import_file(self):
         self.ensure_one()
 
-        plu_by_code = {plu.code: plu for plu in self.env["product.plu"].search([])}
+        product_by_plu = {
+            product.plu: product for product in self.env["product.product"].search([("plu", "!=", False)])
+        }
 
         try:
             unicode_content = base64.b64decode(self.data_file).decode("utf-16")
@@ -68,8 +70,8 @@ class ImportMarketWizard(models.TransientModel):
                     _("Invalid PLU %s (should be a number) with line %s") % (row.get(INDEX_PLU), "; ".join(row))
                 )
 
-            plu = plu_by_code.get(num_plu)
-            if not plu:
+            product = product_by_plu.get(num_plu)
+            if not product:
                 plu_not_found.append(num_plu)
                 _logger.warning(_("PLU %s not found") % num_plu)
                 continue
@@ -95,15 +97,12 @@ class ImportMarketWizard(models.TransientModel):
             vals = {
                 "wizard_id": self.id,
                 "sequence": index,
-                "plu_id": plu.id,
+                "product_id": product.id,
+                "unit_price": product.list_price,
                 "qty": weight or qty,
                 "initial_qty": weight or qty,
                 "market_amount_taxed": amount_taxed,
             }
-
-            line = plu.line_ids.filtered(lambda plu_line: plu_line.product_id.active)
-            if len(line) == 1:
-                vals.update({"product_id": line.product_id.id, "unit_price": line.product_id.list_price})
 
             line_values.append(vals)
 
@@ -134,7 +133,7 @@ class ImportMarketWizard(models.TransientModel):
                 "description": self.name,
                 "market_date": self.date,
                 "notes": self.description,
-                "market_location_id": self.market_location_id.id,
+                "location_id": self.location_id.id,
             }
         )
 
@@ -151,7 +150,6 @@ class ImportMarketWizard(models.TransientModel):
                     "product_qty": line.qty,
                     "price_unit": line.unit_price,
                     "market_amount_taxed": line.market_amount_taxed,
-                    "plu_id": line.plu_id.id,
                 }
             )
 
@@ -172,13 +170,6 @@ class ImportMarketWizardLine(models.TransientModel):
 
     wizard_id = fields.Many2one("import.market.wizard", required=True, string="Wizard")
     sequence = fields.Integer("Sequence", default=999, required=True)
-    plu_id = fields.Many2one(
-        "product.plu",
-        string="PLU",
-        required=True,
-        ondelete="cascade",
-        readonly=True,
-    )
     allowed_product_ids = fields.Many2many(
         "product.product", string="Products", compute="_compute_allowed_product_ids", readonly=True
     )
@@ -234,7 +225,7 @@ class ImportMarketWizardLine(models.TransientModel):
             other_line.sequence += 1
 
         initial_qty = self.initial_qty
-        same_lines = self.search([("wizard_id", "=", self.wizard_id.id), ("plu_id", "=", self.plu_id.id)])
+        same_lines = self.search([("wizard_id", "=", self.wizard_id.id), ("product_id", "=", self.product_id.id)])
         current_qty = sum(same_lines.mapped("qty"))
 
         if current_qty >= initial_qty:

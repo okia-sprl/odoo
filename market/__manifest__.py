@@ -1,7 +1,7 @@
 # Okia SPRL <sylvain@okia.be>
 {
     "name": "Market",
-    "version": "0.1",
+    "version": "16.0.1.0.1",
     "summary": "Link two companies to create a market",
     "sequence": 30,
     "description": """
@@ -19,8 +19,8 @@
         # Views
         "views/ir_ui_menu.xml",
         "views/market.xml",
-        "views/market_location.xml",
-        "views/product_plu.xml",
+        "views/product_template.xml",
+        "views/product_product.xml",
         # Data
         "data/utm_source.xml",
         "data/ir_sequence.xml",
