@@ -7,7 +7,7 @@ class AverageCostHelper(models.TransientModel):
     _description = "Average Cost Helper"
 
     product_category_id = fields.Many2one("product.category", string="Limit to products")
-    is_remove_product_without_average_cost = fields.Boolean("Remove products without average cost")
+    is_remove_product_without_average_cost = fields.Boolean("Remove products without average cost", default=True)
     line_ids = fields.One2many(
         "average.cost.helper.line", "wizard_id", string="Lines", compute="_compute_line_ids", readonly=False, store=True
     )
@@ -43,7 +43,7 @@ class AverageCostHelper(models.TransientModel):
         self.ensure_one()
 
         for line in self.line_ids:
-            line.product_tmpl_id.list_price = line.new_price
+            line.product_tmpl_id._apply_average_cost(line.new_price)
 
 
 class AverageCostHelperLine(models.TransientModel):

@@ -74,6 +74,11 @@ class ProductTemplate(models.Model):
 
         return [("id", "in", product_tmpl_ids)]
 
+    def _apply_average_cost(self, new_cost):
+        self.ensure_one()
+
+        self.list_price = new_cost
+
     def apply_average_cost(self):
         for product_tmpl in self:
-            product_tmpl.list_price = product_tmpl.average_cost
+            product_tmpl._apply_average_cost(product_tmpl.average_cost)
