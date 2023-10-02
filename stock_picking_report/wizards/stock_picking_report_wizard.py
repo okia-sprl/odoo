@@ -73,7 +73,7 @@ class StockPickingReportWizard(models.TransientModel):
             if product.type != "product":
                 continue
 
-            product_uom = product.uom_so_id or product.uom_id
+            product_uom = product.uom_id
 
             result_by_product = values_by_product.get(product, {})
             qty, uom, qty_available = result_by_product.get(scheduled_date_str, [0, None, None])
@@ -125,7 +125,7 @@ class StockPickingReportWizard(models.TransientModel):
             if product.type != "product":
                 continue
 
-            product_uom = product.uom_so_id or product.uom_id
+            product_uom = product.uom_id
 
             result_by_product = values_by_product.get(product, {})
             qty, uom, qty_available = result_by_product.get(partner_name, [0, None, None])
