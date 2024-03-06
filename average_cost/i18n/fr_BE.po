@@ -34,8 +34,8 @@ msgstr ""
 #. module: average_cost
 #: model:ir.model.fields,field_description:average_cost.field_product_product__average_cost
 #: model:ir.model.fields,field_description:average_cost.field_product_template__average_cost
-msgid "Average Cost"
-msgstr "Coût moyen"
+msgid "Average Purchase Cost"
+msgstr "Coût d'achat moyen"
 
 #. module: average_cost
 #: model:ir.model.fields,field_description:average_cost.field_res_company__average_cost_coefficient

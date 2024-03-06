@@ -15,7 +15,7 @@ DATE_RANGE_FUNCTION = {
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    average_cost = fields.Float("Average Cost", compute="_compute_average_cost", readonly=True)
+    average_cost = fields.Float("Average Purchase Cost", compute="_compute_average_cost", readonly=True)
     is_price_update_required = fields.Boolean(
         "Price Update Required", compute="_compute_average_cost", search="_search_is_price_update_required"
     )
