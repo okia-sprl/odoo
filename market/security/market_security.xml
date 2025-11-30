@@ -5,16 +5,22 @@
         <field name="sequence">50</field>
     </record>
 
+    <record model="res.groups.privilege" id="res_groups_privilege_market">
+        <field name="name">Market</field>
+        <field name="sequence">50</field>
+        <field name="category_id" ref="market.category_market"/>
+    </record>
+
     <record id="market_group_user" model="res.groups">
         <field name="name">User</field>
-        <field name="category_id" ref="category_market"/>
+        <field name="privilege_id" ref="res_groups_privilege_market"/>
         <field name="implied_ids" eval="[(4, ref('purchase.group_purchase_user')), (4, ref('stock.group_stock_user'))]"/>
     </record>
 
     <record id="market_group_manager" model="res.groups">
         <field name="name">Manager</field>
         <field name="implied_ids" eval="[(4, ref('market_group_user'))]"/>
-        <field name="category_id" ref="category_market"/>
+        <field name="privilege_id" ref="res_groups_privilege_market"/>
     </record>
 
     <record id="market_comp_rule" model="ir.rule">

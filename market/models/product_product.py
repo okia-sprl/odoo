@@ -6,4 +6,4 @@ class ProductProduct(models.Model):
 
     plu = fields.Char("PLU")
 
-    _sql_constraints = [("unique_plu", "UNIQUE (plu)", "The PLU code must be unique")]
+    _unique_plu = models.Constraint("UNIQUE (plu)", "The PLU code must be unique")

@@ -2,7 +2,7 @@
 {
     "name": "Market - Import",
     "author": "Okia SRL",
-    "version": "16.0.1.0",
+    "version": "19.0.1.0.0",
     "summary": "Import markets from yours balances",
     "sequence": 30,
     "category": "Purchase",

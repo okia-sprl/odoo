@@ -2,7 +2,7 @@
 {
     "name": "Market - Account",
     "author": "Okia SRL",
-    "version": "16.0.1.0",
+    "version": "19.0.1.0.0",
     "summary": "Specific module for La Ferme du Peuplier",
     "sequence": 30,
     "category": "Account",

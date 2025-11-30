@@ -11,8 +11,6 @@ class InventoryTransfer(models.Model):
     transfer_date = fields.Datetime(
         required=True,
         default=lambda self: fields.Datetime.now(),
-        readonly=True,
-        states={"draft": [("readonly", False)]},
     )
     company_id = fields.Many2one(
         "res.company",
@@ -20,8 +18,6 @@ class InventoryTransfer(models.Model):
         required=True,
         default=lambda self: self.env.company,
         domain="[('id', '=', company_id)]",
-        readonly=True,
-        states={"draft": [("readonly", False)]},
     )
     currency_id = fields.Many2one(related="company_id.currency_id")
     dest_company_id = fields.Many2one(
@@ -30,8 +26,6 @@ class InventoryTransfer(models.Model):
         required=True,
         default=lambda self: self.env["res.company"].search([("id", "!=", self.env.company.id)], limit=1),
         domain="[('id', '!=', company_id)]",
-        readonly=True,
-        states={"draft": [("readonly", False)]},
     )
     production_location_id = fields.Many2one(
         "stock.location",
@@ -39,8 +33,6 @@ class InventoryTransfer(models.Model):
         required=True,
         domain="[('usage', '=', 'production'), ('company_id', '=', company_id)]",
         default=lambda self: self.env["stock.location"].search([("usage", "=", "production")], limit=1),
-        readonly=True,
-        states={"draft": [("readonly", False)]},
         check_company=True,
     )
     location_id = fields.Many2one(
@@ -48,8 +40,6 @@ class InventoryTransfer(models.Model):
         string="Location",
         required=True,
         domain="[('usage', '=', 'internal'), ('company_id', '=', company_id)]",
-        readonly=True,
-        states={"draft": [("readonly", False)]},
         default=lambda self: self.env["stock.location"].search([("usage", "=", "internal")], limit=1),
         check_company=True,
     )
@@ -66,8 +56,6 @@ class InventoryTransfer(models.Model):
         "transfer_id",
         string="Lines",
         copy=True,
-        readonly=True,
-        states={"draft": [("readonly", False)]},
     )
     sale_order_id = fields.Many2one(
         "sale.order",
@@ -191,8 +179,9 @@ class InventoryTransfer(models.Model):
         wizard.process()
 
         sale_order.picking_ids.action_assign()
-        waiting_pickings = sale_order.picking_ids.filtered(lambda picking: picking.state == "confirmed")
-        waiting_pickings.force_availability()
+        # FIXME
+        # waiting_pickings = sale_order.picking_ids.filtered(lambda picking: picking.state == "confirmed")
+        # waiting_pickings.force_availability()
 
         sale_order.picking_ids.button_validate()
 
@@ -232,10 +221,10 @@ class InventoryTransferLine(models.Model):
     company_id = fields.Many2one(related="transfer_id.company_id", store=True)
     transfer_id = fields.Many2one("inventory.transfer", string="Inventory Transfer", required=True, ondelete="cascade")
     product_id = fields.Many2one("product.product", string="Product", required=True)
-    product_uom_category_id = fields.Many2one(related="product_id.uom_id.category_id")
+    product_relative_uom_id = fields.Many2one(related="product_id.uom_id.relative_uom_id")
     product_qty = fields.Float("Qty", required=True)
     product_uom_id = fields.Many2one(
-        "uom.uom", string="UoM", required=True, domain="[('category_id', '=', product_uom_category_id)]"
+        "uom.uom", string="UoM", required=True, domain="[('relative_uom_id', '=', product_relative_uom_id)]"
     )
     production_location_id = fields.Many2one(
         "stock.location",

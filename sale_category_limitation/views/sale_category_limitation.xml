@@ -21,18 +21,18 @@
         <field name="name">sale.category.limitation.view.tree</field>
         <field name="model">sale.category.limitation</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="company_id"/>
                 <field name="product_category_ids" widget="many2many_tags"/>
-            </tree>
+            </list>
         </field>
     </record>
 
     <record id="action_sale_category_limitation" model="ir.actions.act_window">
         <field name="name">Sale limitation by product categories</field>
         <field name="res_model">sale.category.limitation</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <menuitem id="menu_sale_category_limitation" action="action_sale_category_limitation" parent="sale_exception.menu_sale_exception_parent" sequence="100" />

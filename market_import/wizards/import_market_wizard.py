@@ -19,9 +19,9 @@ class ImportMarketWizard(models.TransientModel):
     _name = "import.market.wizard"
     _description = "Import Market Wizard"
 
-    name = fields.Char(required=True, readonly=True, states={"new": [("readonly", False)]})
+    name = fields.Char(required=True)
     state = fields.Selection([("new", "New"), ("review", "Review"), ("validation", "Validation")], default="new")
-    date = fields.Date("Date", default=fields.Date.today, readonly=True, states={"new": [("readonly", False)]})
+    date = fields.Date("Date", default=fields.Date.today)
     data_file = fields.Binary("CSV File", required=True)
     filename = fields.Char()
     line_ids = fields.One2many("import.market.wizard.line", "wizard_id", string="Lines")

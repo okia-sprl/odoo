@@ -24,7 +24,7 @@ class Market(models.Model):
             )
 
     name = fields.Char("Market ref", required=True, index=True, copy=False, default="New", readonly=True)
-    description = fields.Char("Description", readonly=True, states={"draft": [("readonly", False)]}, copy=False)
+    description = fields.Char("Description", copy=False)
     company_id = fields.Many2one(
         "res.company", string="Company", required=True, index=True, default=lambda self: self.env.user.company_id.id
     )
@@ -34,14 +34,11 @@ class Market(models.Model):
         required=True,
         default="draft",
         readonly=True,
-        states={"draft": [("readonly", False)]},
     )
     location_id = fields.Many2one("res.partner", string="Location")
-    market_date = fields.Datetime("Market date", readonly=True, states={"draft": [("readonly", False)]}, copy=False)
-    market_line_ids = fields.One2many(
-        "market.line", "market_id", string="Lines", readonly=True, states={"draft": [("readonly", False)]}, copy=True
-    )
-    notes = fields.Text("Notes", readonly=True, states={"draft": [("readonly", False)]})
+    market_date = fields.Datetime("Market date", copy=False)
+    market_line_ids = fields.One2many("market.line", "market_id", string="Lines", copy=True)
+    notes = fields.Text("Notes")
     currency_id = fields.Many2one(
         "res.currency",
         string="Currency",
@@ -128,7 +125,9 @@ class Market(models.Model):
 
         picking.action_assign()
         if picking.state == "confirmed":
-            picking.force_availability()
+            # FIXME Check availability
+            # picking.force_availability()
+            pass
 
         picking.button_validate()
 

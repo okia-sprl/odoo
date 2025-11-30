@@ -21,7 +21,7 @@ msgid "Are you sure that you want to validate this transfer ?"
 msgstr "Êtes-vous sûr de vouloir valider ce transfert ?"
 
 #. module: inventory_transfer
-#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_line__product_uom_category_id
+#: model:ir.model.fields,field_description:inventory_transfer.field_inventory_transfer_line__product_relative_uom_id
 msgid "Category"
 msgstr "Catégorie"
 
@@ -32,7 +32,7 @@ msgid "Company"
 msgstr "Entreprise"
 
 #. module: inventory_transfer
-#: model:ir.model.fields,help:inventory_transfer.field_inventory_transfer_line__product_uom_category_id
+#: model:ir.model.fields,help:inventory_transfer.field_inventory_transfer_line__product_relative_uom_id
 msgid ""
 "Conversion between Units of Measure can only occur if they belong to the "
 "same category. The conversion will be made based on the ratios."

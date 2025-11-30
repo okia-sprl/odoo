@@ -1,8 +1,9 @@
 # Okia SPRL <sylvain@okia.be>
 {
     "name": "Market",
-    "version": "16.0.1.0.1",
+    "version": "19.0.1.0.0",
     "summary": "Link two companies to create a market",
+    "author": "Okia SRL",
     "sequence": 30,
     "description": """
     Market
@@ -11,7 +12,7 @@
 
     """,
     "category": "Purchase",
-    "depends": ["sale_purchase_inter_company_rules", "stock", "force_availability"],
+    "depends": ["sale_purchase_inter_company_rules", "stock"],
     "data": [
         # Security
         "security/market_security.xml",

@@ -2,7 +2,7 @@
 {
     "name": "Website Hide Shop",
     "author": "Okia SRL",
-    "version": "16.0.1.0",
+    "version": "19.0.1.0.0",
     "summary": "Show Shop button only for connected users",
     "sequence": 30,
     "description": """

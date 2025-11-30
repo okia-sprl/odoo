@@ -4,7 +4,7 @@
         <field name="name">market.market.view.tree</field>
         <field name="model">market.market</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="location_id"/>
                 <field name="description"/>
@@ -12,7 +12,7 @@
                 <field name="market_amount_taxed"/>
                 <field name="company_id" groups="base.group_multi_company"/>
                 <field name="state"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -22,9 +22,9 @@
         <field name="arch" type="xml">
             <form string="Market">
                 <header>
-                    <button name="action_confirm" states="draft" string="Confirm" type="object" class="oe_highlight"/>
-                    <button name="action_cancel" states="draft" string="Cancel" type="object"/>
-                    <field name="state" widget="statusbar" readonly="1" statusbar_visible="draft,confirm"/>
+                    <button name="action_confirm" invisible="state != 'draft'" string="Confirm" type="object" class="oe_highlight"/>
+                    <button name="action_cancel" invisible="state != 'draft'" string="Cancel" type="object"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box"></div>
@@ -32,19 +32,19 @@
                     <group>
                         <group>
                             <field name="name"/>
-                            <field name="description" required="False"/>
-                            <field name="market_date" required="False"/>
+                            <field name="description" readonly="state != 'draft'"/>
+                            <field name="market_date" readonly="state != 'draft'"/>
                             <field name="location_id"/>
-                            <field name="stock_picking_id" states="confirm"/>
+                            <field name="stock_picking_id" invisible="state != 'confirm'"/>
                             <field name="company_id" groups="base.group_multi_company"/>
                         </group>
                     </group>
                     <label for="notes"/>
-                    <field name="notes"/>
+                    <field name="notes" readonly="state != 'draft'"/>
                     <notebook>
                         <page string="Market summary" name="market_summary">
-                            <field name="market_line_ids">
-                                <tree editable="bottom">
+                            <field name="market_line_ids" readonly="state != 'draft'">
+                                <list editable="bottom">
                                     <field name="product_id"/>
                                     <field name="plu"/>
                                     <field name="product_qty"/>
@@ -54,7 +54,7 @@
                                     <field name="market_unit_price_taxed"/>
                                     <field name="market_amount_taxed"/>
                                     <field name="qty_available"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                     </notebook>
@@ -67,7 +67,7 @@
         <field name="name">Market</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">market.market</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <menuitem id="market_menu" name="Market" sequence="1" action="market_action" parent="main_market_menu"/>

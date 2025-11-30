@@ -27,8 +27,8 @@ class WorkHistoryReport(models.Model):
     storable_product_id = fields.Many2one("product.product", "Storable product")
 
     def init(self):
-        tools.drop_view_if_exists(self._cr, "work_history_report")
-        self._cr.execute(
+        tools.drop_view_if_exists(self.env.cr, "work_history_report")
+        self.env.cr.execute(
             """
           CREATE VIEW work_history_report AS (
             SELECT id,

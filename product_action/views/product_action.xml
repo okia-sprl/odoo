@@ -4,10 +4,10 @@
         <field name="name">product.action.view.tree</field>
         <field name="model">product.action</field>
         <field name="arch" type="xml">
-            <tree editable="bottom">
+            <list editable="bottom">
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -15,7 +15,7 @@
         <field name="name">Product Action</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">product.action</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <menuitem id="menu_product_action" name="Product Actions" sequence="15" action="action_product_action" parent="stock.menu_warehouse_config"/>

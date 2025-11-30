@@ -15,8 +15,8 @@ class StockPickingReport(models.Model):
     product_uom_id = fields.Many2one("uom.uom", "Unit")
 
     def init(self):
-        tools.drop_view_if_exists(self._cr, "stock_picking_report")
-        self._cr.execute(
+        tools.drop_view_if_exists(self.env.cr, "stock_picking_report")
+        self.env.cr.execute(
             """
           CREATE VIEW stock_picking_report AS (
             SELECT s_move.id,

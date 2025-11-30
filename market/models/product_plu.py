@@ -1,4 +1,4 @@
-from odoo import fields, models, _
+from odoo import api, fields, models
 
 
 class ProductPLU(models.Model):
@@ -10,15 +10,12 @@ class ProductPLU(models.Model):
     code = fields.Integer("Code", required=True)
     line_ids = fields.One2many("product.plu.line", "plu_id", string="Lines")
 
-    _sql_constraints = [("unique_plu", "UNIQUE(code)", _("The PLU code must be unique"))]
+    _unique_plu = models.Constraint("UNIQUE (code)", "The PLU code must be unique")
 
-    def name_get(self):
-        result = []
-
+    @api.depends("code", "name")
+    def _compute_display_name(self):
         for plu in self:
-            result.append((plu.id, "%s - %s" % (plu.code, plu.name)))
-
-        return result
+            plu.display_name = f"{plu.code} - {plu.name}"
 
 
 class ProductPLULine(models.Model):

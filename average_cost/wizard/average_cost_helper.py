@@ -24,6 +24,7 @@ class AverageCostHelper(models.TransientModel):
             if wizard.product_category_id:
                 domain += [("categ_id", "child_of", wizard.product_category_id.id)]
 
+            # FIXME Active_ids seems to be depreciated
             if self.env.context.get("active_ids") and self.env.context.get("active_model") == "product.template":
                 domain += [("id", "in", self.env.context["active_ids"])]
 

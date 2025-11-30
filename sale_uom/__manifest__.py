@@ -12,7 +12,7 @@
     "website": "https://okia.be",
     "depends": ["product", "sale"],
     "data": ["views/product_template.xml"],
-    "installable": True,
+    "installable": False,
     "auto_install": False,
     "license": "LGPL-3",
 }

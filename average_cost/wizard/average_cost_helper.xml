@@ -11,12 +11,12 @@
                 </group>
                 <p>Current coefficient: <strong><field name="current_coefficient" nolabel="1"/></strong></p>
                 <field name="line_ids">
-                    <tree editable="bottom" create="1" multi_edit="1" string="Update Prices">
+                    <list editable="bottom" create="1" multi_edit="1" string="Update Prices">
                         <field name="product_tmpl_id"/>
                         <field name="current_price"/>
                         <field name="new_price" required="1"/>
                         <field name="currency_id" invisible="1"/>
-                    </tree>
+                    </list>
                 </field>
                 <footer>
                     <button string="Confirm" name="action_update_price" type="object" class="btn-primary" confirm="Did you check to see if there were multiple product pages?"/>
