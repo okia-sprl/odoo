@@ -1,7 +1,7 @@
 # Okia SPRL <sylvain@okia.be>
 {
     "name": "Market",
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.0.1",
     "summary": "Link two companies to create a market",
     "author": "Okia SRL",
     "sequence": 30,

@@ -1,7 +1,7 @@
 {
     "name": "Product Action",
     "author": "Okia SRL",
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.0.1",
     "summary": "Define a product action on yours products",
     "sequence": 30,
     "description": """
