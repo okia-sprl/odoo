@@ -102,7 +102,7 @@ class InventoryTransfer(models.Model):
 
     def create_stock_moves(self):
         stock_picking_type = self.env["stock.picking.type"].search(
-            [("code", "=", "incoming"), ("warehouse_id", "=", self.company_id.warehouse_id.id)], limit=1
+            [("code", "=", "incoming"), ("warehouse_id.company_id", "=", self.company_id.id)], limit=1
         )
         if not stock_picking_type:
             raise UserError(_("Stock picking type not found"))
@@ -122,7 +122,7 @@ class InventoryTransfer(models.Model):
         for line in self.transfer_line_ids:
             stock_move_obj.create(
                 {
-                    "name": line.product_id.name,
+                    "description_picking": line.product_id.name,
                     "sequence": sequence,
                     "product_id": line.product_id.id,
                     "product_uom_qty": line.product_qty,
@@ -132,15 +132,6 @@ class InventoryTransfer(models.Model):
                     "location_dest_id": self.location_id.id,
                 }
             )
-
-        immediate_transfer_line_ids = [
-            (0, 0, {"to_immediate": True, "picking_id": picking.id}) for picking in stock_picking
-        ]
-
-        wizard = self.env["stock.immediate.transfer"].create(
-            {"pick_ids": [(6, 0, stock_picking.ids)], "immediate_transfer_line_ids": immediate_transfer_line_ids}
-        )
-        wizard.process()
 
         stock_picking.button_validate()
 
@@ -166,22 +157,7 @@ class InventoryTransfer(models.Model):
         if pickings_to_assign:
             pickings_to_assign.action_assign()
 
-        immediate_transfer_line_ids = [
-            (0, 0, {"to_immediate": True, "picking_id": picking.id}) for picking in sale_order.picking_ids
-        ]
-
-        wizard = self.env["stock.immediate.transfer"].create(
-            {
-                "pick_ids": [(6, 0, sale_order.picking_ids.ids)],
-                "immediate_transfer_line_ids": immediate_transfer_line_ids,
-            }
-        )
-        wizard.process()
-
         sale_order.picking_ids.action_assign()
-        # FIXME
-        # waiting_pickings = sale_order.picking_ids.filtered(lambda picking: picking.state == "confirmed")
-        # waiting_pickings.force_availability()
 
         sale_order.picking_ids.button_validate()
 
@@ -196,18 +172,6 @@ class InventoryTransfer(models.Model):
         pickings_to_assign = purchase_order.picking_ids.filtered(lambda picking: picking.state == "confirmed")
         if pickings_to_assign:
             pickings_to_assign.sudo().action_assign()
-
-        immediate_transfer_line_ids = [
-            (0, 0, {"to_immediate": True, "picking_id": picking.id}) for picking in purchase_order.picking_ids
-        ]
-
-        wizard = self.env["stock.immediate.transfer"].create(
-            {
-                "pick_ids": [(6, 0, purchase_order.picking_ids.ids)],
-                "immediate_transfer_line_ids": immediate_transfer_line_ids,
-            }
-        )
-        wizard.sudo().process()
 
         purchase_order.picking_ids.sudo().button_validate()
 

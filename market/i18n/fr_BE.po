@@ -4,21 +4,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0+e\n"
+"Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-03 23:02+0000\n"
-"PO-Revision-Date: 2021-01-03 23:02+0000\n"
+"POT-Creation-Date: 2025-12-03 21:50+0000\n"
+"PO-Revision-Date: 2025-12-03 21:50+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-
-#. module: market
-#: model:ir.model.fields,field_description:market.field_market_location__address
-msgid "Address"
-msgstr "Adresse"
 
 #. module: market
 #: model:ir.model.fields,field_description:market.field_market_line__amount_untaxed
@@ -38,7 +33,7 @@ msgstr "Annulé"
 #. module: market
 #: model:ir.model.fields,field_description:market.field_product_plu__code
 msgid "Code"
-msgstr "Code"
+msgstr ""
 
 #. module: market
 #: model:ir.model.fields,field_description:market.field_market_line__company_id
@@ -50,7 +45,7 @@ msgstr "Entreprise"
 #: model:ir.ui.menu,name:market.main_menu_market_configuration
 #: model:ir.ui.menu,name:market.sub_menu_market_configuration
 msgid "Configuration"
-msgstr "Configuration"
+msgstr ""
 
 #. module: market
 #: model_terms:ir.ui.view,arch_db:market.market_view_form
@@ -64,7 +59,6 @@ msgstr "Confirmé"
 
 #. module: market
 #: model:ir.model.fields,field_description:market.field_market_line__create_uid
-#: model:ir.model.fields,field_description:market.field_market_location__create_uid
 #: model:ir.model.fields,field_description:market.field_market_market__create_uid
 #: model:ir.model.fields,field_description:market.field_product_plu__create_uid
 #: model:ir.model.fields,field_description:market.field_product_plu_line__create_uid
@@ -73,7 +67,6 @@ msgstr ""
 
 #. module: market
 #: model:ir.model.fields,field_description:market.field_market_line__create_date
-#: model:ir.model.fields,field_description:market.field_market_location__create_date
 #: model:ir.model.fields,field_description:market.field_market_market__create_date
 #: model:ir.model.fields,field_description:market.field_product_plu__create_date
 #: model:ir.model.fields,field_description:market.field_product_plu_line__create_date
@@ -103,12 +96,13 @@ msgstr ""
 
 #. module: market
 #: model:ir.model.fields,field_description:market.field_market_line__display_name
-#: model:ir.model.fields,field_description:market.field_market_location__display_name
 #: model:ir.model.fields,field_description:market.field_market_market__display_name
 #: model:ir.model.fields,field_description:market.field_product_plu__display_name
 #: model:ir.model.fields,field_description:market.field_product_plu_line__display_name
+#: model:ir.model.fields,field_description:market.field_product_product__display_name
+#: model:ir.model.fields,field_description:market.field_product_template__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nom d'affichage"
 
 #. module: market
 #: model:ir.model.fields.selection,name:market.selection__market_market__state__draft
@@ -117,25 +111,16 @@ msgstr "Brouillon"
 
 #. module: market
 #: model:ir.model.fields,field_description:market.field_market_line__id
-#: model:ir.model.fields,field_description:market.field_market_location__id
 #: model:ir.model.fields,field_description:market.field_market_market__id
 #: model:ir.model.fields,field_description:market.field_product_plu__id
 #: model:ir.model.fields,field_description:market.field_product_plu_line__id
+#: model:ir.model.fields,field_description:market.field_product_product__id
+#: model:ir.model.fields,field_description:market.field_product_template__id
 msgid "ID"
 msgstr ""
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_line____last_update
-#: model:ir.model.fields,field_description:market.field_market_location____last_update
-#: model:ir.model.fields,field_description:market.field_market_market____last_update
-#: model:ir.model.fields,field_description:market.field_product_plu____last_update
-#: model:ir.model.fields,field_description:market.field_product_plu_line____last_update
-msgid "Last Modified on"
-msgstr ""
-
-#. module: market
 #: model:ir.model.fields,field_description:market.field_market_line__write_uid
-#: model:ir.model.fields,field_description:market.field_market_location__write_uid
 #: model:ir.model.fields,field_description:market.field_market_market__write_uid
 #: model:ir.model.fields,field_description:market.field_product_plu__write_uid
 #: model:ir.model.fields,field_description:market.field_product_plu_line__write_uid
@@ -144,7 +129,6 @@ msgstr ""
 
 #. module: market
 #: model:ir.model.fields,field_description:market.field_market_line__write_date
-#: model:ir.model.fields,field_description:market.field_market_location__write_date
 #: model:ir.model.fields,field_description:market.field_market_market__write_date
 #: model:ir.model.fields,field_description:market.field_product_plu__write_date
 #: model:ir.model.fields,field_description:market.field_product_plu_line__write_date
@@ -168,8 +152,7 @@ msgid "Lines"
 msgstr "Lignes"
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_market__market_location_id
-#: model:ir.ui.menu,name:market.market_menu_location
+#: model:ir.model.fields,field_description:market.field_market_market__location_id
 msgid "Location"
 msgstr "Emplacement"
 
@@ -185,7 +168,7 @@ msgstr "Gestionnaire"
 #: model:ir.module.category,name:market.category_market
 #: model:ir.ui.menu,name:market.main_market_menu
 #: model:ir.ui.menu,name:market.market_menu
-#: model:utm.source,name:market.utm_source_market
+#: model:res.groups.privilege,name:market.res_groups_privilege_market
 #: model_terms:ir.ui.view,arch_db:market.market_view_form
 msgid "Market"
 msgstr "Marché"
@@ -194,16 +177,6 @@ msgstr "Marché"
 #: model:ir.model.fields,field_description:market.field_market_line__market_amount_taxed
 msgid "Market Amount Taxed"
 msgstr "Montant TVAC du marché"
-
-#. module: market
-#: model:ir.model.fields,field_description:market.field_market_line__market_amount_untaxed
-msgid "Market Amount Untaxed"
-msgstr "Montant HTVA du marché"
-
-#. module: market
-#: model:ir.model,name:market.model_market_location
-msgid "Market Location"
-msgstr "Emplacement du marché"
 
 #. module: market
 #: model:ir.model.fields,field_description:market.field_market_market__market_amount_taxed
@@ -226,14 +199,14 @@ msgid "Market date"
 msgstr "Date du marché"
 
 #. module: market
-#: model:ir.actions.act_window,name:market.market_location_action
-msgid "Market location"
-msgstr "Emplacement du marché"
-
-#. module: market
 #: model:ir.model.fields,field_description:market.field_market_market__name
 msgid "Market ref"
 msgstr "Référence du marché"
+
+#. module: market
+#: model_terms:ir.ui.view,arch_db:market.market_view_form
+msgid "Market summary"
+msgstr "Résumé du marché"
 
 #. module: market
 #: model:ir.ui.menu,name:market.market_menu_root
@@ -241,40 +214,49 @@ msgid "Markets"
 msgstr "Marchés"
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_location__name
 #: model:ir.model.fields,field_description:market.field_product_plu__name
 msgid "Name"
 msgstr "Nom"
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_location__notes
 #: model:ir.model.fields,field_description:market.field_market_market__notes
 msgid "Notes"
 msgstr ""
 
 #. module: market
-#: model:ir.model.fields,field_description:market.field_market_line__plu_id
+#: model:ir.model.fields,field_description:market.field_market_line__plu
 #: model:ir.model.fields,field_description:market.field_product_plu_line__plu_id
+#: model:ir.model.fields,field_description:market.field_product_product__plu
+#: model:ir.model.fields,field_description:market.field_product_template__plu
 msgid "PLU"
 msgstr ""
 
 #. module: market
+#: model:ir.model.fields,field_description:market.field_market_line__plu_id
+msgid "PLU (depreciated)"
+msgstr ""
+
+#. module: market
+#: model:ir.model,name:market.model_product_template
 #: model:ir.model.fields,field_description:market.field_market_line__product_id
 #: model:ir.model.fields,field_description:market.field_product_plu_line__product_id
 msgid "Product"
 msgstr "Produit"
 
 #. module: market
-#: model:ir.actions.act_window,name:market.action_product_plu
 #: model:ir.model,name:market.model_product_plu
-#: model:ir.ui.menu,name:market.product_plu_menu
-msgid "Product PLU"
+msgid "Product PLU (Depreciated)"
 msgstr "PLU Produit"
 
 #. module: market
 #: model:ir.model.fields,field_description:market.field_market_line__product_qty
 msgid "Product Qty"
 msgstr "Qté produit"
+
+#. module: market
+#: model:ir.model,name:market.model_product_product
+msgid "Product Variant"
+msgstr "Variante de produit"
 
 #. module: market
 #: model:ir.model.fields,field_description:market.field_market_line__qty_available
@@ -287,11 +269,15 @@ msgid "State"
 msgstr "Etat"
 
 #. module: market
-#: code:addons/market/models/product_plu.py:0
 #: model:ir.model.constraint,message:market.constraint_product_plu_unique_plu
-#, python-format
+#: model:ir.model.constraint,message:market.constraint_product_product_unique_plu
 msgid "The PLU code must be unique"
 msgstr "Le code du PLU doit être unique"
+
+#. module: market
+#: model:ir.model.fields,field_description:market.field_market_market__stock_picking_id
+msgid "Transfer"
+msgstr "Transfert"
 
 #. module: market
 #: model:ir.model.fields,field_description:market.field_market_line__price_unit
@@ -314,13 +300,15 @@ msgid "User"
 msgstr "Utilisateur"
 
 #. module: market
+#. odoo-python
 #: code:addons/market/models/market.py:0
-#, python-format
+#: code:addons/okia/market/models/market.py:0
 msgid "You can only cancel a draft market"
-msgstr "Vous pouvez seulement annuler un marché dans l'état brouillon"
+msgstr "Seul les marchés en brouillon peuvent être annulés"
 
 #. module: market
+#. odoo-python
 #: code:addons/market/models/market.py:0
-#, python-format
+#: code:addons/okia/market/models/market.py:0
 msgid "You can only confirm a draft market"
-msgstr "Vous pouvez seulement confirmer un marché dans l'état brouillon"
+msgstr "Seul les marchés en brouillon peuvent être confirmés"

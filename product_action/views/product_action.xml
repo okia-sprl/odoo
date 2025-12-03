@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="product_action_view_tree" model="ir.ui.view">
-        <field name="name">product.action.view.tree</field>
+    <record id="product_action_view_list" model="ir.ui.view">
+        <field name="name">product.action.view.list</field>
         <field name="model">product.action</field>
         <field name="arch" type="xml">
             <list editable="bottom">

@@ -2,7 +2,7 @@
 {
     "name": "Inventory Transfer",
     "author": "Okia SRL",
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.0.1",
     "summary": "Allow to transfer an inventory from a company to an another",
     "sequence": 30,
     "category": "Inventory",

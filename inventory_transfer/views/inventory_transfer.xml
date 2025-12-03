@@ -7,6 +7,7 @@
             <form>
                 <header>
                     <button name="validate_transfer" string="Validate Transfer" class="oe_highlight" invisible="state != 'draft'" confirm="Are you sure that you want to validate this transfer ?" type="object"/>
+                    <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
                     <field name="state" invisible="1"/>
@@ -43,8 +44,8 @@
         </field>
     </record>
 
-    <record id="inventory_transfer_view_tree" model="ir.ui.view">
-        <field name="name">inventory.transfer.view.tree</field>
+    <record id="inventory_transfer_view_list" model="ir.ui.view">
+        <field name="name">inventory.transfer.view.list</field>
         <field name="model">inventory.transfer</field>
         <field name="arch" type="xml">
             <list>

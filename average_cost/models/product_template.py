@@ -40,7 +40,7 @@ class ProductTemplate(models.Model):
             )
 
             average_price_list = [
-                line.product_uom._compute_price(line.price_unit, line.product_id.uom_id) for line in lines
+                line.product_uom_id._compute_price(line.price_unit, line.product_id.uom_id) for line in lines
             ]
             average_price = statistics.mean(average_price_list) if average_price_list else 0
             average_cost = average_price * company.average_cost_coefficient
