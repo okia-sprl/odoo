@@ -1,7 +1,7 @@
 {
     "name": "Average Cost",
     "author": "Okia SRL",
-    "version": "19.0.1.0.1",
+    "version": "19.0.1.0.2",
     "summary": "Compute the average cost of yours products",
     "sequence": 30,
     "category": "Sale",

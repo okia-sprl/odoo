@@ -37,5 +37,5 @@
         <field name="context">{}</field>
     </record>
 
-    <menuitem id="menu_average_cost_helper" name="Update of product prices" parent="sale.product_menu_catalog" action="action_average_cost_helper" groups="product.group_product_pricelist" sequence="4"/>
+    <menuitem id="menu_average_cost_helper" name="Update of product prices" parent="sale.product_menu_catalog" action="action_average_cost_helper" groups="product.group_product_pricelist" sequence="99"/>
 </odoo>
